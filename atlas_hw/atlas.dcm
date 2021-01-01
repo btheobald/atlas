@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NCP600SNADJ
+D 250-mA Ultra-Low-Noise Low-IQ LDO, 1.2V, SOT-23
+K Single Output LDO Low-Noise
+F http://www.ti.com/lit/ds/symlink/lp5907.pdf
+$ENDCMP
+#
+#End Doc Library

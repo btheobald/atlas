@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name atlas-cache)(type Legacy)(uri ${KIPRJMOD}/atlas-cache.lib)(options "")(descr ""))
+  (lib (name atlas)(type Legacy)(uri ${KIPRJMOD}/atlas.lib)(options "")(descr ""))
+)
