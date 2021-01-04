@@ -1,4 +1,4 @@
-15144211588759704
+15150650737038704
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (http://www.bulgin.com/media/bulgin/data/Battery_holders.pdf)
@@ -68621,6 +68621,20 @@ varistor SIOV
 2
 2
 atlas
+1461680001
+
+
+0
+1
+1
+atlas
+2088900001
+
+
+0
+1
+1
+atlas
 BGA-25_5x5_6.0x8.0mm
 
 
@@ -68634,6 +68648,20 @@ Elara-1
 0
 21
 10
+atlas
+Hirose_FH12-6S-0.5SH_1x06-1MP_P0.50mm_Horizontal
+Molex FH12, FFC/FPC connector, FH12-6S-0.5SH, 6 Pins per row (https://www.hirose.com/product/en/products/FH12/FH12-24S-0.5SH(55)/), generated with kicad-footprint-generator
+connector Hirose  top entry
+0
+0
+0
+atlas
+Kyocera_046298_004_1x04_P0.5mm_Bottom
+
+
+0
+6
+4
 atlas
 QFN-4_3x3_Pitch2mm
 

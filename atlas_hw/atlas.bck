@@ -12,7 +12,7 @@ K Cortex Debug Connector ARM SWD JTAG
 F http://infocenter.arm.com/help/topic/com.arm.doc.faqs/attached/13634/cortex_debug_connectors.pdf
 $ENDCMP
 #
-$CMP MCP1825S
+$CMP MCP1811B
 D 500 mA, Low-Voltage, Low Quiescent Current LDO Regulator, SOT-223, TO-220, TO-263
 K regulator linear ldo
 F http://ww1.microchip.com/downloads/en/devicedoc/22056b.pdf
