@@ -1,4 +1,4 @@
-15140992054177704
+15144211588759704
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (http://www.bulgin.com/media/bulgin/data/Battery_holders.pdf)
@@ -68642,9 +68642,23 @@ QFN-4_3x3_Pitch2mm
 4
 4
 atlas
+TSLP-6-2
+
+
+0
+12
+6
+atlas
 VQFN12_2.5x2.5_Pitch0.5mm
 
 
 0
 12
 12
+atlas
+WDFN-8_3x4mm_0.6mm_1.96x2.56mm
+
+
+0
+9
+9
