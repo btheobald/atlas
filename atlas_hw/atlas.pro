@@ -1,4 +1,4 @@
-update=Sat 02 Jan 2021 22:50:58 GMT
+update=Tue 05 Jan 2021 16:23:53 GMT
 version=1
 last_client=kicad
 [general]
@@ -26,7 +26,7 @@ ERC_TestSimilarLabels=1
 version=1
 PageLayoutDescrFile=
 LastNetListRead=atlas.net
-CopperLayerCount=2
+CopperLayerCount=4
 BoardThickness=1.6
 AllowMicroVias=0
 AllowBlindVias=0
@@ -40,6 +40,9 @@ MinMicroViaDrill=0.127
 MinHoleToHole=0.127
 TrackWidth1=0.25
 TrackWidth2=0.127
+TrackWidth3=0.2
+TrackWidth4=0.265
+TrackWidth5=0.349
 ViaDiameter1=0.8
 ViaDrill1=0.4
 ViaDiameter2=0.4572
@@ -70,19 +73,19 @@ OthersTextUpright=1
 SolderMaskClearance=0.025
 SolderMaskMinWidth=0
 SolderPasteClearance=0
-SolderPasteRatio=0
+SolderPasteRatio=-0
 [pcbnew/Layer.F.Cu]
 Name=F.Cu
 Type=0
 Enabled=1
 [pcbnew/Layer.In1.Cu]
 Name=In1.Cu
-Type=0
-Enabled=0
+Type=1
+Enabled=1
 [pcbnew/Layer.In2.Cu]
 Name=In2.Cu
-Type=0
-Enabled=0
+Type=1
+Enabled=1
 [pcbnew/Layer.In3.Cu]
 Name=In3.Cu
 Type=0

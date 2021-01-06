@@ -1248,45 +1248,16 @@ Connection ~ 12350 5200
 $Comp
 L Connector_Generic:Conn_01x03 J5
 U 1 1 628446A5
-P 14150 4800
-F 0 "J5" H 14230 4842 50  0000 L CNN
-F 1 "CELL_THERM" H 14230 4751 50  0000 L CNN
-F 2 "Connector_JST:JST_GH_SM03B-GHS-TB_1x03-1MP_P1.25mm_Horizontal" H 14150 4800 50  0001 C CNN
-F 3 "~" H 14150 4800 50  0001 C CNN
-	1    14150 4800
+P 13750 4800
+F 0 "J5" H 13830 4842 50  0000 L CNN
+F 1 "CELL_THERM" H 13830 4751 50  0000 L CNN
+F 2 "Connector_JST:JST_GH_SM03B-GHS-TB_1x03-1MP_P1.25mm_Horizontal" H 13750 4800 50  0001 C CNN
+F 3 "~" H 13750 4800 50  0001 C CNN
+	1    13750 4800
 	1    0    0    -1  
 $EndComp
-$Comp
-L Connector_Generic:Conn_01x02 J7
-U 1 1 628DFBCE
-P 14150 5300
-F 0 "J7" H 14230 5292 50  0000 L CNN
-F 1 "AUX_THERM" H 14230 5201 50  0000 L CNN
-F 2 "Connector_JST:JST_GH_SM02B-GHS-TB_1x02-1MP_P1.25mm_Horizontal" H 14150 5300 50  0001 C CNN
-F 3 "~" H 14150 5300 50  0001 C CNN
-	1    14150 5300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x02 J6
-U 1 1 628E0310
-P 14150 5050
-F 0 "J6" H 14230 5042 50  0000 L CNN
-F 1 "CELL_BARE" H 14230 4951 50  0000 L CNN
-F 2 "Connector_JST:JST_GH_SM02B-GHS-TB_1x02-1MP_P1.25mm_Horizontal" H 14150 5050 50  0001 C CNN
-F 3 "~" H 14150 5050 50  0001 C CNN
-	1    14150 5050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	13950 4700 13850 4700
 Text Label 13200 4900 0    39   ~ 0
 CELL_NEG
-Wire Wire Line
-	13950 5050 13850 5050
-Wire Wire Line
-	13850 5050 13850 4700
-Connection ~ 13850 4700
 Text Label 13200 4800 0    39   ~ 0
 CELL_NTC
 Wire Notes Line width 20 style solid
@@ -1297,17 +1268,6 @@ Wire Notes Line width 10 style solid
 	13450 5150 13450 5000
 Wire Notes Line width 10 style solid
 	13450 5200 13450 5350
-$Comp
-L power:GND #PWR073
-U 1 1 6437F269
-P 13650 5550
-F 0 "#PWR073" H 13650 5300 50  0001 C CNN
-F 1 "GND" H 13655 5377 50  0001 C CNN
-F 2 "" H 13650 5550 50  0001 C CNN
-F 3 "" H 13650 5550 50  0001 C CNN
-	1    13650 5550
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:GND #PWR064
 U 1 1 64572FAB
@@ -1678,8 +1638,6 @@ F 3 "" H 3150 11500 39  0001 C CNN
 	1    3300 11150
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	12150 4700 13850 4700
 Wire Wire Line
 	12800 4900 12750 4900
 $Comp
@@ -2301,7 +2259,7 @@ U 1 1 62942E48
 P 14350 7200
 F 0 "L8" V 14550 7200 50  0000 C CNN
 F 1 "5n6" V 14444 7200 50  0000 C CNN
-F 2 "Inductor_SMD:L_0603_1608Metric" H 14350 7200 50  0001 C CNN
+F 2 "Inductor_SMD:L_0402_1005Metric" H 14350 7200 50  0001 C CNN
 F 3 "~" H 14350 7200 50  0001 C CNN
 	1    14350 7200
 	0    -1   -1   0   
@@ -4203,13 +4161,13 @@ Wire Wire Line
 $Comp
 L Connector_Generic:Conn_01x40 J10
 U 1 1 60480A63
-P 21450 5700
-F 0 "J10" H 21450 7850 50  0000 C CNN
-F 1 "PSP_LCD" H 21450 7750 50  0000 C CNN
-F 2 "Connector_FFC-FPC:Hirose_FH12-40S-0.5SH_1x40-1MP_P0.50mm_Horizontal" H 21450 5700 50  0001 C CNN
-F 3 "~" H 21450 5700 50  0001 C CNN
-	1    21450 5700
-	1    0    0    -1  
+P 21450 5800
+F 0 "J10" H 21450 7950 50  0000 C CNN
+F 1 "PSP_LCD" H 21450 7850 50  0000 C CNN
+F 2 "Connector_FFC-FPC:Hirose_FH12-40S-0.5SH_1x40-1MP_P0.50mm_Horizontal" H 21450 5800 50  0001 C CNN
+F 3 "~" H 21450 5800 50  0001 C CNN
+	1    21450 5800
+	1    0    0    1   
 $EndComp
 Wire Wire Line
 	21150 3800 21200 3800
@@ -4482,28 +4440,6 @@ Wire Wire Line
 Wire Wire Line
 	6600 3700 6350 3700
 Connection ~ 6350 3700
-Wire Wire Line
-	13200 4900 13650 4900
-Wire Wire Line
-	13650 4900 13950 4900
-Connection ~ 13650 4900
-Wire Wire Line
-	13950 5150 13650 5150
-Wire Wire Line
-	13650 5150 13650 4900
-Wire Wire Line
-	13000 4800 13750 4800
-Wire Wire Line
-	13750 4800 13950 4800
-Connection ~ 13750 4800
-Wire Wire Line
-	13950 5300 13750 5300
-Wire Wire Line
-	13750 5300 13750 4800
-Wire Wire Line
-	13650 5550 13650 5400
-Wire Wire Line
-	13650 5400 13950 5400
 Text Label 13200 4700 0    39   ~ 0
 CELL_POS
 Wire Wire Line
@@ -5873,7 +5809,7 @@ F 1 "R_Pack04" V 18574 5750 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Concave_4x0402" V 19175 5750 50  0001 C CNN
 F 3 "~" H 18900 5750 50  0001 C CNN
 	1    18900 5750
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack04 RN2
@@ -5884,7 +5820,7 @@ F 1 "R_Pack04" V 18574 6400 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Concave_4x0402" V 19175 6400 50  0001 C CNN
 F 3 "~" H 18900 6400 50  0001 C CNN
 	1    18900 6400
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack04 RN3
@@ -5895,7 +5831,7 @@ F 1 "R_Pack04" V 18574 7050 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Concave_4x0402" V 19175 7050 50  0001 C CNN
 F 3 "~" H 18900 7050 50  0001 C CNN
 	1    18900 7050
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack04 RN4
@@ -5906,7 +5842,7 @@ F 1 "R_Pack04" V 18574 7700 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Concave_4x0402" V 19175 7700 50  0001 C CNN
 F 3 "~" H 18900 7700 50  0001 C CNN
 	1    18900 7700
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 Wire Wire Line
 	18600 5550 18700 5550
@@ -5996,7 +5932,7 @@ F 1 "R_Pack04" V 16874 9050 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Concave_4x0402" V 17475 9050 50  0001 C CNN
 F 3 "~" H 17200 9050 50  0001 C CNN
 	1    17200 9050
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack04 RN6
@@ -6007,7 +5943,7 @@ F 1 "R_Pack04" V 16874 9700 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Concave_4x0402" V 17475 9700 50  0001 C CNN
 F 3 "~" H 17200 9700 50  0001 C CNN
 	1    17200 9700
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L power:GND #PWR0114
@@ -6064,4 +6000,10 @@ Wire Wire Line
 	15750 13050 17600 13050
 Wire Wire Line
 	16450 12500 16900 12500
+Wire Wire Line
+	12150 4700 13550 4700
+Wire Wire Line
+	13000 4800 13550 4800
+Wire Wire Line
+	13200 4900 13550 4900
 $EndSCHEMATC
