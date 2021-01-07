@@ -24,4 +24,16 @@ K Single Output LDO Low-Noise
 F http://www.ti.com/lit/ds/symlink/lp5907.pdf
 $ENDCMP
 #
+$CMP STM32F725VEHx
+D ARM Cortex-M7 MCU, 512KB flash, 320KB RAM, 216MHz, 1.7-3.6V, 82 GPIO, TFBGA-100
+K ARM Cortex-M7 STM32F7 STM32F7x5
+F http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00166116.pdf
+$ENDCMP
+#
+$CMP STM32F745VGHx
+D ARM Cortex-M7 MCU, 1024KB flash, 320KB RAM, 216MHz, 1.7-3.6V, 82 GPIO, TFBGA-100
+K ARM Cortex-M7 STM32F7 STM32F7x5
+F http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00166116.pdf
+$ENDCMP
+#
 #End Doc Library
