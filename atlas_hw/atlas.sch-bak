@@ -3414,7 +3414,7 @@ L Device:R_Small R25
 U 1 1 635BE327
 P 7400 14150
 F 0 "R25" V 7500 14050 50  0000 C CNN
-F 1 "10k" V 7500 14250 50  0000 C CNN
+F 1 "100k" V 7500 14250 50  0000 C CNN
 F 2 "Resistor_SMD:R_0402_1005Metric" H 7400 14150 50  0001 C CNN
 F 3 "~" H 7400 14150 50  0001 C CNN
 	1    7400 14150
@@ -5485,7 +5485,7 @@ Wire Wire Line
 	6850 9700 6250 9700
 Text Label 6250 9700 0    39   ~ 0
 SW_PWR_EXT
-Text Label 8850 10000 2    39   ~ 0
+Text Label 8850 9700 2    39   ~ 0
 SW_PWR
 Wire Wire Line
 	8850 10000 8250 10000
@@ -5566,29 +5566,17 @@ F 3 "" H 6800 9300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6800 9300 6850 9300
-Wire Wire Line
-	8250 9800 8850 9800
-Wire Wire Line
-	8250 9600 8850 9600
-Wire Wire Line
-	8250 9400 8850 9400
-Wire Wire Line
-	8250 9900 8850 9900
-Wire Wire Line
-	8250 9700 8850 9700
-Wire Wire Line
-	8250 9500 8850 9500
-Text Label 8850 9400 2    39   ~ 0
+Text Label 8850 10000 2    39   ~ 0
 SW_L
-Text Label 8850 9600 2    39   ~ 0
+Text Label 8850 9900 2    39   ~ 0
 SW_0
 Text Label 8850 9800 2    39   ~ 0
 SW_R
-Text Label 8850 9900 2    39   ~ 0
+Text Label 8850 9600 2    39   ~ 0
 STM_STATUS_R
-Text Label 8850 9700 2    39   ~ 0
-STM_STATUS_0
 Text Label 8850 9500 2    39   ~ 0
+STM_STATUS_0
+Text Label 8850 9400 2    39   ~ 0
 STM_STATUS_L
 Wire Wire Line
 	6250 9900 6850 9900
@@ -5708,4 +5696,16 @@ Wire Wire Line
 	18800 7050 19450 7050
 Wire Wire Line
 	15800 2400 16950 2400
+Wire Wire Line
+	8850 9400 8250 9400
+Wire Wire Line
+	8250 9500 8850 9500
+Wire Wire Line
+	8250 9600 8850 9600
+Wire Wire Line
+	8250 9700 8850 9700
+Wire Wire Line
+	8250 9800 8850 9800
+Wire Wire Line
+	8250 9900 8850 9900
 $EndSCHEMATC

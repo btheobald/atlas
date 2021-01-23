@@ -4376,36 +4376,6 @@ Wire Wire Line
 	12250 6700 12950 6700
 Text Label 12250 6600 0    39   ~ 8
 VCC_BACKUP
-$Comp
-L Device:R_Small R30
-U 1 1 60A537BB
-P 13100 7650
-F 0 "R30" V 13050 7500 50  0000 C CNN
-F 1 "0" V 13050 7750 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" H 13100 7650 50  0001 C CNN
-F 3 "~" H 13100 7650 50  0001 C CNN
-	1    13100 7650
-	0    1    -1   0   
-$EndComp
-Wire Wire Line
-	13200 7650 13500 7650
-$Comp
-L Device:R_Small R23
-U 1 1 60B2C13E
-P 13100 7550
-F 0 "R23" V 13050 7400 50  0000 C CNN
-F 1 "0" V 13050 7650 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" H 13100 7550 50  0001 C CNN
-F 3 "~" H 13100 7550 50  0001 C CNN
-	1    13100 7550
-	0    1    -1   0   
-$EndComp
-Wire Wire Line
-	13200 7550 13500 7550
-Wire Wire Line
-	13000 7550 12250 7550
-Wire Wire Line
-	13000 7650 12250 7650
 NoConn ~ 14800 7650
 NoConn ~ 14800 7500
 Wire Wire Line
@@ -4416,10 +4386,6 @@ Text Label 12250 7300 0    39   ~ 0
 LPUART1_RX_GPS
 Text Label 12250 7400 0    39   ~ 0
 LPUART1_TX_GPS
-Text Label 12250 7550 0    39   ~ 0
-I2C4_SCL_SYSTEM
-Text Label 12250 7650 0    39   ~ 0
-I2C4_SDA_SYSTEM
 Wire Wire Line
 	13500 7850 13450 7850
 Wire Wire Line
@@ -5485,7 +5451,7 @@ Wire Wire Line
 	6850 9700 6250 9700
 Text Label 6250 9700 0    39   ~ 0
 SW_PWR_EXT
-Text Label 8850 10000 2    39   ~ 0
+Text Label 8850 9700 2    39   ~ 0
 SW_PWR
 Wire Wire Line
 	8850 10000 8250 10000
@@ -5566,29 +5532,17 @@ F 3 "" H 6800 9300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6800 9300 6850 9300
-Wire Wire Line
-	8250 9800 8850 9800
-Wire Wire Line
-	8250 9600 8850 9600
-Wire Wire Line
-	8250 9400 8850 9400
-Wire Wire Line
-	8250 9900 8850 9900
-Wire Wire Line
-	8250 9700 8850 9700
-Wire Wire Line
-	8250 9500 8850 9500
-Text Label 8850 9400 2    39   ~ 0
+Text Label 8850 10000 2    39   ~ 0
 SW_L
-Text Label 8850 9600 2    39   ~ 0
+Text Label 8850 9900 2    39   ~ 0
 SW_0
 Text Label 8850 9800 2    39   ~ 0
 SW_R
-Text Label 8850 9900 2    39   ~ 0
+Text Label 8850 9600 2    39   ~ 0
 STM_STATUS_R
-Text Label 8850 9700 2    39   ~ 0
-STM_STATUS_0
 Text Label 8850 9500 2    39   ~ 0
+STM_STATUS_0
+Text Label 8850 9400 2    39   ~ 0
 STM_STATUS_L
 Wire Wire Line
 	6250 9900 6850 9900
@@ -5708,4 +5662,18 @@ Wire Wire Line
 	18800 7050 19450 7050
 Wire Wire Line
 	15800 2400 16950 2400
+Wire Wire Line
+	8850 9400 8250 9400
+Wire Wire Line
+	8250 9500 8850 9500
+Wire Wire Line
+	8250 9600 8850 9600
+Wire Wire Line
+	8250 9700 8850 9700
+Wire Wire Line
+	8250 9800 8850 9800
+Wire Wire Line
+	8250 9900 8850 9900
+NoConn ~ 13500 7550
+NoConn ~ 13500 7650
 $EndSCHEMATC
