@@ -1,0 +1,165 @@
+{
+  "Header":
+  {
+    "GenerationSoftware":
+    {
+      "Vendor":      "KiCad",
+      "Application": "Pcbnew",
+      "Version":     "5.1.8+dfsg1-1~bpo10+1"
+    },
+    "CreationDate":  "2021-01-23T23:31:27+00:00"
+  },
+  "GeneralSpecs":
+  {
+    "ProjectId":
+    {
+      "Name": "atlas",
+      "GUID": "61746c61-732e-46b6-9963-61645f706362",
+      "Revision": "rev?"
+    },
+    "Size":
+    {
+      "X": 42.000,
+      "Y": 57.050
+    },
+    "LayerNumber": 4,
+    "BoardThickness":  1.600
+  },
+  "DesignRules":
+  [
+    {
+      "Layers": "Outer",
+      "PadToPad":  0.127,
+      "PadToTrack":  0.127,
+      "TrackToTrack":  0.127,
+      "MinLineWidth":  0.127,
+      "TrackToRegion":  0.200,
+      "RegionToRegion":  0.200
+    },
+    {
+      "Layers": "Inner",
+      "PadToPad":  0.127,
+      "PadToTrack":  0.127,
+      "TrackToTrack":  0.127,
+      "MinLineWidth":  0.175,
+      "TrackToRegion":  0.300,
+      "RegionToRegion":  0.300
+    }
+  ],
+  "FilesAttributes":
+  [
+    {
+      "Path":  "atlas-F_Cu.gbr",
+      "FileFunction":  "Copper,L1,Top",
+      "FilePolarity":  "Positive"
+    },
+    {
+      "Path":  "atlas-In1_Cu.gbr",
+      "FileFunction":  "Copper,L2,Inr",
+      "FilePolarity":  "Positive"
+    },
+    {
+      "Path":  "atlas-In2_Cu.gbr",
+      "FileFunction":  "Copper,L3,Inr",
+      "FilePolarity":  "Positive"
+    },
+    {
+      "Path":  "atlas-B_Cu.gbr",
+      "FileFunction":  "Copper,L4,Bot",
+      "FilePolarity":  "Positive"
+    },
+    {
+      "Path":  "atlas-F_Paste.gbr",
+      "FileFunction":  "SolderPaste,Top",
+      "FilePolarity":  "Positive"
+    },
+    {
+      "Path":  "atlas-B_Paste.gbr",
+      "FileFunction":  "SolderPaste,Bot",
+      "FilePolarity":  "Positive"
+    },
+    {
+      "Path":  "atlas-F_SilkS.gbr",
+      "FileFunction":  "Legend,Top",
+      "FilePolarity":  "Positive"
+    },
+    {
+      "Path":  "atlas-B_SilkS.gbr",
+      "FileFunction":  "Legend,Bot",
+      "FilePolarity":  "Positive"
+    },
+    {
+      "Path":  "atlas-F_Mask.gbr",
+      "FileFunction":  "SolderMask,Top",
+      "FilePolarity":  "Negative"
+    },
+    {
+      "Path":  "atlas-B_Mask.gbr",
+      "FileFunction":  "SolderMask,Bot",
+      "FilePolarity":  "Negative"
+    },
+    {
+      "Path":  "atlas-Edge_Cuts.gbr",
+      "FileFunction":  "Profile",
+      "FilePolarity":  "Positive"
+    }
+  ],
+  "MaterialStackup":
+  [
+    {
+      "Type":  "Legend",
+      "Notes":  "Layer F.SilkS"
+    },
+    {
+      "Type":  "SolderPaste",
+      "Notes":  "Layer F.Paste"
+    },
+    {
+      "Type":  "SolderMask",
+      "Notes":  "Layer F.Mask"
+    },
+    {
+      "Type":  "Copper",
+      "Notes":  "Layer F.Cu"
+    },
+    {
+      "Type":  "Dielectric",
+      "Material":  "FR4",
+      "Notes":  "Layers L1/L2"
+    },
+    {
+      "Type":  "Copper",
+      "Notes":  "Layer In1.Cu"
+    },
+    {
+      "Type":  "Dielectric",
+      "Material":  "FR4",
+      "Notes":  "Layers L2/L3"
+    },
+    {
+      "Type":  "Copper",
+      "Notes":  "Layer In2.Cu"
+    },
+    {
+      "Type":  "Dielectric",
+      "Material":  "FR4",
+      "Notes":  "Layers L3/L4"
+    },
+    {
+      "Type":  "Copper",
+      "Notes":  "Layer B.Cu"
+    },
+    {
+      "Type":  "SolderMask",
+      "Notes":  "Layer B.Mask"
+    },
+    {
+      "Type":  "SolderPaste",
+      "Notes":  "Layer B.Paste"
+    },
+    {
+      "Type":  "Legend",
+      "Notes":  "Layer B.SilkS"
+    }
+  ]
+}

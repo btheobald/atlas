@@ -1,0 +1,23 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,5.1.8+dfsg1-1~bpo10+1*%
+%TF.CreationDate,2021-01-23T23:31:02+00:00*%
+%TF.ProjectId,atlas_btn,61746c61-735f-4627-946e-2e6b69636164,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,Soldermask,Top*%
+%TF.FilePolarity,Negative*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 5.1.8+dfsg1-1~bpo10+1) date 2021-01-23 23:31:02*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%ADD10C,2.250000*%
+G04 APERTURE END LIST*
+D10*
+%TO.C,REF\u002A\u002A*%
+X134095000Y-110970000D03*
+%TD*%
+%TO.C,REF\u002A\u002A*%
+X170045000Y-110970000D03*
+%TD*%
+M02*
