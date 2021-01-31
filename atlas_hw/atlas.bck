@@ -1,5 +1,11 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP BQ25606
+D I2C Controlled 3A Single-Cell Battery Charger for High Input Voltage and Narrow Voltage DC Power Path Management, WQFN-32
+K LiPO charger
+F http://www.ti.com/lit/ds/symlink/bq25601.pdf
+$ENDCMP
+#
 $CMP BQ25611D
 D I2C Controlled 3A Single-Cell Battery Charger for High Input Voltage and Narrow Voltage DC Power Path Management, WQFN-32
 K LiPO charger
