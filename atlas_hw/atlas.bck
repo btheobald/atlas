@@ -30,4 +30,10 @@ K Single Output LDO Low-Noise
 F http://www.ti.com/lit/ds/symlink/lp5907.pdf
 $ENDCMP
 #
+$CMP SHT4x
+D Temperature and humidity module
+K digital temperature humidity sensor
+F https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/2_Humidity_Sensors/Sensirion_Humidity_Sensors_SHT1x_Datasheet.pdf
+$ENDCMP
+#
 #End Doc Library
