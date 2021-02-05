@@ -1,0 +1,877 @@
+ARM GAS  /tmp/ccCAEEvY.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"stm32h7xx_hal_sd_ex.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.HAL_SDEx_ConfigDMAMultiBuffer,"ax",%progbits
+  17              		.align	1
+  18              		.global	HAL_SDEx_ConfigDMAMultiBuffer
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv5-d16
+  24              	HAL_SDEx_ConfigDMAMultiBuffer:
+  25              	.LFB343:
+  26              		.file 1 "Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c"
+   1:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /**
+   2:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   ******************************************************************************
+   3:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @file    stm32h7xx_hal_sd_ex.c
+   4:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @author  MCD Application Team
+   5:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @brief   SD card Extended HAL module driver.
+   6:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *          This file provides firmware functions to manage the following
+   7:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *          functionalities of the Secure Digital (SD) peripheral:
+   8:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *           + Extended features functions
+   9:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *
+  10:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   @verbatim
+  11:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   ==============================================================================
+  12:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****                         ##### How to use this driver #####
+  13:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   ==============================================================================
+  14:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   [..]
+  15:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****    The SD Extension HAL driver can be used as follows:
+  16:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****    (+) Configure Buffer0 and Buffer1 start address and Buffer size using HAL_SDEx_ConfigDMAMultiBuf
+  17:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****    (+) Start Read and Write for multibuffer mode using HAL_SDEx_ReadBlocksDMAMultiBuffer() and HAL_
+  18:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  19:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   @endverbatim
+  20:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   ******************************************************************************
+  21:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @attention
+  22:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *
+  23:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  24:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * All rights reserved.</center></h2>
+  25:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *
+  26:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * This software component is licensed by ST under BSD 3-Clause license,
+  27:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * the "License"; You may not use this file except in compliance with the
+  28:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * License. You may obtain a copy of the License at:
+  29:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *                       opensource.org/licenses/BSD-3-Clause
+  30:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *
+  31:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   ******************************************************************************
+  32:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   */
+ARM GAS  /tmp/ccCAEEvY.s 			page 2
+
+
+  33:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  34:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /* Includes ------------------------------------------------------------------*/
+  35:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** #include "stm32h7xx_hal.h"
+  36:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  37:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /** @addtogroup STM32H7xx_HAL_Driver
+  38:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @{
+  39:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   */
+  40:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  41:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /** @defgroup SDEx SDEx
+  42:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @brief SD Extended HAL module driver
+  43:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @{
+  44:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   */
+  45:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  46:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** #ifdef HAL_SD_MODULE_ENABLED
+  47:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  48:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /* Private typedef -----------------------------------------------------------*/
+  49:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /* Private define ------------------------------------------------------------*/
+  50:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /* Private macro -------------------------------------------------------------*/
+  51:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /* Private variables ---------------------------------------------------------*/
+  52:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /* Private function prototypes -----------------------------------------------*/
+  53:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /* Private functions ---------------------------------------------------------*/
+  54:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /* Exported functions --------------------------------------------------------*/
+  55:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /** @addtogroup SDEx_Exported_Functions
+  56:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @{
+  57:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   */
+  58:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  59:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /** @addtogroup SDEx_Exported_Functions_Group1
+  60:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****  *  @brief   Multibuffer functions
+  61:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****  *
+  62:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** @verbatim
+  63:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   ==============================================================================
+  64:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****           ##### Multibuffer functions #####
+  65:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   ==============================================================================
+  66:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   [..]
+  67:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     This section provides functions allowing to configure the multibuffer mode and start read and w
+  68:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     multibuffer mode for SD HAL driver.
+  69:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  70:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** @endverbatim
+  71:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @{
+  72:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   */
+  73:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  74:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /**
+  75:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @brief  Configure DMA Dual Buffer mode. The Data transfer is managed by an Internal DMA.
+  76:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  hsd: SD handle
+  77:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  pDataBuffer0: Pointer to the buffer0 that will contain/receive the transfered data
+  78:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  pDataBuffer1: Pointer to the buffer1 that will contain/receive the transfered data
+  79:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  BufferSize: Size of Buffer0 in Blocks. Buffer0 and Buffer1 must have the same size.
+  80:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @retval HAL status
+  81:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   */
+  82:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** HAL_StatusTypeDef HAL_SDEx_ConfigDMAMultiBuffer(SD_HandleTypeDef *hsd, uint32_t *pDataBuffer0, uint
+  83:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** {
+  27              		.loc 1 83 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+ARM GAS  /tmp/ccCAEEvY.s 			page 3
+
+
+  33 0000 10B4     		push	{r4}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 4, -4
+  84:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   if(hsd->State == HAL_SD_STATE_READY)
+  37              		.loc 1 84 0
+  38 0002 90F83440 		ldrb	r4, [r0, #52]	@ zero_extendqisi2
+  39 0006 E4B2     		uxtb	r4, r4
+  40 0008 012C     		cmp	r4, #1
+  41 000a 0AD1     		bne	.L3
+  85:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   {
+  86:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->IDMABASE0= (uint32_t) pDataBuffer0;
+  42              		.loc 1 86 0
+  43 000c 0468     		ldr	r4, [r0]
+  44 000e A165     		str	r1, [r4, #88]
+  87:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->IDMABASE1= (uint32_t) pDataBuffer1;
+  45              		.loc 1 87 0
+  46 0010 0168     		ldr	r1, [r0]
+  47              	.LVL1:
+  48 0012 CA65     		str	r2, [r1, #92]
+  49              	.LVL2:
+  88:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->IDMABSIZE= (uint32_t) (BLOCKSIZE * BufferSize);
+  50              		.loc 1 88 0
+  51 0014 0268     		ldr	r2, [r0]
+  52              	.LVL3:
+  53 0016 5B02     		lsls	r3, r3, #9
+  54              	.LVL4:
+  55 0018 5365     		str	r3, [r2, #84]
+  56              	.LVL5:
+  89:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  90:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     return HAL_OK;
+  57              		.loc 1 90 0
+  58 001a 0020     		movs	r0, #0
+  59              	.LVL6:
+  60              	.L2:
+  91:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+  92:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   else
+  93:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   {
+  94:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     return HAL_BUSY;
+  95:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+  96:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** }
+  61              		.loc 1 96 0
+  62 001c 5DF8044B 		ldr	r4, [sp], #4
+  63              	.LCFI1:
+  64              		.cfi_remember_state
+  65              		.cfi_restore 4
+  66              		.cfi_def_cfa_offset 0
+  67 0020 7047     		bx	lr
+  68              	.LVL7:
+  69              	.L3:
+  70              	.LCFI2:
+  71              		.cfi_restore_state
+  94:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+  72              		.loc 1 94 0
+  73 0022 0220     		movs	r0, #2
+  74              	.LVL8:
+  75 0024 FAE7     		b	.L2
+ARM GAS  /tmp/ccCAEEvY.s 			page 4
+
+
+  76              		.cfi_endproc
+  77              	.LFE343:
+  79              		.section	.text.HAL_SDEx_ReadBlocksDMAMultiBuffer,"ax",%progbits
+  80              		.align	1
+  81              		.global	HAL_SDEx_ReadBlocksDMAMultiBuffer
+  82              		.syntax unified
+  83              		.thumb
+  84              		.thumb_func
+  85              		.fpu fpv5-d16
+  87              	HAL_SDEx_ReadBlocksDMAMultiBuffer:
+  88              	.LFB344:
+  97:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+  98:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /**
+  99:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @brief  Reads block(s) from a specified address in a card. The received Data will be stored in 
+ 100:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *         Buffer0, Buffer1 and BufferSize need to be configured by function HAL_SDEx_ConfigDMAMul
+ 101:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  hsd: SD handle
+ 102:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  BlockAdd: Block Address from where data is to be read
+ 103:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  NumberOfBlocks: Total number of blocks to read
+ 104:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @retval HAL status
+ 105:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   */
+ 106:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** HAL_StatusTypeDef HAL_SDEx_ReadBlocksDMAMultiBuffer(SD_HandleTypeDef *hsd, uint32_t BlockAdd, uint3
+ 107:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** {
+  89              		.loc 1 107 0
+  90              		.cfi_startproc
+  91              		@ args = 0, pretend = 0, frame = 24
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93              	.LVL9:
+ 108:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   SDMMC_DataInitTypeDef config;
+ 109:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   uint32_t errorstate;
+ 110:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   uint32_t DmaBase0_reg, DmaBase1_reg;
+ 111:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   uint32_t add = BlockAdd;
+ 112:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 113:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   if(hsd->State == HAL_SD_STATE_READY)
+  94              		.loc 1 113 0
+  95 0000 90F83430 		ldrb	r3, [r0, #52]	@ zero_extendqisi2
+  96 0004 DBB2     		uxtb	r3, r3
+  97 0006 012B     		cmp	r3, #1
+  98 0008 60D1     		bne	.L13
+ 107:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   SDMMC_DataInitTypeDef config;
+  99              		.loc 1 107 0
+ 100 000a 70B5     		push	{r4, r5, r6, lr}
+ 101              	.LCFI3:
+ 102              		.cfi_def_cfa_offset 16
+ 103              		.cfi_offset 4, -16
+ 104              		.cfi_offset 5, -12
+ 105              		.cfi_offset 6, -8
+ 106              		.cfi_offset 14, -4
+ 107 000c 86B0     		sub	sp, sp, #24
+ 108              	.LCFI4:
+ 109              		.cfi_def_cfa_offset 40
+ 110 000e 0446     		mov	r4, r0
+ 111 0010 0D46     		mov	r5, r1
+ 114:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   {
+ 115:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     if((add + NumberOfBlocks) > (hsd->SdCard.LogBlockNbr))
+ 112              		.loc 1 115 0
+ 113 0012 8B18     		adds	r3, r1, r2
+ 114 0014 416D     		ldr	r1, [r0, #84]
+ARM GAS  /tmp/ccCAEEvY.s 			page 5
+
+
+ 115              	.LVL10:
+ 116 0016 8B42     		cmp	r3, r1
+ 117 0018 45D8     		bhi	.L18
+ 116:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     {
+ 117:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->ErrorCode |= HAL_SD_ERROR_ADDR_OUT_OF_RANGE;
+ 118:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 119:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 120:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 121:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     DmaBase0_reg = hsd->Instance->IDMABASE0;
+ 118              		.loc 1 121 0
+ 119 001a 0368     		ldr	r3, [r0]
+ 120 001c 9E6D     		ldr	r6, [r3, #88]
+ 121              	.LVL11:
+ 122:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     DmaBase1_reg = hsd->Instance->IDMABASE1;
+ 122              		.loc 1 122 0
+ 123 001e D96D     		ldr	r1, [r3, #92]
+ 124              	.LVL12:
+ 123:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 124:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     if ((hsd->Instance->IDMABSIZE == 0U) || (DmaBase0_reg == 0U) || (DmaBase1_reg == 0U))
+ 125              		.loc 1 124 0
+ 126 0020 586D     		ldr	r0, [r3, #84]
+ 127              	.LVL13:
+ 128 0022 0028     		cmp	r0, #0
+ 129 0024 46D0     		beq	.L8
+ 130              		.loc 1 124 0 is_stmt 0 discriminator 1
+ 131 0026 B1FA81F1 		clz	r1, r1
+ 132              	.LVL14:
+ 133 002a 4909     		lsrs	r1, r1, #5
+ 134 002c 002E     		cmp	r6, #0
+ 135 002e 41D0     		beq	.L8
+ 136 0030 0029     		cmp	r1, #0
+ 137 0032 3FD1     		bne	.L8
+ 125:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     {
+ 126:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->ErrorCode = HAL_SD_ERROR_ADDR_OUT_OF_RANGE;
+ 127:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 128:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 129:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 130:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* Initialize data control register */
+ 131:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->DCTRL = 0;
+ 138              		.loc 1 131 0 is_stmt 1
+ 139 0034 0021     		movs	r1, #0
+ 140 0036 D962     		str	r1, [r3, #44]
+ 132:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* Clear old Flags*/
+ 133:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     __HAL_SD_CLEAR_FLAG(hsd, SDMMC_STATIC_DATA_FLAGS);
+ 141              		.loc 1 133 0
+ 142 0038 2368     		ldr	r3, [r4]
+ 143 003a 2548     		ldr	r0, .L20
+ 144 003c 9863     		str	r0, [r3, #56]
+ 134:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 135:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->ErrorCode = HAL_SD_ERROR_NONE;
+ 145              		.loc 1 135 0
+ 146 003e A163     		str	r1, [r4, #56]
+ 136:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->State = HAL_SD_STATE_BUSY;
+ 147              		.loc 1 136 0
+ 148 0040 0323     		movs	r3, #3
+ 149 0042 84F83430 		strb	r3, [r4, #52]
+ 137:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ARM GAS  /tmp/ccCAEEvY.s 			page 6
+
+
+ 138:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     if(hsd->SdCard.CardType != CARD_SDHC_SDXC)
+ 150              		.loc 1 138 0
+ 151 0046 E36B     		ldr	r3, [r4, #60]
+ 152 0048 012B     		cmp	r3, #1
+ 153 004a 00D0     		beq	.L11
+ 139:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     {
+ 140:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       add *= 512U;
+ 154              		.loc 1 140 0
+ 155 004c 6D02     		lsls	r5, r5, #9
+ 156              	.LVL15:
+ 157              	.L11:
+ 141:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 142:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 143:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* Configure the SD DPSM (Data Path State Machine) */
+ 144:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.DataTimeOut   = SDMMC_DATATIMEOUT;
+ 158              		.loc 1 144 0
+ 159 004e 4FF0FF33 		mov	r3, #-1
+ 160 0052 0093     		str	r3, [sp]
+ 145:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.DataLength    = BLOCKSIZE * NumberOfBlocks;
+ 161              		.loc 1 145 0
+ 162 0054 5202     		lsls	r2, r2, #9
+ 163              	.LVL16:
+ 164 0056 0192     		str	r2, [sp, #4]
+ 146:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.DataBlockSize = SDMMC_DATABLOCK_SIZE_512B;
+ 165              		.loc 1 146 0
+ 166 0058 9023     		movs	r3, #144
+ 167 005a 0293     		str	r3, [sp, #8]
+ 147:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.TransferDir   = SDMMC_TRANSFER_DIR_TO_SDMMC;
+ 168              		.loc 1 147 0
+ 169 005c 0223     		movs	r3, #2
+ 170 005e 0393     		str	r3, [sp, #12]
+ 148:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
+ 171              		.loc 1 148 0
+ 172 0060 0023     		movs	r3, #0
+ 173 0062 0493     		str	r3, [sp, #16]
+ 149:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.DPSM          = SDMMC_DPSM_DISABLE;
+ 174              		.loc 1 149 0
+ 175 0064 0593     		str	r3, [sp, #20]
+ 150:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     (void)SDMMC_ConfigData(hsd->Instance, &config);
+ 176              		.loc 1 150 0
+ 177 0066 6946     		mov	r1, sp
+ 178 0068 2068     		ldr	r0, [r4]
+ 179 006a FFF7FEFF 		bl	SDMMC_ConfigData
+ 180              	.LVL17:
+ 151:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 152:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->DCTRL |= SDMMC_DCTRL_FIFORST;
+ 181              		.loc 1 152 0
+ 182 006e 2268     		ldr	r2, [r4]
+ 183 0070 D36A     		ldr	r3, [r2, #44]
+ 184 0072 43F40053 		orr	r3, r3, #8192
+ 185 0076 D362     		str	r3, [r2, #44]
+ 153:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 154:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     __SDMMC_CMDTRANS_ENABLE( hsd->Instance);
+ 186              		.loc 1 154 0
+ 187 0078 2268     		ldr	r2, [r4]
+ 188 007a D368     		ldr	r3, [r2, #12]
+ 189 007c 43F04003 		orr	r3, r3, #64
+ARM GAS  /tmp/ccCAEEvY.s 			page 7
+
+
+ 190 0080 D360     		str	r3, [r2, #12]
+ 155:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 156:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->IDMACTRL = SDMMC_ENABLE_IDMA_DOUBLE_BUFF0;
+ 191              		.loc 1 156 0
+ 192 0082 2368     		ldr	r3, [r4]
+ 193 0084 0322     		movs	r2, #3
+ 194 0086 1A65     		str	r2, [r3, #80]
+ 157:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 158:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* Read Blocks in DMA mode */
+ 159:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Context = (SD_CONTEXT_READ_MULTIPLE_BLOCK | SD_CONTEXT_DMA);
+ 195              		.loc 1 159 0
+ 196 0088 8223     		movs	r3, #130
+ 197 008a 2363     		str	r3, [r4, #48]
+ 160:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 161:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* Read Multi Block command */
+ 162:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     errorstate = SDMMC_CmdReadMultiBlock(hsd->Instance, add);
+ 198              		.loc 1 162 0
+ 199 008c 2946     		mov	r1, r5
+ 200 008e 2068     		ldr	r0, [r4]
+ 201 0090 FFF7FEFF 		bl	SDMMC_CmdReadMultiBlock
+ 202              	.LVL18:
+ 163:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     if(errorstate != HAL_SD_ERROR_NONE)
+ 203              		.loc 1 163 0
+ 204 0094 0246     		mov	r2, r0
+ 205 0096 90B9     		cbnz	r0, .L19
+ 164:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     {
+ 165:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->State = HAL_SD_STATE_READY;
+ 166:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->ErrorCode |= errorstate;
+ 167:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 168:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 169:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 170:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     __HAL_SD_ENABLE_IT(hsd, (SDMMC_IT_DCRCFAIL | SDMMC_IT_DTIMEOUT | SDMMC_IT_RXOVERR | SDMMC_IT_DA
+ 206              		.loc 1 170 0
+ 207 0098 2268     		ldr	r2, [r4]
+ 208 009a D16B     		ldr	r1, [r2, #60]
+ 209 009c 0D4B     		ldr	r3, .L20+4
+ 210 009e 0B43     		orrs	r3, r3, r1
+ 211 00a0 D363     		str	r3, [r2, #60]
+ 171:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 172:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     return HAL_OK;
+ 212              		.loc 1 172 0
+ 213 00a2 0020     		movs	r0, #0
+ 214              	.LVL19:
+ 215 00a4 04E0     		b	.L6
+ 216              	.LVL20:
+ 217              	.L18:
+ 117:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 218              		.loc 1 117 0
+ 219 00a6 836B     		ldr	r3, [r0, #56]
+ 220 00a8 43F00073 		orr	r3, r3, #33554432
+ 221 00ac 8363     		str	r3, [r0, #56]
+ 118:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 222              		.loc 1 118 0
+ 223 00ae 0120     		movs	r0, #1
+ 224              	.LVL21:
+ 225              	.L6:
+ 173:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+ARM GAS  /tmp/ccCAEEvY.s 			page 8
+
+
+ 174:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   else
+ 175:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   {
+ 176:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     return HAL_BUSY;
+ 177:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+ 178:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 179:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** }
+ 226              		.loc 1 179 0
+ 227 00b0 06B0     		add	sp, sp, #24
+ 228              	.LCFI5:
+ 229              		.cfi_remember_state
+ 230              		.cfi_def_cfa_offset 16
+ 231              		@ sp needed
+ 232 00b2 70BD     		pop	{r4, r5, r6, pc}
+ 233              	.LVL22:
+ 234              	.L8:
+ 235              	.LCFI6:
+ 236              		.cfi_restore_state
+ 126:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 237              		.loc 1 126 0
+ 238 00b4 4FF00073 		mov	r3, #33554432
+ 239 00b8 A363     		str	r3, [r4, #56]
+ 127:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 240              		.loc 1 127 0
+ 241 00ba 0120     		movs	r0, #1
+ 242 00bc F8E7     		b	.L6
+ 243              	.LVL23:
+ 244              	.L19:
+ 165:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->ErrorCode |= errorstate;
+ 245              		.loc 1 165 0
+ 246 00be 0120     		movs	r0, #1
+ 247              	.LVL24:
+ 248 00c0 84F83400 		strb	r0, [r4, #52]
+ 166:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 249              		.loc 1 166 0
+ 250 00c4 A36B     		ldr	r3, [r4, #56]
+ 251 00c6 1343     		orrs	r3, r3, r2
+ 252 00c8 A363     		str	r3, [r4, #56]
+ 167:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 253              		.loc 1 167 0
+ 254 00ca F1E7     		b	.L6
+ 255              	.LVL25:
+ 256              	.L13:
+ 257              	.LCFI7:
+ 258              		.cfi_def_cfa_offset 0
+ 259              		.cfi_restore 4
+ 260              		.cfi_restore 5
+ 261              		.cfi_restore 6
+ 262              		.cfi_restore 14
+ 176:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+ 263              		.loc 1 176 0
+ 264 00cc 0220     		movs	r0, #2
+ 265              	.LVL26:
+ 266              		.loc 1 179 0
+ 267 00ce 7047     		bx	lr
+ 268              	.L21:
+ 269              		.align	2
+ 270              	.L20:
+ARM GAS  /tmp/ccCAEEvY.s 			page 9
+
+
+ 271 00d0 3A0F0018 		.word	402657082
+ 272 00d4 2A010010 		.word	268435754
+ 273              		.cfi_endproc
+ 274              	.LFE344:
+ 276              		.section	.text.HAL_SDEx_WriteBlocksDMAMultiBuffer,"ax",%progbits
+ 277              		.align	1
+ 278              		.global	HAL_SDEx_WriteBlocksDMAMultiBuffer
+ 279              		.syntax unified
+ 280              		.thumb
+ 281              		.thumb_func
+ 282              		.fpu fpv5-d16
+ 284              	HAL_SDEx_WriteBlocksDMAMultiBuffer:
+ 285              	.LFB345:
+ 180:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 181:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /**
+ 182:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @brief  Write block(s) to a specified address in a card. The transfered Data are stored in Buff
+ 183:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *         Buffer0, Buffer1 and BufferSize need to be configured by function HAL_SDEx_ConfigDMAMul
+ 184:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  hsd: SD handle
+ 185:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  BlockAdd: Block Address from where data is to be read
+ 186:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  NumberOfBlocks: Total number of blocks to read
+ 187:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @retval HAL status
+ 188:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** */
+ 189:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** HAL_StatusTypeDef HAL_SDEx_WriteBlocksDMAMultiBuffer(SD_HandleTypeDef *hsd, uint32_t BlockAdd, uint
+ 190:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** {
+ 286              		.loc 1 190 0
+ 287              		.cfi_startproc
+ 288              		@ args = 0, pretend = 0, frame = 24
+ 289              		@ frame_needed = 0, uses_anonymous_args = 0
+ 290              	.LVL27:
+ 191:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   SDMMC_DataInitTypeDef config;
+ 192:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   uint32_t errorstate;
+ 193:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   uint32_t DmaBase0_reg, DmaBase1_reg;
+ 194:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   uint32_t add = BlockAdd;
+ 195:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 196:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   if(hsd->State == HAL_SD_STATE_READY)
+ 291              		.loc 1 196 0
+ 292 0000 90F83430 		ldrb	r3, [r0, #52]	@ zero_extendqisi2
+ 293 0004 DBB2     		uxtb	r3, r3
+ 294 0006 012B     		cmp	r3, #1
+ 295 0008 57D1     		bne	.L30
+ 190:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   SDMMC_DataInitTypeDef config;
+ 296              		.loc 1 190 0
+ 297 000a 70B5     		push	{r4, r5, r6, lr}
+ 298              	.LCFI8:
+ 299              		.cfi_def_cfa_offset 16
+ 300              		.cfi_offset 4, -16
+ 301              		.cfi_offset 5, -12
+ 302              		.cfi_offset 6, -8
+ 303              		.cfi_offset 14, -4
+ 304 000c 86B0     		sub	sp, sp, #24
+ 305              	.LCFI9:
+ 306              		.cfi_def_cfa_offset 40
+ 307 000e 0446     		mov	r4, r0
+ 308 0010 0D46     		mov	r5, r1
+ 197:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   {
+ 198:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     if((add + NumberOfBlocks) > (hsd->SdCard.LogBlockNbr))
+ 309              		.loc 1 198 0
+ARM GAS  /tmp/ccCAEEvY.s 			page 10
+
+
+ 310 0012 8B18     		adds	r3, r1, r2
+ 311 0014 416D     		ldr	r1, [r0, #84]
+ 312              	.LVL28:
+ 313 0016 8B42     		cmp	r3, r1
+ 314 0018 3CD8     		bhi	.L35
+ 199:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     {
+ 200:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->ErrorCode |= HAL_SD_ERROR_ADDR_OUT_OF_RANGE;
+ 201:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 202:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 203:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 204:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     DmaBase0_reg = hsd->Instance->IDMABASE0;
+ 315              		.loc 1 204 0
+ 316 001a 0368     		ldr	r3, [r0]
+ 317 001c 9E6D     		ldr	r6, [r3, #88]
+ 318              	.LVL29:
+ 205:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     DmaBase1_reg = hsd->Instance->IDMABASE1;
+ 319              		.loc 1 205 0
+ 320 001e D96D     		ldr	r1, [r3, #92]
+ 321              	.LVL30:
+ 206:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     if ((hsd->Instance->IDMABSIZE == 0U) || (DmaBase0_reg == 0U) || (DmaBase1_reg == 0U))
+ 322              		.loc 1 206 0
+ 323 0020 586D     		ldr	r0, [r3, #84]
+ 324              	.LVL31:
+ 325 0022 0028     		cmp	r0, #0
+ 326 0024 3DD0     		beq	.L25
+ 327              		.loc 1 206 0 is_stmt 0 discriminator 1
+ 328 0026 B1FA81F1 		clz	r1, r1
+ 329              	.LVL32:
+ 330 002a 4909     		lsrs	r1, r1, #5
+ 331 002c 002E     		cmp	r6, #0
+ 332 002e 38D0     		beq	.L25
+ 333 0030 0029     		cmp	r1, #0
+ 334 0032 36D1     		bne	.L25
+ 207:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     {
+ 208:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->ErrorCode = HAL_SD_ERROR_ADDR_OUT_OF_RANGE;
+ 209:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 210:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 211:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 212:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* Initialize data control register */
+ 213:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->DCTRL = 0;
+ 335              		.loc 1 213 0 is_stmt 1
+ 336 0034 0021     		movs	r1, #0
+ 337 0036 D962     		str	r1, [r3, #44]
+ 214:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 215:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->ErrorCode = HAL_SD_ERROR_NONE;
+ 338              		.loc 1 215 0
+ 339 0038 A163     		str	r1, [r4, #56]
+ 216:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 217:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->State = HAL_SD_STATE_BUSY;
+ 340              		.loc 1 217 0
+ 341 003a 0323     		movs	r3, #3
+ 342 003c 84F83430 		strb	r3, [r4, #52]
+ 218:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 219:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     if(hsd->SdCard.CardType != CARD_SDHC_SDXC)
+ 343              		.loc 1 219 0
+ 344 0040 E36B     		ldr	r3, [r4, #60]
+ 345 0042 012B     		cmp	r3, #1
+ARM GAS  /tmp/ccCAEEvY.s 			page 11
+
+
+ 346 0044 00D0     		beq	.L28
+ 220:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     {
+ 221:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       add *= 512U;
+ 347              		.loc 1 221 0
+ 348 0046 6D02     		lsls	r5, r5, #9
+ 349              	.LVL33:
+ 350              	.L28:
+ 222:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 223:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 224:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* Configure the SD DPSM (Data Path State Machine) */
+ 225:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.DataTimeOut   = SDMMC_DATATIMEOUT;
+ 351              		.loc 1 225 0
+ 352 0048 4FF0FF33 		mov	r3, #-1
+ 353 004c 0093     		str	r3, [sp]
+ 226:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.DataLength    = BLOCKSIZE * NumberOfBlocks;
+ 354              		.loc 1 226 0
+ 355 004e 5202     		lsls	r2, r2, #9
+ 356              	.LVL34:
+ 357 0050 0192     		str	r2, [sp, #4]
+ 227:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.DataBlockSize = SDMMC_DATABLOCK_SIZE_512B;
+ 358              		.loc 1 227 0
+ 359 0052 9023     		movs	r3, #144
+ 360 0054 0293     		str	r3, [sp, #8]
+ 228:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.TransferDir   = SDMMC_TRANSFER_DIR_TO_CARD;
+ 361              		.loc 1 228 0
+ 362 0056 0023     		movs	r3, #0
+ 363 0058 0393     		str	r3, [sp, #12]
+ 229:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
+ 364              		.loc 1 229 0
+ 365 005a 0493     		str	r3, [sp, #16]
+ 230:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     config.DPSM          = SDMMC_DPSM_DISABLE;
+ 366              		.loc 1 230 0
+ 367 005c 0593     		str	r3, [sp, #20]
+ 231:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     (void)SDMMC_ConfigData(hsd->Instance, &config);
+ 368              		.loc 1 231 0
+ 369 005e 6946     		mov	r1, sp
+ 370 0060 2068     		ldr	r0, [r4]
+ 371 0062 FFF7FEFF 		bl	SDMMC_ConfigData
+ 372              	.LVL35:
+ 232:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 233:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     __SDMMC_CMDTRANS_ENABLE( hsd->Instance);
+ 373              		.loc 1 233 0
+ 374 0066 2268     		ldr	r2, [r4]
+ 375 0068 D368     		ldr	r3, [r2, #12]
+ 376 006a 43F04003 		orr	r3, r3, #64
+ 377 006e D360     		str	r3, [r2, #12]
+ 234:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 235:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->IDMACTRL = SDMMC_ENABLE_IDMA_DOUBLE_BUFF0;
+ 378              		.loc 1 235 0
+ 379 0070 2368     		ldr	r3, [r4]
+ 380 0072 0322     		movs	r2, #3
+ 381 0074 1A65     		str	r2, [r3, #80]
+ 236:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 237:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* Write Blocks in DMA mode */
+ 238:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Context = (SD_CONTEXT_WRITE_MULTIPLE_BLOCK | SD_CONTEXT_DMA);
+ 382              		.loc 1 238 0
+ 383 0076 A023     		movs	r3, #160
+ARM GAS  /tmp/ccCAEEvY.s 			page 12
+
+
+ 384 0078 2363     		str	r3, [r4, #48]
+ 239:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 240:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* Write Multi Block command */
+ 241:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     errorstate = SDMMC_CmdWriteMultiBlock(hsd->Instance, add);
+ 385              		.loc 1 241 0
+ 386 007a 2946     		mov	r1, r5
+ 387 007c 2068     		ldr	r0, [r4]
+ 388 007e FFF7FEFF 		bl	SDMMC_CmdWriteMultiBlock
+ 389              	.LVL36:
+ 242:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     if(errorstate != HAL_SD_ERROR_NONE)
+ 390              		.loc 1 242 0
+ 391 0082 0246     		mov	r2, r0
+ 392 0084 90B9     		cbnz	r0, .L36
+ 243:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     {
+ 244:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->State = HAL_SD_STATE_READY;
+ 245:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->ErrorCode |= errorstate;
+ 246:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 247:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 248:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 249:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     __HAL_SD_ENABLE_IT(hsd, (SDMMC_IT_DCRCFAIL | SDMMC_IT_DTIMEOUT | SDMMC_IT_TXUNDERR | SDMMC_IT_D
+ 393              		.loc 1 249 0
+ 394 0086 2268     		ldr	r2, [r4]
+ 395 0088 D16B     		ldr	r1, [r2, #60]
+ 396 008a 0D4B     		ldr	r3, .L37
+ 397 008c 0B43     		orrs	r3, r3, r1
+ 398 008e D363     		str	r3, [r2, #60]
+ 250:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 251:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     return HAL_OK;
+ 399              		.loc 1 251 0
+ 400 0090 0020     		movs	r0, #0
+ 401              	.LVL37:
+ 402 0092 04E0     		b	.L23
+ 403              	.LVL38:
+ 404              	.L35:
+ 200:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 405              		.loc 1 200 0
+ 406 0094 836B     		ldr	r3, [r0, #56]
+ 407 0096 43F00073 		orr	r3, r3, #33554432
+ 408 009a 8363     		str	r3, [r0, #56]
+ 201:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 409              		.loc 1 201 0
+ 410 009c 0120     		movs	r0, #1
+ 411              	.LVL39:
+ 412              	.L23:
+ 252:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+ 253:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   else
+ 254:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   {
+ 255:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     return HAL_BUSY;
+ 256:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+ 257:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** }
+ 413              		.loc 1 257 0
+ 414 009e 06B0     		add	sp, sp, #24
+ 415              	.LCFI10:
+ 416              		.cfi_remember_state
+ 417              		.cfi_def_cfa_offset 16
+ 418              		@ sp needed
+ 419 00a0 70BD     		pop	{r4, r5, r6, pc}
+ARM GAS  /tmp/ccCAEEvY.s 			page 13
+
+
+ 420              	.LVL40:
+ 421              	.L25:
+ 422              	.LCFI11:
+ 423              		.cfi_restore_state
+ 208:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 424              		.loc 1 208 0
+ 425 00a2 4FF00073 		mov	r3, #33554432
+ 426 00a6 A363     		str	r3, [r4, #56]
+ 209:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 427              		.loc 1 209 0
+ 428 00a8 0120     		movs	r0, #1
+ 429 00aa F8E7     		b	.L23
+ 430              	.LVL41:
+ 431              	.L36:
+ 244:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       hsd->ErrorCode |= errorstate;
+ 432              		.loc 1 244 0
+ 433 00ac 0120     		movs	r0, #1
+ 434              	.LVL42:
+ 435 00ae 84F83400 		strb	r0, [r4, #52]
+ 245:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****       return HAL_ERROR;
+ 436              		.loc 1 245 0
+ 437 00b2 A36B     		ldr	r3, [r4, #56]
+ 438 00b4 1343     		orrs	r3, r3, r2
+ 439 00b6 A363     		str	r3, [r4, #56]
+ 246:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     }
+ 440              		.loc 1 246 0
+ 441 00b8 F1E7     		b	.L23
+ 442              	.LVL43:
+ 443              	.L30:
+ 444              	.LCFI12:
+ 445              		.cfi_def_cfa_offset 0
+ 446              		.cfi_restore 4
+ 447              		.cfi_restore 5
+ 448              		.cfi_restore 6
+ 449              		.cfi_restore 14
+ 255:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+ 450              		.loc 1 255 0
+ 451 00ba 0220     		movs	r0, #2
+ 452              	.LVL44:
+ 453              		.loc 1 257 0
+ 454 00bc 7047     		bx	lr
+ 455              	.L38:
+ 456 00be 00BF     		.align	2
+ 457              	.L37:
+ 458 00c0 1A010010 		.word	268435738
+ 459              		.cfi_endproc
+ 460              	.LFE345:
+ 462              		.section	.text.HAL_SDEx_ChangeDMABuffer,"ax",%progbits
+ 463              		.align	1
+ 464              		.global	HAL_SDEx_ChangeDMABuffer
+ 465              		.syntax unified
+ 466              		.thumb
+ 467              		.thumb_func
+ 468              		.fpu fpv5-d16
+ 470              	HAL_SDEx_ChangeDMABuffer:
+ 471              	.LFB346:
+ 258:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ARM GAS  /tmp/ccCAEEvY.s 			page 14
+
+
+ 259:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 260:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** /**
+ 261:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @brief  Change the DMA Buffer0 or Buffer1 address on the fly.
+ 262:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  hsd:           pointer to a SD_HandleTypeDef structure.
+ 263:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  Buffer:        the buffer to be changed, This parameter can be one of
+ 264:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *                        the following values: SD_DMA_BUFFER0 or SD_DMA_BUFFER1
+ 265:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @param  pDataBuffer:   The new address
+ 266:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @note   The BUFFER0 address can be changed only when the current transfer use
+ 267:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *         BUFFER1 and the BUFFER1 address can be changed only when the current
+ 268:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   *         transfer use BUFFER0.
+ 269:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   * @retval HAL status
+ 270:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   */
+ 271:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** HAL_StatusTypeDef HAL_SDEx_ChangeDMABuffer(SD_HandleTypeDef *hsd, HAL_SDEx_DMABuffer_MemoryTypeDef 
+ 272:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** {
+ 472              		.loc 1 272 0
+ 473              		.cfi_startproc
+ 474              		@ args = 0, pretend = 0, frame = 0
+ 475              		@ frame_needed = 0, uses_anonymous_args = 0
+ 476              		@ link register save eliminated.
+ 477              	.LVL45:
+ 273:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   if(Buffer == SD_DMA_BUFFER0)
+ 478              		.loc 1 273 0
+ 479 0000 19B1     		cbz	r1, .L42
+ 274:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   {
+ 275:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* change the buffer0 address */
+ 276:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->IDMABASE0 = (uint32_t)pDataBuffer;
+ 277:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+ 278:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   else
+ 279:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   {
+ 280:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     /* change the memory1 address */
+ 281:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****     hsd->Instance->IDMABASE1 = (uint32_t)pDataBuffer;
+ 480              		.loc 1 281 0
+ 481 0002 0368     		ldr	r3, [r0]
+ 482 0004 DA65     		str	r2, [r3, #92]
+ 483              	.L41:
+ 282:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+ 283:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** 
+ 284:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   return HAL_OK;
+ 285:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c **** }
+ 484              		.loc 1 285 0
+ 485 0006 0020     		movs	r0, #0
+ 486              	.LVL46:
+ 487 0008 7047     		bx	lr
+ 488              	.LVL47:
+ 489              	.L42:
+ 276:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c ****   }
+ 490              		.loc 1 276 0
+ 491 000a 0368     		ldr	r3, [r0]
+ 492 000c 9A65     		str	r2, [r3, #88]
+ 493 000e FAE7     		b	.L41
+ 494              		.cfi_endproc
+ 495              	.LFE346:
+ 497              		.text
+ 498              	.Letext0:
+ 499              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 500              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+ 501              		.file 4 "Drivers/CMSIS/Include/core_cm7.h"
+ARM GAS  /tmp/ccCAEEvY.s 			page 15
+
+
+ 502              		.file 5 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h"
+ 503              		.file 6 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h"
+ 504              		.file 7 "/usr/include/newlib/sys/lock.h"
+ 505              		.file 8 "/usr/include/newlib/sys/_types.h"
+ 506              		.file 9 "/usr/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h"
+ 507              		.file 10 "/usr/include/newlib/sys/reent.h"
+ 508              		.file 11 "/usr/include/newlib/math.h"
+ 509              		.file 12 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
+ 510              		.file 13 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h"
+ 511              		.file 14 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_sdmmc.h"
+ 512              		.file 15 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd.h"
+ 513              		.file 16 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd_ex.h"
+ 514              		.file 17 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h"
+ 515              		.file 18 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h"
+ARM GAS  /tmp/ccCAEEvY.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32h7xx_hal_sd_ex.c
+     /tmp/ccCAEEvY.s:17     .text.HAL_SDEx_ConfigDMAMultiBuffer:0000000000000000 $t
+     /tmp/ccCAEEvY.s:24     .text.HAL_SDEx_ConfigDMAMultiBuffer:0000000000000000 HAL_SDEx_ConfigDMAMultiBuffer
+     /tmp/ccCAEEvY.s:80     .text.HAL_SDEx_ReadBlocksDMAMultiBuffer:0000000000000000 $t
+     /tmp/ccCAEEvY.s:87     .text.HAL_SDEx_ReadBlocksDMAMultiBuffer:0000000000000000 HAL_SDEx_ReadBlocksDMAMultiBuffer
+     /tmp/ccCAEEvY.s:271    .text.HAL_SDEx_ReadBlocksDMAMultiBuffer:00000000000000d0 $d
+     /tmp/ccCAEEvY.s:277    .text.HAL_SDEx_WriteBlocksDMAMultiBuffer:0000000000000000 $t
+     /tmp/ccCAEEvY.s:284    .text.HAL_SDEx_WriteBlocksDMAMultiBuffer:0000000000000000 HAL_SDEx_WriteBlocksDMAMultiBuffer
+     /tmp/ccCAEEvY.s:458    .text.HAL_SDEx_WriteBlocksDMAMultiBuffer:00000000000000c0 $d
+     /tmp/ccCAEEvY.s:463    .text.HAL_SDEx_ChangeDMABuffer:0000000000000000 $t
+     /tmp/ccCAEEvY.s:470    .text.HAL_SDEx_ChangeDMABuffer:0000000000000000 HAL_SDEx_ChangeDMABuffer
+
+UNDEFINED SYMBOLS
+SDMMC_ConfigData
+SDMMC_CmdReadMultiBlock
+SDMMC_CmdWriteMultiBlock
