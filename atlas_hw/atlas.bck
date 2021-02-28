@@ -1,5 +1,11 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP AT25SF081-XMHF-X
+D 8-Mbit, 2.3V Minimum SPI Serial Flash Memory with Dual-I/O and Quad-I/O Support, TSSOP-8
+K SPI DSPI QSPI 8Mbit 2.3V
+F https://www.adestotech.com/wp-content/uploads/DS-AT25SF081_045.pdf
+$ENDCMP
+#
 $CMP BQ25606
 D I2C Controlled 3A Single-Cell Battery Charger for High Input Voltage and Narrow Voltage DC Power Path Management, WQFN-32
 K LiPO charger
@@ -22,6 +28,12 @@ $CMP MCP1811B
 D 500 mA, Low-Voltage, Low Quiescent Current LDO Regulator, SOT-223, TO-220, TO-263
 K regulator linear ldo
 F http://ww1.microchip.com/downloads/en/devicedoc/22056b.pdf
+$ENDCMP
+#
+$CMP MX25R6435FZAIH0
+D 8-Mbit, 2.5V Minimum SPI Serial Flash Memory with Dual-I/O and Quad-I/O Support, TSSOP-8
+K SPI DSPI QSPI 8Mbit 2.5V
+F http://www.farnell.com/datasheets/2815329.pdf
 $ENDCMP
 #
 $CMP NCP600SNADJ
