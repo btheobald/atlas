@@ -1,0 +1,485 @@
+ARM GAS  /tmp/cc3Usoti.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"stm32h7xx_ll_delayblock.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.DelayBlock_Enable,"ax",%progbits
+  17              		.align	1
+  18              		.global	DelayBlock_Enable
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv5-d16
+  24              	DelayBlock_Enable:
+  25              	.LFB141:
+  26              		.file 1 "Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c"
+   1:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /**
+   2:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   ******************************************************************************
+   3:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @file    stm32h7xx_ll_delayblock.c
+   4:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @author  MCD Application Team
+   5:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @brief   DelayBlock Low Layer HAL module driver.
+   6:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *    
+   7:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *          This file provides firmware functions to manage the following 
+   8:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *          functionalities of the Delay Block peripheral:
+   9:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *           + input clock frequency range 25MHz to 208MHz
+  10:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *           + up to 12 oversampling phases
+  11:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *         
+  12:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   @verbatim
+  13:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   ==============================================================================
+  14:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****                        ##### DelayBlock peripheral features #####
+  15:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   ==============================================================================        
+  16:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     [..] The Delay block is used to generate an Output clock which is de-phased from the Input
+  17:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           clock. The phase of the Output clock is programmed by FW. The Output clock is then used
+  18:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           to clock the receive data in i.e. a SDMMC or QSPI interface.
+  19:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****          The delay is Voltage and Temperature dependent, which may require FW to do re-tuning
+  20:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           and recenter the Output clock phase to the receive data.
+  21:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     
+  22:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     [..] The Delay Block features include the following:
+  23:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****          (+) Input clock frequency range 25MHz to 208MHz.
+  24:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****          (+) Up to 12 oversampling phases.
+  25:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****          
+  26:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****                            ##### How to use this driver #####
+  27:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   ==============================================================================
+  28:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     [..]
+  29:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       This driver is a considered as a driver of service for external devices drivers
+  30:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       that interfaces with the DELAY peripheral.
+  31:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       The DelayBlock_Enable() function, enables the DelayBlock instance, configure the delay line l
+  32:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       and configure the Output clock phase.
+ARM GAS  /tmp/cc3Usoti.s 			page 2
+
+
+  33:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       The DelayBlock_Disable() function, disables the DelayBlock instance by setting DEN flag to 0.
+  34:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       
+  35:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   
+  36:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   @endverbatim
+  37:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   ******************************************************************************
+  38:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @attention
+  39:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *
+  40:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  41:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * All rights reserved.</center></h2>
+  42:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *
+  43:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * This software component is licensed by ST under BSD 3-Clause license,
+  44:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * the "License"; You may not use this file except in compliance with the
+  45:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * License. You may obtain a copy of the License at:
+  46:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *                        opensource.org/licenses/BSD-3-Clause
+  47:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   *
+  48:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   ******************************************************************************
+  49:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   */ 
+  50:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+  51:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /* Includes ------------------------------------------------------------------*/
+  52:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** #include "stm32h7xx_hal.h"
+  53:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+  54:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /** @addtogroup STM32H7xx_HAL_Driver
+  55:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @{
+  56:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   */
+  57:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+  58:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /** @defgroup DELAYBLOCK_LL DELAYBLOCK_LL
+  59:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @brief Low layer module for Delay Block
+  60:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @{
+  61:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   */
+  62:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+  63:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** #if defined(HAL_SD_MODULE_ENABLED) || defined(HAL_QSPI_MODULE_ENABLED) || defined(HAL_OSPI_MODULE_E
+  64:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+  65:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /* Private typedef -----------------------------------------------------------*/
+  66:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /* Private define ------------------------------------------------------------*/
+  67:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** #define DLYB_TIMEOUT 0xFFU
+  68:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /* Private macro -------------------------------------------------------------*/
+  69:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /* Private variables ---------------------------------------------------------*/
+  70:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /* Private function prototypes -----------------------------------------------*/
+  71:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /* Exported functions --------------------------------------------------------*/
+  72:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+  73:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /** @defgroup DelayBlock_LL_Exported_Functions Delay Block Low Layer Exported Functions
+  74:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @{
+  75:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   */
+  76:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+  77:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /** @defgroup HAL_DELAY_LL_Group1 Initialization de-initialization functions 
+  78:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****  *  @brief    Initialization and Configuration functions 
+  79:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****  *
+  80:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** @verbatim    
+  81:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****  ===============================================================================
+  82:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****               ##### Initialization and de-initialization functions #####
+  83:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****  ===============================================================================
+  84:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     [..]  This section provides functions allowing to:
+  85:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****  
+  86:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** @endverbatim
+  87:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @{
+  88:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   */
+  89:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ARM GAS  /tmp/cc3Usoti.s 			page 3
+
+
+  90:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+  91:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /**
+  92:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @brief  Enable the Delay Block instance.
+  93:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @param  DLYBx: Pointer to DLYB instance.
+  94:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @retval HAL status
+  95:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   */
+  96:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** HAL_StatusTypeDef DelayBlock_Enable(DLYB_TypeDef *DLYBx)
+  97:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** {
+  27              		.loc 1 97 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 40
+  35              		.cfi_offset 3, -40
+  36              		.cfi_offset 4, -36
+  37              		.cfi_offset 5, -32
+  38              		.cfi_offset 6, -28
+  39              		.cfi_offset 7, -24
+  40              		.cfi_offset 8, -20
+  41              		.cfi_offset 9, -16
+  42              		.cfi_offset 10, -12
+  43              		.cfi_offset 11, -8
+  44              		.cfi_offset 14, -4
+  45 0004 0446     		mov	r4, r0
+  46              	.LVL1:
+  98:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   uint32_t unit = 0U;
+  99:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   uint32_t sel = 0U;
+ 100:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   uint32_t sel_current;
+ 101:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   uint32_t unit_current;
+ 102:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   uint32_t tuning;
+ 103:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   uint32_t lng_mask;
+ 104:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   uint32_t tickstart;
+ 105:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 106:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR = DLYB_CR_DEN | DLYB_CR_SEN;
+  47              		.loc 1 106 0
+  48 0006 0323     		movs	r3, #3
+  49 0008 0360     		str	r3, [r0]
+  50              	.LVL2:
+ 107:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 108:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   for (sel_current = 0U; sel_current < DLYB_MAX_SELECT; sel_current++)
+  51              		.loc 1 108 0
+  52 000a 0027     		movs	r7, #0
+  99:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   uint32_t sel_current;
+  53              		.loc 1 99 0
+  54 000c BA46     		mov	r10, r7
+  98:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   uint32_t unit = 0U;
+  55              		.loc 1 98 0
+  56 000e BB46     		mov	fp, r7
+  57              	.LVL3:
+  58              	.L2:
+  59              		.loc 1 108 0 discriminator 1
+  60 0010 0B2F     		cmp	r7, #11
+  61 0012 32D8     		bhi	.L16
+ 109:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   {
+ARM GAS  /tmp/cc3Usoti.s 			page 4
+
+
+ 110:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     /* lng_mask is the mask bit for the LNG field to check the output of the UNITx*/
+ 111:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     lng_mask = DLYB_CFGR_LNG_0 << sel_current;
+  62              		.loc 1 111 0
+  63 0014 4FF48038 		mov	r8, #65536
+  64 0018 08FA07F8 		lsl	r8, r8, r7
+  65              	.LVL4:
+ 112:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     tuning = 0U;
+  66              		.loc 1 112 0
+  67 001c 4FF00009 		mov	r9, #0
+ 113:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     for (unit_current = 0U; unit_current < DLYB_MAX_UNIT; unit_current++)
+  68              		.loc 1 113 0
+  69 0020 4E46     		mov	r6, r9
+  70 0022 0EE0     		b	.L3
+  71              	.LVL5:
+  72              	.L18:
+ 114:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     {
+ 115:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       /* Set the Delay of the UNIT(s)*/
+ 116:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       DLYBx->CFGR = DLYB_MAX_SELECT | (unit_current << DLYB_CFGR_UNIT_Pos);
+ 117:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 118:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       /* Waiting for a LNG valid value */
+ 119:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       tickstart =  HAL_GetTick();
+ 120:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       while ((DLYBx->CFGR & DLYB_CFGR_LNGF) == 0U)
+ 121:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       {
+ 122:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         if((HAL_GetTick() - tickstart) >=  DLYB_TIMEOUT)
+ 123:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         {
+ 124:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           return HAL_TIMEOUT;
+ 125:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         }
+ 126:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       }
+ 127:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       if (tuning == 0U)
+  73              		.loc 1 127 0
+  74 0024 B9F1000F 		cmp	r9, #0
+  75 0028 06D1     		bne	.L7
+ 128:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       {
+ 129:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         if ((DLYBx->CFGR & lng_mask) != 0U)
+  76              		.loc 1 129 0
+  77 002a 6368     		ldr	r3, [r4, #4]
+  78 002c 13EA080F 		tst	r3, r8
+  79 0030 06D0     		beq	.L8
+ 130:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         {
+ 131:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           /* 1/2 period HIGH is detected */
+ 132:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           tuning = 1U;
+  80              		.loc 1 132 0
+  81 0032 4FF00109 		mov	r9, #1
+  82              	.LVL6:
+  83 0036 03E0     		b	.L8
+  84              	.LVL7:
+  85              	.L7:
+ 133:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         }
+ 134:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       }
+ 135:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       else
+ 136:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       {
+ 137:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         /* 1/2 period LOW detected after the HIGH 1/2 period => FULL PERIOD passed*/
+ 138:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         if((DLYBx->CFGR & lng_mask ) == 0U)
+  86              		.loc 1 138 0
+  87 0038 6368     		ldr	r3, [r4, #4]
+  88 003a 13EA080F 		tst	r3, r8
+  89 003e 14D0     		beq	.L17
+ARM GAS  /tmp/cc3Usoti.s 			page 5
+
+
+  90              	.LVL8:
+  91              	.L8:
+ 113:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     {
+  92              		.loc 1 113 0 discriminator 2
+  93 0040 0136     		adds	r6, r6, #1
+  94              	.LVL9:
+  95              	.L3:
+ 113:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     {
+  96              		.loc 1 113 0 is_stmt 0 discriminator 1
+  97 0042 7F2E     		cmp	r6, #127
+  98 0044 17D8     		bhi	.L10
+ 116:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+  99              		.loc 1 116 0 is_stmt 1
+ 100 0046 3302     		lsls	r3, r6, #8
+ 101 0048 43F00C03 		orr	r3, r3, #12
+ 102 004c 6360     		str	r3, [r4, #4]
+ 119:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       while ((DLYBx->CFGR & DLYB_CFGR_LNGF) == 0U)
+ 103              		.loc 1 119 0
+ 104 004e FFF7FEFF 		bl	HAL_GetTick
+ 105              	.LVL10:
+ 106 0052 0546     		mov	r5, r0
+ 107              	.LVL11:
+ 108              	.L4:
+ 120:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       {
+ 109              		.loc 1 120 0
+ 110 0054 6368     		ldr	r3, [r4, #4]
+ 111 0056 002B     		cmp	r3, #0
+ 112 0058 E4DB     		blt	.L18
+ 122:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         {
+ 113              		.loc 1 122 0
+ 114 005a FFF7FEFF 		bl	HAL_GetTick
+ 115              	.LVL12:
+ 116 005e 401B     		subs	r0, r0, r5
+ 117 0060 FE28     		cmp	r0, #254
+ 118 0062 F7D9     		bls	.L4
+ 124:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         }
+ 119              		.loc 1 124 0
+ 120 0064 0320     		movs	r0, #3
+ 121              	.LVL13:
+ 122              	.L5:
+ 139:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         {
+ 140:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           /* Save the first result */
+ 141:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           if( unit == 0U )
+ 142:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           {
+ 143:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****             unit = unit_current;
+ 144:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****             sel  = sel_current + 1U;
+ 145:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           }
+ 146:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           break;
+ 147:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****         }
+ 148:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****       }
+ 149:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****     }
+ 150:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   }
+ 151:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 152:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   /* Apply the Tuning settings */
+ 153:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR   = 0U;
+ 154:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR   = DLYB_CR_DEN | DLYB_CR_SEN;
+ 155:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CFGR = sel | (unit << DLYB_CFGR_UNIT_Pos);
+ARM GAS  /tmp/cc3Usoti.s 			page 6
+
+
+ 156:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR   = DLYB_CR_DEN;
+ 157:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 158:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   return HAL_OK;
+ 159:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** }
+ 123              		.loc 1 159 0
+ 124 0066 BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 125              	.LVL14:
+ 126              	.L17:
+ 141:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           {
+ 127              		.loc 1 141 0
+ 128 006a BBF1000F 		cmp	fp, #0
+ 129 006e 02D1     		bne	.L10
+ 130              	.LVL15:
+ 144:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****           }
+ 131              		.loc 1 144 0
+ 132 0070 07F1010A 		add	r10, r7, #1
+ 133              	.LVL16:
+ 143:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****             sel  = sel_current + 1U;
+ 134              		.loc 1 143 0
+ 135 0074 B346     		mov	fp, r6
+ 136              	.LVL17:
+ 137              	.L10:
+ 108:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   {
+ 138              		.loc 1 108 0 discriminator 2
+ 139 0076 0137     		adds	r7, r7, #1
+ 140              	.LVL18:
+ 141 0078 CAE7     		b	.L2
+ 142              	.LVL19:
+ 143              	.L16:
+ 153:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR   = DLYB_CR_DEN | DLYB_CR_SEN;
+ 144              		.loc 1 153 0
+ 145 007a 0020     		movs	r0, #0
+ 146 007c 2060     		str	r0, [r4]
+ 154:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CFGR = sel | (unit << DLYB_CFGR_UNIT_Pos);
+ 147              		.loc 1 154 0
+ 148 007e 0323     		movs	r3, #3
+ 149 0080 2360     		str	r3, [r4]
+ 155:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR   = DLYB_CR_DEN;
+ 150              		.loc 1 155 0
+ 151 0082 4AEA0B23 		orr	r3, r10, fp, lsl #8
+ 152 0086 6360     		str	r3, [r4, #4]
+ 156:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 153              		.loc 1 156 0
+ 154 0088 0123     		movs	r3, #1
+ 155 008a 2360     		str	r3, [r4]
+ 158:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** }
+ 156              		.loc 1 158 0
+ 157 008c EBE7     		b	.L5
+ 158              		.cfi_endproc
+ 159              	.LFE141:
+ 161              		.section	.text.DelayBlock_Disable,"ax",%progbits
+ 162              		.align	1
+ 163              		.global	DelayBlock_Disable
+ 164              		.syntax unified
+ 165              		.thumb
+ 166              		.thumb_func
+ 167              		.fpu fpv5-d16
+ARM GAS  /tmp/cc3Usoti.s 			page 7
+
+
+ 169              	DelayBlock_Disable:
+ 170              	.LFB142:
+ 160:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 161:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /**
+ 162:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @brief  Disable the Delay Block instance.
+ 163:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @param  DLYBx: Pointer to DLYB instance.
+ 164:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @retval HAL status
+ 165:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   */
+ 166:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** HAL_StatusTypeDef DelayBlock_Disable(DLYB_TypeDef *DLYBx)
+ 167:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** {
+ 171              		.loc 1 167 0
+ 172              		.cfi_startproc
+ 173              		@ args = 0, pretend = 0, frame = 0
+ 174              		@ frame_needed = 0, uses_anonymous_args = 0
+ 175              		@ link register save eliminated.
+ 176              	.LVL20:
+ 168:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   /* Disable DLYB */
+ 169:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR = 0U;
+ 177              		.loc 1 169 0
+ 178 0000 0023     		movs	r3, #0
+ 179 0002 0360     		str	r3, [r0]
+ 170:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   return HAL_OK;
+ 171:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** }
+ 180              		.loc 1 171 0
+ 181 0004 1846     		mov	r0, r3
+ 182              	.LVL21:
+ 183 0006 7047     		bx	lr
+ 184              		.cfi_endproc
+ 185              	.LFE142:
+ 187              		.section	.text.DelayBlock_Configure,"ax",%progbits
+ 188              		.align	1
+ 189              		.global	DelayBlock_Configure
+ 190              		.syntax unified
+ 191              		.thumb
+ 192              		.thumb_func
+ 193              		.fpu fpv5-d16
+ 195              	DelayBlock_Configure:
+ 196              	.LFB143:
+ 172:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 173:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** /**
+ 174:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @brief  Configure the Delay Block instance.
+ 175:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @param  DLYBx: Pointer to DLYB instance.
+ 176:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @param  PhaseSel: Phase selection [0..11].
+ 177:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @param  Units: Delay units[0..127].
+ 178:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   * @retval HAL status
+ 179:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   */
+ 180:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** HAL_StatusTypeDef DelayBlock_Configure(DLYB_TypeDef *DLYBx,uint32_t PhaseSel, uint32_t Units )
+ 181:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** {
+ 197              		.loc 1 181 0
+ 198              		.cfi_startproc
+ 199              		@ args = 0, pretend = 0, frame = 0
+ 200              		@ frame_needed = 0, uses_anonymous_args = 0
+ 201              		@ link register save eliminated.
+ 202              	.LVL22:
+ 203 0000 10B4     		push	{r4}
+ 204              	.LCFI1:
+ 205              		.cfi_def_cfa_offset 4
+ARM GAS  /tmp/cc3Usoti.s 			page 8
+
+
+ 206              		.cfi_offset 4, -4
+ 207 0002 0346     		mov	r3, r0
+ 182:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   /* Apply the delay settings */
+ 183:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 184:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR   = 0U;
+ 208              		.loc 1 184 0
+ 209 0004 0020     		movs	r0, #0
+ 210              	.LVL23:
+ 211 0006 1860     		str	r0, [r3]
+ 185:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR   = DLYB_CR_DEN | DLYB_CR_SEN;
+ 212              		.loc 1 185 0
+ 213 0008 0324     		movs	r4, #3
+ 214 000a 1C60     		str	r4, [r3]
+ 186:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CFGR = PhaseSel | (Units << DLYB_CFGR_UNIT_Pos);
+ 215              		.loc 1 186 0
+ 216 000c 41EA0222 		orr	r2, r1, r2, lsl #8
+ 217              	.LVL24:
+ 218 0010 5A60     		str	r2, [r3, #4]
+ 187:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   DLYBx->CR   = DLYB_CR_DEN;
+ 219              		.loc 1 187 0
+ 220 0012 0122     		movs	r2, #1
+ 221 0014 1A60     		str	r2, [r3]
+ 188:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** 
+ 189:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c ****   return HAL_OK;
+ 190:Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c **** }
+ 222              		.loc 1 190 0
+ 223 0016 5DF8044B 		ldr	r4, [sp], #4
+ 224              	.LCFI2:
+ 225              		.cfi_restore 4
+ 226              		.cfi_def_cfa_offset 0
+ 227 001a 7047     		bx	lr
+ 228              		.cfi_endproc
+ 229              	.LFE143:
+ 231              		.text
+ 232              	.Letext0:
+ 233              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 234              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+ 235              		.file 4 "Drivers/CMSIS/Include/core_cm7.h"
+ 236              		.file 5 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h"
+ 237              		.file 6 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h"
+ 238              		.file 7 "/usr/include/newlib/sys/lock.h"
+ 239              		.file 8 "/usr/include/newlib/sys/_types.h"
+ 240              		.file 9 "/usr/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h"
+ 241              		.file 10 "/usr/include/newlib/sys/reent.h"
+ 242              		.file 11 "/usr/include/newlib/math.h"
+ 243              		.file 12 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
+ 244              		.file 13 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h"
+ 245              		.file 14 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h"
+ARM GAS  /tmp/cc3Usoti.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32h7xx_ll_delayblock.c
+     /tmp/cc3Usoti.s:17     .text.DelayBlock_Enable:0000000000000000 $t
+     /tmp/cc3Usoti.s:24     .text.DelayBlock_Enable:0000000000000000 DelayBlock_Enable
+     /tmp/cc3Usoti.s:162    .text.DelayBlock_Disable:0000000000000000 $t
+     /tmp/cc3Usoti.s:169    .text.DelayBlock_Disable:0000000000000000 DelayBlock_Disable
+     /tmp/cc3Usoti.s:188    .text.DelayBlock_Configure:0000000000000000 $t
+     /tmp/cc3Usoti.s:195    .text.DelayBlock_Configure:0000000000000000 DelayBlock_Configure
+
+UNDEFINED SYMBOLS
+HAL_GetTick

@@ -16,6 +16,7 @@ build/main.o: Core/Src/main.c Core/Inc/main.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma_ex.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h \
+ Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma2d.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h \
@@ -34,7 +35,18 @@ build/main.o: Core/Src/main.c Core/Inc/main.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd_ex.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h Core/Inc/gpio.h \
- Core/Inc/main.h Core/Inc/octospi.h Core/Inc/ltdc_mod.h Core/Inc/tim.h
+ Core/Inc/main.h Core/Inc/octospi.h Core/Inc/ltdc_mod.h Core/Inc/tim.h \
+ Core/Inc/sdmmc.h FATFS/App/fatfs.h \
+ Middlewares/Third_Party/FatFs/src/ff.h \
+ Middlewares/Third_Party/FatFs/src/integer.h FATFS/Target/ffconf.h \
+ FATFS/Target/bsp_driver_sd.h FATFS/Target/fatfs_platform.h \
+ Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
+ Middlewares/Third_Party/FatFs/src/diskio.h \
+ Middlewares/Third_Party/FatFs/src/ff.h FATFS/Target/sd_diskio.h \
+ Drivers/hagl/include/hagl.h Drivers/hagl/include/hagl_hal.h \
+ Drivers/hagl/include/bitmap.h Drivers/hagl/include/bitmap.h \
+ Drivers/hagl/include/hagl_hal.h Drivers/hagl/include/font9x18.h \
+ Core/Inc/loadbmp.h
 
 Core/Inc/main.h:
 
@@ -75,6 +87,8 @@ Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h:
 Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma_ex.h:
 
 Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h:
+
+Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma2d.h:
 
 Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h:
 
@@ -121,3 +135,39 @@ Core/Inc/octospi.h:
 Core/Inc/ltdc_mod.h:
 
 Core/Inc/tim.h:
+
+Core/Inc/sdmmc.h:
+
+FATFS/App/fatfs.h:
+
+Middlewares/Third_Party/FatFs/src/ff.h:
+
+Middlewares/Third_Party/FatFs/src/integer.h:
+
+FATFS/Target/ffconf.h:
+
+FATFS/Target/bsp_driver_sd.h:
+
+FATFS/Target/fatfs_platform.h:
+
+Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
+
+Middlewares/Third_Party/FatFs/src/diskio.h:
+
+Middlewares/Third_Party/FatFs/src/ff.h:
+
+FATFS/Target/sd_diskio.h:
+
+Drivers/hagl/include/hagl.h:
+
+Drivers/hagl/include/hagl_hal.h:
+
+Drivers/hagl/include/bitmap.h:
+
+Drivers/hagl/include/bitmap.h:
+
+Drivers/hagl/include/hagl_hal.h:
+
+Drivers/hagl/include/font9x18.h:
+
+Core/Inc/loadbmp.h:

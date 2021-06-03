@@ -1,0 +1,417 @@
+ARM GAS  /tmp/ccSjOwN5.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"hagl_hal.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.hagl_hal_put_pixel,"ax",%progbits
+  17              		.align	1
+  18              		.global	hagl_hal_put_pixel
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv5-d16
+  24              	hagl_hal_put_pixel:
+  25              	.LFB142:
+  26              		.file 1 "Drivers/hagl/src/hagl_hal.c"
+   1:Drivers/hagl/src/hagl_hal.c **** /*
+   2:Drivers/hagl/src/hagl_hal.c **** MIT License
+   3:Drivers/hagl/src/hagl_hal.c **** Copyright (c) 2018-2021 Mika Tuupola
+   4:Drivers/hagl/src/hagl_hal.c **** Permission is hereby granted, free of charge, to any person obtaining a copy
+   5:Drivers/hagl/src/hagl_hal.c **** of this software and associated documentation files (the "Software"), to deal
+   6:Drivers/hagl/src/hagl_hal.c **** in the Software without restriction, including without limitation the rights
+   7:Drivers/hagl/src/hagl_hal.c **** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   8:Drivers/hagl/src/hagl_hal.c **** copies of the Software, and to permit persons to whom the Software is
+   9:Drivers/hagl/src/hagl_hal.c **** furnished to do so, subject to the following conditions:
+  10:Drivers/hagl/src/hagl_hal.c **** The above copyright notice and this permission notice shall be included in all
+  11:Drivers/hagl/src/hagl_hal.c **** copies or substantial portions of the Software.
+  12:Drivers/hagl/src/hagl_hal.c **** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  13:Drivers/hagl/src/hagl_hal.c **** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  14:Drivers/hagl/src/hagl_hal.c **** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  15:Drivers/hagl/src/hagl_hal.c **** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  16:Drivers/hagl/src/hagl_hal.c **** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  17:Drivers/hagl/src/hagl_hal.c **** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  18:Drivers/hagl/src/hagl_hal.c **** SOFTWARE.
+  19:Drivers/hagl/src/hagl_hal.c **** -cut-
+  20:Drivers/hagl/src/hagl_hal.c **** This file is part of the GD HAL for the HAGL graphics library:
+  21:Drivers/hagl/src/hagl_hal.c **** https://github.com/tuupola/hagl_gd
+  22:Drivers/hagl/src/hagl_hal.c **** SPDX-License-Identifier: MIT
+  23:Drivers/hagl/src/hagl_hal.c **** */
+  24:Drivers/hagl/src/hagl_hal.c **** 
+  25:Drivers/hagl/src/hagl_hal.c **** #include <stdint.h>
+  26:Drivers/hagl/src/hagl_hal.c **** 
+  27:Drivers/hagl/src/hagl_hal.c **** #include "main.h"
+  28:Drivers/hagl/src/hagl_hal.c **** #include "hagl_hal.h"
+  29:Drivers/hagl/src/hagl_hal.c **** 
+  30:Drivers/hagl/src/hagl_hal.c **** MDMA_HandleTypeDef hmdma_mdma_channel40_sw_0;
+  31:Drivers/hagl/src/hagl_hal.c **** 
+  32:Drivers/hagl/src/hagl_hal.c **** void hagl_hal_put_pixel(int16_t x0, int16_t y0, color_t color)
+ARM GAS  /tmp/ccSjOwN5.s 			page 2
+
+
+  33:Drivers/hagl/src/hagl_hal.c **** {
+  27              		.loc 1 33 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  34:Drivers/hagl/src/hagl_hal.c ****     fb[x0 + y0*DISPLAY_WIDTH] = color;
+  33              		.loc 1 34 0
+  34 0000 C1EB0111 		rsb	r1, r1, r1, lsl #4
+  35              	.LVL1:
+  36 0004 4B01     		lsls	r3, r1, #5
+  37 0006 1844     		add	r0, r0, r3
+  38              	.LVL2:
+  39 0008 014B     		ldr	r3, .L2
+  40 000a 1A54     		strb	r2, [r3, r0]
+  35:Drivers/hagl/src/hagl_hal.c **** }
+  41              		.loc 1 35 0
+  42 000c 7047     		bx	lr
+  43              	.L3:
+  44 000e 00BF     		.align	2
+  45              	.L2:
+  46 0010 00000000 		.word	fb
+  47              		.cfi_endproc
+  48              	.LFE142:
+  50              		.section	.text.hagl_hal_fill_rectangle,"ax",%progbits
+  51              		.align	1
+  52              		.global	hagl_hal_fill_rectangle
+  53              		.syntax unified
+  54              		.thumb
+  55              		.thumb_func
+  56              		.fpu fpv5-d16
+  58              	hagl_hal_fill_rectangle:
+  59              	.LFB143:
+  36:Drivers/hagl/src/hagl_hal.c **** 
+  37:Drivers/hagl/src/hagl_hal.c **** void hagl_hal_fill_rectangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, color_t color)
+  38:Drivers/hagl/src/hagl_hal.c **** {
+  60              		.loc 1 38 0
+  61              		.cfi_startproc
+  62              		@ args = 4, pretend = 0, frame = 0
+  63              		@ frame_needed = 0, uses_anonymous_args = 0
+  64              	.LVL3:
+  65 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+  66              	.LCFI0:
+  67              		.cfi_def_cfa_offset 28
+  68              		.cfi_offset 4, -28
+  69              		.cfi_offset 5, -24
+  70              		.cfi_offset 6, -20
+  71              		.cfi_offset 7, -16
+  72              		.cfi_offset 8, -12
+  73              		.cfi_offset 9, -8
+  74              		.cfi_offset 14, -4
+  75 0004 83B0     		sub	sp, sp, #12
+  76              	.LCFI1:
+  77              		.cfi_def_cfa_offset 40
+  78 0006 0746     		mov	r7, r0
+  79 0008 0E46     		mov	r6, r1
+ARM GAS  /tmp/ccSjOwN5.s 			page 3
+
+
+  39:Drivers/hagl/src/hagl_hal.c ****     int width = x1-x0+1;
+  80              		.loc 1 39 0
+  81 000a 121A     		subs	r2, r2, r0
+  82              	.LVL4:
+  83 000c 02F10108 		add	r8, r2, #1
+  84              	.LVL5:
+  40:Drivers/hagl/src/hagl_hal.c ****     int height = y1-y0+1;
+  85              		.loc 1 40 0
+  86 0010 5B1A     		subs	r3, r3, r1
+  87              	.LVL6:
+  88 0012 03F10109 		add	r9, r3, #1
+  89              	.LVL7:
+  41:Drivers/hagl/src/hagl_hal.c ****       hmdma_mdma_channel40_sw_0.Instance = MDMA_Channel0;
+  90              		.loc 1 41 0
+  91 0016 1A4C     		ldr	r4, .L6
+  92 0018 1A4B     		ldr	r3, .L6+4
+  93 001a 2360     		str	r3, [r4]
+  42:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.Request = MDMA_REQUEST_SW;
+  94              		.loc 1 42 0
+  95 001c 4FF08043 		mov	r3, #1073741824
+  96 0020 6360     		str	r3, [r4, #4]
+  43:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.TransferTriggerMode = MDMA_REPEAT_BLOCK_TRANSFER;
+  97              		.loc 1 43 0
+  98 0022 4FF00053 		mov	r3, #536870912
+  99 0026 A360     		str	r3, [r4, #8]
+  44:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.Priority = MDMA_PRIORITY_LOW;
+ 100              		.loc 1 44 0
+ 101 0028 0025     		movs	r5, #0
+ 102 002a E560     		str	r5, [r4, #12]
+  45:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.Endianness = MDMA_LITTLE_ENDIANNESS_PRESERVE;
+ 103              		.loc 1 45 0
+ 104 002c 2561     		str	r5, [r4, #16]
+  46:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.SourceInc = MDMA_SRC_INC_DISABLE;
+ 105              		.loc 1 46 0
+ 106 002e 6561     		str	r5, [r4, #20]
+  47:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.DestinationInc = MDMA_DEST_INC_BYTE;
+ 107              		.loc 1 47 0
+ 108 0030 0823     		movs	r3, #8
+ 109 0032 A361     		str	r3, [r4, #24]
+  48:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.SourceDataSize = MDMA_SRC_DATASIZE_BYTE;
+ 110              		.loc 1 48 0
+ 111 0034 E561     		str	r5, [r4, #28]
+  49:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.DestDataSize = MDMA_DEST_DATASIZE_BYTE;
+ 112              		.loc 1 49 0
+ 113 0036 2562     		str	r5, [r4, #32]
+  50:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.DataAlignment = MDMA_DATAALIGN_PACKENABLE;
+ 114              		.loc 1 50 0
+ 115 0038 4FF00073 		mov	r3, #33554432
+ 116 003c 6362     		str	r3, [r4, #36]
+  51:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.BufferTransferLength = 1;
+ 117              		.loc 1 51 0
+ 118 003e 0123     		movs	r3, #1
+ 119 0040 A362     		str	r3, [r4, #40]
+  52:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.SourceBurst = MDMA_SOURCE_BURST_SINGLE;
+ 120              		.loc 1 52 0
+ 121 0042 E562     		str	r5, [r4, #44]
+  53:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.DestBurst = MDMA_DEST_BURST_SINGLE;
+ARM GAS  /tmp/ccSjOwN5.s 			page 4
+
+
+ 122              		.loc 1 53 0
+ 123 0044 2563     		str	r5, [r4, #48]
+  54:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.SourceBlockAddressOffset = 0;
+ 124              		.loc 1 54 0
+ 125 0046 6563     		str	r5, [r4, #52]
+  55:Drivers/hagl/src/hagl_hal.c ****   hmdma_mdma_channel40_sw_0.Init.DestBlockAddressOffset = (DISPLAY_WIDTH - width);
+ 126              		.loc 1 55 0
+ 127 0048 C8F5F073 		rsb	r3, r8, #480
+ 128 004c A363     		str	r3, [r4, #56]
+  56:Drivers/hagl/src/hagl_hal.c ****   HAL_MDMA_Init(&hmdma_mdma_channel40_sw_0); 
+ 129              		.loc 1 56 0
+ 130 004e 2046     		mov	r0, r4
+ 131              	.LVL8:
+ 132 0050 FFF7FEFF 		bl	HAL_MDMA_Init
+ 133              	.LVL9:
+  57:Drivers/hagl/src/hagl_hal.c **** 
+  58:Drivers/hagl/src/hagl_hal.c ****   HAL_MDMA_Start(&hmdma_mdma_channel40_sw_0, (uint32_t*)&color, (uint32_t)fb + ((x0 + y0 * DISPLAY_
+ 134              		.loc 1 58 0
+ 135 0054 C6EB0616 		rsb	r6, r6, r6, lsl #4
+ 136 0058 7201     		lsls	r2, r6, #5
+ 137 005a 1744     		add	r7, r7, r2
+ 138 005c CDF80090 		str	r9, [sp]
+ 139 0060 4346     		mov	r3, r8
+ 140 0062 094A     		ldr	r2, .L6+8
+ 141 0064 3A44     		add	r2, r2, r7
+ 142 0066 0AA9     		add	r1, sp, #40
+ 143 0068 2046     		mov	r0, r4
+ 144 006a FFF7FEFF 		bl	HAL_MDMA_Start
+ 145              	.LVL10:
+  59:Drivers/hagl/src/hagl_hal.c ****   HAL_MDMA_PollForTransfer(&hmdma_mdma_channel40_sw_0, MDMA_REPEAT_BLOCK_TRANSFER, 10);
+ 146              		.loc 1 59 0
+ 147 006e 0A22     		movs	r2, #10
+ 148 0070 2946     		mov	r1, r5
+ 149 0072 2046     		mov	r0, r4
+ 150 0074 FFF7FEFF 		bl	HAL_MDMA_PollForTransfer
+ 151              	.LVL11:
+  60:Drivers/hagl/src/hagl_hal.c **** }
+ 152              		.loc 1 60 0
+ 153 0078 03B0     		add	sp, sp, #12
+ 154              	.LCFI2:
+ 155              		.cfi_def_cfa_offset 28
+ 156              		@ sp needed
+ 157 007a BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 158              	.LVL12:
+ 159              	.L7:
+ 160 007e 00BF     		.align	2
+ 161              	.L6:
+ 162 0080 00000000 		.word	hmdma_mdma_channel40_sw_0
+ 163 0084 40000052 		.word	1375731776
+ 164 0088 00000000 		.word	fb
+ 165              		.cfi_endproc
+ 166              	.LFE143:
+ 168              		.section	.text.hagl_hal_blit,"ax",%progbits
+ 169              		.align	1
+ 170              		.global	hagl_hal_blit
+ 171              		.syntax unified
+ 172              		.thumb
+ARM GAS  /tmp/ccSjOwN5.s 			page 5
+
+
+ 173              		.thumb_func
+ 174              		.fpu fpv5-d16
+ 176              	hagl_hal_blit:
+ 177              	.LFB144:
+  61:Drivers/hagl/src/hagl_hal.c **** 
+  62:Drivers/hagl/src/hagl_hal.c **** void hagl_hal_blit(int16_t x0, int16_t y0, bitmap_t *source)
+  63:Drivers/hagl/src/hagl_hal.c **** {
+ 178              		.loc 1 63 0
+ 179              		.cfi_startproc
+ 180              		@ args = 0, pretend = 0, frame = 0
+ 181              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182              	.LVL13:
+ 183 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 184              	.LCFI3:
+ 185              		.cfi_def_cfa_offset 24
+ 186              		.cfi_offset 4, -24
+ 187              		.cfi_offset 5, -20
+ 188              		.cfi_offset 6, -16
+ 189              		.cfi_offset 7, -12
+ 190              		.cfi_offset 8, -8
+ 191              		.cfi_offset 14, -4
+ 192 0004 82B0     		sub	sp, sp, #8
+ 193              	.LCFI4:
+ 194              		.cfi_def_cfa_offset 32
+ 195 0006 8046     		mov	r8, r0
+ 196 0008 0E46     		mov	r6, r1
+ 197 000a 1746     		mov	r7, r2
+  64:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Instance = MDMA_Channel0;
+ 198              		.loc 1 64 0
+ 199 000c 1A4C     		ldr	r4, .L10
+ 200 000e 1B4B     		ldr	r3, .L10+4
+ 201 0010 2360     		str	r3, [r4]
+  65:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.Request = MDMA_REQUEST_SW;
+ 202              		.loc 1 65 0
+ 203 0012 4FF08043 		mov	r3, #1073741824
+ 204 0016 6360     		str	r3, [r4, #4]
+  66:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.TransferTriggerMode = MDMA_REPEAT_BLOCK_TRANSFER;
+ 205              		.loc 1 66 0
+ 206 0018 4FF00053 		mov	r3, #536870912
+ 207 001c A360     		str	r3, [r4, #8]
+  67:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.Priority = MDMA_PRIORITY_LOW;
+ 208              		.loc 1 67 0
+ 209 001e 0025     		movs	r5, #0
+ 210 0020 E560     		str	r5, [r4, #12]
+  68:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.Endianness = MDMA_LITTLE_ENDIANNESS_PRESERVE;
+ 211              		.loc 1 68 0
+ 212 0022 2561     		str	r5, [r4, #16]
+  69:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.SourceInc = MDMA_SRC_INC_BYTE;
+ 213              		.loc 1 69 0
+ 214 0024 0223     		movs	r3, #2
+ 215 0026 6361     		str	r3, [r4, #20]
+  70:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.DestinationInc = MDMA_DEST_INC_BYTE;
+ 216              		.loc 1 70 0
+ 217 0028 0823     		movs	r3, #8
+ 218 002a A361     		str	r3, [r4, #24]
+  71:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.SourceDataSize = MDMA_SRC_DATASIZE_BYTE;
+ 219              		.loc 1 71 0
+ARM GAS  /tmp/ccSjOwN5.s 			page 6
+
+
+ 220 002c E561     		str	r5, [r4, #28]
+  72:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.DestDataSize = MDMA_DEST_DATASIZE_BYTE;
+ 221              		.loc 1 72 0
+ 222 002e 2562     		str	r5, [r4, #32]
+  73:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.DataAlignment = MDMA_DATAALIGN_PACKENABLE;
+ 223              		.loc 1 73 0
+ 224 0030 4FF00073 		mov	r3, #33554432
+ 225 0034 6362     		str	r3, [r4, #36]
+  74:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.BufferTransferLength = 1;
+ 226              		.loc 1 74 0
+ 227 0036 0123     		movs	r3, #1
+ 228 0038 A362     		str	r3, [r4, #40]
+  75:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.SourceBurst = MDMA_SOURCE_BURST_SINGLE;
+ 229              		.loc 1 75 0
+ 230 003a E562     		str	r5, [r4, #44]
+  76:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.DestBurst = MDMA_DEST_BURST_SINGLE;
+ 231              		.loc 1 76 0
+ 232 003c 2563     		str	r5, [r4, #48]
+  77:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.SourceBlockAddressOffset = 0;
+ 233              		.loc 1 77 0
+ 234 003e 6563     		str	r5, [r4, #52]
+  78:Drivers/hagl/src/hagl_hal.c ****     hmdma_mdma_channel40_sw_0.Init.DestBlockAddressOffset = (DISPLAY_WIDTH - source->width);
+ 235              		.loc 1 78 0
+ 236 0040 1388     		ldrh	r3, [r2]
+ 237 0042 C3F5F073 		rsb	r3, r3, #480
+ 238 0046 A363     		str	r3, [r4, #56]
+  79:Drivers/hagl/src/hagl_hal.c ****     HAL_MDMA_Init(&hmdma_mdma_channel40_sw_0); 
+ 239              		.loc 1 79 0
+ 240 0048 2046     		mov	r0, r4
+ 241              	.LVL14:
+ 242 004a FFF7FEFF 		bl	HAL_MDMA_Init
+ 243              	.LVL15:
+  80:Drivers/hagl/src/hagl_hal.c **** 
+  81:Drivers/hagl/src/hagl_hal.c ****     HAL_MDMA_Start(&hmdma_mdma_channel40_sw_0, source->buffer, (uint32_t)fb + ((x0 + y0 * DISPLAY_W
+ 244              		.loc 1 81 0
+ 245 004e F968     		ldr	r1, [r7, #12]
+ 246 0050 C6EB0616 		rsb	r6, r6, r6, lsl #4
+ 247 0054 7201     		lsls	r2, r6, #5
+ 248 0056 9044     		add	r8, r8, r2
+ 249 0058 3B88     		ldrh	r3, [r7]
+ 250 005a 7A88     		ldrh	r2, [r7, #2]
+ 251 005c 0092     		str	r2, [sp]
+ 252 005e 084A     		ldr	r2, .L10+8
+ 253 0060 4244     		add	r2, r2, r8
+ 254 0062 2046     		mov	r0, r4
+ 255 0064 FFF7FEFF 		bl	HAL_MDMA_Start
+ 256              	.LVL16:
+  82:Drivers/hagl/src/hagl_hal.c ****     HAL_MDMA_PollForTransfer(&hmdma_mdma_channel40_sw_0, MDMA_REPEAT_BLOCK_TRANSFER, 10);
+ 257              		.loc 1 82 0
+ 258 0068 0A22     		movs	r2, #10
+ 259 006a 2946     		mov	r1, r5
+ 260 006c 2046     		mov	r0, r4
+ 261 006e FFF7FEFF 		bl	HAL_MDMA_PollForTransfer
+ 262              	.LVL17:
+  83:Drivers/hagl/src/hagl_hal.c **** }...
+ 263              		.loc 1 83 0
+ 264 0072 02B0     		add	sp, sp, #8
+ARM GAS  /tmp/ccSjOwN5.s 			page 7
+
+
+ 265              	.LCFI5:
+ 266              		.cfi_def_cfa_offset 24
+ 267              		@ sp needed
+ 268 0074 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 269              	.LVL18:
+ 270              	.L11:
+ 271              		.align	2
+ 272              	.L10:
+ 273 0078 00000000 		.word	hmdma_mdma_channel40_sw_0
+ 274 007c 40000052 		.word	1375731776
+ 275 0080 00000000 		.word	fb
+ 276              		.cfi_endproc
+ 277              	.LFE144:
+ 279              		.comm	hmdma_mdma_channel40_sw_0,108,4
+ 280              		.text
+ 281              	.Letext0:
+ 282              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 283              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+ 284              		.file 4 "Drivers/CMSIS/Include/core_cm7.h"
+ 285              		.file 5 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h"
+ 286              		.file 6 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h"
+ 287              		.file 7 "/usr/include/newlib/sys/lock.h"
+ 288              		.file 8 "/usr/include/newlib/sys/_types.h"
+ 289              		.file 9 "/usr/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h"
+ 290              		.file 10 "/usr/include/newlib/sys/reent.h"
+ 291              		.file 11 "/usr/include/newlib/math.h"
+ 292              		.file 12 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
+ 293              		.file 13 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h"
+ 294              		.file 14 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h"
+ 295              		.file 15 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h"
+ 296              		.file 16 "Drivers/hagl/include/bitmap.h"
+ 297              		.file 17 "Drivers/hagl/include/hagl_hal.h"
+ 298              		.file 18 "Core/Inc/main.h"
+ARM GAS  /tmp/ccSjOwN5.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 hagl_hal.c
+     /tmp/ccSjOwN5.s:17     .text.hagl_hal_put_pixel:0000000000000000 $t
+     /tmp/ccSjOwN5.s:24     .text.hagl_hal_put_pixel:0000000000000000 hagl_hal_put_pixel
+     /tmp/ccSjOwN5.s:46     .text.hagl_hal_put_pixel:0000000000000010 $d
+     /tmp/ccSjOwN5.s:51     .text.hagl_hal_fill_rectangle:0000000000000000 $t
+     /tmp/ccSjOwN5.s:58     .text.hagl_hal_fill_rectangle:0000000000000000 hagl_hal_fill_rectangle
+     /tmp/ccSjOwN5.s:162    .text.hagl_hal_fill_rectangle:0000000000000080 $d
+                            *COM*:000000000000006c hmdma_mdma_channel40_sw_0
+     /tmp/ccSjOwN5.s:169    .text.hagl_hal_blit:0000000000000000 $t
+     /tmp/ccSjOwN5.s:176    .text.hagl_hal_blit:0000000000000000 hagl_hal_blit
+     /tmp/ccSjOwN5.s:273    .text.hagl_hal_blit:0000000000000078 $d
+
+UNDEFINED SYMBOLS
+fb
+HAL_MDMA_Init
+HAL_MDMA_Start
+HAL_MDMA_PollForTransfer

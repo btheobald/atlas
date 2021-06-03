@@ -1,0 +1,487 @@
+ARM GAS  /tmp/ccwCXyye.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"hsl.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.hsl_to_rgb888,"ax",%progbits
+  17              		.align	1
+  18              		.global	hsl_to_rgb888
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv5-d16
+  24              	hsl_to_rgb888:
+  25              	.LFB2:
+  26              		.file 1 "Drivers/hagl/src/hsl.c"
+   1:Drivers/hagl/src/hsl.c **** /*
+   2:Drivers/hagl/src/hsl.c **** 
+   3:Drivers/hagl/src/hsl.c **** Copyright (c) 2004-2007, Lode Vandevenne
+   4:Drivers/hagl/src/hsl.c **** 
+   5:Drivers/hagl/src/hsl.c **** All rights reserved.
+   6:Drivers/hagl/src/hsl.c **** 
+   7:Drivers/hagl/src/hsl.c **** Redistribution and use in source and binary forms, with or without
+   8:Drivers/hagl/src/hsl.c **** modification, are permitted provided that the following conditions are met:
+   9:Drivers/hagl/src/hsl.c **** 
+  10:Drivers/hagl/src/hsl.c ****     * Redistributions of source code must retain the above copyright notice,
+  11:Drivers/hagl/src/hsl.c ****       this list of conditions and the following disclaimer.
+  12:Drivers/hagl/src/hsl.c **** 
+  13:Drivers/hagl/src/hsl.c ****     * Redistributions in binary form must reproduce the above copyright
+  14:Drivers/hagl/src/hsl.c ****       notice, this list of conditions and the following disclaimer in the
+  15:Drivers/hagl/src/hsl.c ****       documentation and/or other materials provided with the distribution.
+  16:Drivers/hagl/src/hsl.c **** 
+  17:Drivers/hagl/src/hsl.c **** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  18:Drivers/hagl/src/hsl.c **** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  19:Drivers/hagl/src/hsl.c **** IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  20:Drivers/hagl/src/hsl.c **** ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+  21:Drivers/hagl/src/hsl.c **** LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  22:Drivers/hagl/src/hsl.c **** CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  23:Drivers/hagl/src/hsl.c **** SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  24:Drivers/hagl/src/hsl.c **** INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  25:Drivers/hagl/src/hsl.c **** CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  26:Drivers/hagl/src/hsl.c **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  27:Drivers/hagl/src/hsl.c **** POSSIBILITY OF SUCH DAMAGE.
+  28:Drivers/hagl/src/hsl.c **** 
+  29:Drivers/hagl/src/hsl.c **** -cut-
+  30:Drivers/hagl/src/hsl.c **** 
+  31:Drivers/hagl/src/hsl.c **** This file is part of the HAGL graphics library:
+  32:Drivers/hagl/src/hsl.c **** https://github.com/tuupola/hagl
+ARM GAS  /tmp/ccwCXyye.s 			page 2
+
+
+  33:Drivers/hagl/src/hsl.c **** 
+  34:Drivers/hagl/src/hsl.c **** 
+  35:Drivers/hagl/src/hsl.c **** SPDX-License-Identifier: BSD-2-Clause
+  36:Drivers/hagl/src/hsl.c **** 
+  37:Drivers/hagl/src/hsl.c **** */
+  38:Drivers/hagl/src/hsl.c **** 
+  39:Drivers/hagl/src/hsl.c **** #include <stdint.h>
+  40:Drivers/hagl/src/hsl.c **** 
+  41:Drivers/hagl/src/hsl.c **** #include "hsl.h"
+  42:Drivers/hagl/src/hsl.c **** 
+  43:Drivers/hagl/src/hsl.c **** rgb_t hsl_to_rgb888(hsl_t *hsl)
+  44:Drivers/hagl/src/hsl.c **** {
+  27              		.loc 1 44 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 8
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  33 0000 82B0     		sub	sp, sp, #8
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  45:Drivers/hagl/src/hsl.c ****     rgb_t rgb;
+  46:Drivers/hagl/src/hsl.c ****     float r, g, b, h, s, l;
+  47:Drivers/hagl/src/hsl.c ****     float temp1, temp2, tempr, tempg, tempb;
+  48:Drivers/hagl/src/hsl.c **** 
+  49:Drivers/hagl/src/hsl.c ****     h = hsl->h / 256.0;
+  36              		.loc 1 49 0
+  37 0002 90ED007B 		vldr.64	d7, [r0]
+  38 0006 9FED9E5B 		vldr.64	d5, .L46
+  39 000a 27EE057B 		vmul.f64	d7, d7, d5
+  40 000e B7EEC72B 		vcvt.f32.f64	s4, d7
+  41              	.LVL1:
+  50:Drivers/hagl/src/hsl.c ****     s = hsl->s / 256.0;
+  42              		.loc 1 50 0
+  43 0012 90ED026B 		vldr.64	d6, [r0, #8]
+  44 0016 26EE056B 		vmul.f64	d6, d6, d5
+  45 001a B7EEC66B 		vcvt.f32.f64	s12, d6
+  46              	.LVL2:
+  51:Drivers/hagl/src/hsl.c ****     l = hsl->l / 256.0;
+  47              		.loc 1 51 0
+  48 001e 90ED047B 		vldr.64	d7, [r0, #16]
+  49 0022 27EE057B 		vmul.f64	d7, d7, d5
+  50 0026 B7EEC77B 		vcvt.f32.f64	s14, d7
+  51              	.LVL3:
+  52:Drivers/hagl/src/hsl.c **** 
+  53:Drivers/hagl/src/hsl.c ****     /* Saturation 0 means shade of grey. */
+  54:Drivers/hagl/src/hsl.c ****     if(s == 0) {
+  52              		.loc 1 54 0
+  53 002a B5EE406A 		vcmp.f32	s12, #0
+  54 002e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  55 0032 00F0EE80 		beq	.L21
+  55:Drivers/hagl/src/hsl.c ****         r = g = b = l;
+  56:Drivers/hagl/src/hsl.c ****     } else {
+  57:Drivers/hagl/src/hsl.c ****         if (l < 0.5) {
+  56              		.loc 1 57 0
+  57 0036 F6EE007A 		vmov.f32	s15, #5.0e-1
+  58 003a B4EEE77A 		vcmpe.f32	s14, s15
+ARM GAS  /tmp/ccwCXyye.s 			page 3
+
+
+  59 003e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  60 0042 7DD5     		bpl	.L36
+  58:Drivers/hagl/src/hsl.c ****             temp2 = l * (1 + s);
+  61              		.loc 1 58 0
+  62 0044 F7EE007A 		vmov.f32	s15, #1.0e+0
+  63 0048 36EE276A 		vadd.f32	s12, s12, s15
+  64              	.LVL4:
+  65 004c 66EE072A 		vmul.f32	s5, s12, s14
+  66              	.LVL5:
+  67              	.L5:
+  59:Drivers/hagl/src/hsl.c ****         } else {
+  60:Drivers/hagl/src/hsl.c ****             temp2 = (l + s) - (l * s);
+  61:Drivers/hagl/src/hsl.c ****         }
+  62:Drivers/hagl/src/hsl.c ****         temp1 = 2 * l - temp2;
+  68              		.loc 1 62 0
+  69 0050 37EE077A 		vadd.f32	s14, s14, s14
+  70              	.LVL6:
+  71 0054 77EE627A 		vsub.f32	s15, s14, s5
+  72              	.LVL7:
+  63:Drivers/hagl/src/hsl.c ****         tempr = h + 1.0 / 3.0;
+  73              		.loc 1 63 0
+  74 0058 B7EEC23A 		vcvt.f64.f32	d3, s4
+  75 005c 9FED8A5B 		vldr.64	d5, .L46+8
+  76              	.LVL8:
+  77 0060 33EE055B 		vadd.f64	d5, d3, d5
+  78 0064 B7EEC55B 		vcvt.f32.f64	s10, d5
+  79              	.LVL9:
+  64:Drivers/hagl/src/hsl.c ****         if (tempr > 1) {
+  80              		.loc 1 64 0
+  81 0068 B7EE007A 		vmov.f32	s14, #1.0e+0
+  82 006c B4EEC75A 		vcmpe.f32	s10, s14
+  83 0070 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  84 0074 01DD     		ble	.L6
+  65:Drivers/hagl/src/hsl.c ****             tempr--;
+  85              		.loc 1 65 0
+  86 0076 35EE475A 		vsub.f32	s10, s10, s14
+  87              	.LVL10:
+  88              	.L6:
+  66:Drivers/hagl/src/hsl.c ****         }
+  67:Drivers/hagl/src/hsl.c ****         tempg = h;
+  68:Drivers/hagl/src/hsl.c ****         tempb = h - 1.0 / 3.0;
+  89              		.loc 1 68 0
+  90 007a 9FED834B 		vldr.64	d4, .L46+8
+  91 007e 33EE444B 		vsub.f64	d4, d3, d4
+  92 0082 B7EEC44B 		vcvt.f32.f64	s8, d4
+  93              	.LVL11:
+  69:Drivers/hagl/src/hsl.c ****         if (tempb < 0) {
+  94              		.loc 1 69 0
+  95 0086 B5EEC04A 		vcmpe.f32	s8, #0
+  96 008a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  97 008e 5ED4     		bmi	.L44
+  98              	.L8:
+  70:Drivers/hagl/src/hsl.c ****             tempb++;
+  71:Drivers/hagl/src/hsl.c ****         }
+  72:Drivers/hagl/src/hsl.c **** 
+  73:Drivers/hagl/src/hsl.c ****         /* Red */
+  74:Drivers/hagl/src/hsl.c ****         if (tempr < 1.0 / 6.0) {
+ARM GAS  /tmp/ccwCXyye.s 			page 4
+
+
+  99              		.loc 1 74 0
+ 100 0090 B7EEC56A 		vcvt.f64.f32	d6, s10
+ 101 0094 9FED7E1B 		vldr.64	d1, .L46+16
+ 102 0098 B4EEC16B 		vcmpe.f64	d6, d1
+ 103 009c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 104 00a0 5AD5     		bpl	.L37
+  75:Drivers/hagl/src/hsl.c ****             r = temp1 + (temp2 - temp1) * 6.0 * tempr;
+ 105              		.loc 1 75 0
+ 106 00a2 32EEE75A 		vsub.f32	s10, s5, s15
+ 107              	.LVL12:
+ 108 00a6 B7EEC55A 		vcvt.f64.f32	d5, s10
+ 109 00aa B1EE081B 		vmov.f64	d1, #6.0e+0
+ 110 00ae 25EE015B 		vmul.f64	d5, d5, d1
+ 111 00b2 B7EEE71A 		vcvt.f64.f32	d1, s15
+ 112 00b6 06EE051B 		vmla.f64	d1, d6, d5
+ 113 00ba B7EEC17B 		vcvt.f32.f64	s14, d1
+ 114              	.LVL13:
+ 115              	.L12:
+  76:Drivers/hagl/src/hsl.c ****         } else if (tempr < 0.5) {
+  77:Drivers/hagl/src/hsl.c ****             r = temp2;
+  78:Drivers/hagl/src/hsl.c ****         } else if (tempr < 2.0 / 3.0) {
+  79:Drivers/hagl/src/hsl.c ****             r = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempr) * 6.0;
+  80:Drivers/hagl/src/hsl.c ****         } else { r = temp1; }
+  81:Drivers/hagl/src/hsl.c **** 
+  82:Drivers/hagl/src/hsl.c ****         /* Green */
+  83:Drivers/hagl/src/hsl.c ****         if (tempg < 1.0 / 6.0) {
+ 116              		.loc 1 83 0
+ 117 00be 9FED746B 		vldr.64	d6, .L46+16
+ 118 00c2 B4EEC63B 		vcmpe.f64	d3, d6
+ 119 00c6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 120 00ca 6CD5     		bpl	.L39
+  84:Drivers/hagl/src/hsl.c ****              g = temp1 + (temp2 - temp1) * 6.0 * tempg;
+ 121              		.loc 1 84 0
+ 122 00cc 32EEE75A 		vsub.f32	s10, s5, s15
+ 123 00d0 B7EEC55A 		vcvt.f64.f32	d5, s10
+ 124 00d4 B1EE086B 		vmov.f64	d6, #6.0e+0
+ 125 00d8 25EE065B 		vmul.f64	d5, d5, d6
+ 126 00dc B7EEE76A 		vcvt.f64.f32	d6, s15
+ 127 00e0 03EE056B 		vmla.f64	d6, d3, d5
+ 128 00e4 B7EEC66B 		vcvt.f32.f64	s12, d6
+ 129              	.LVL14:
+ 130              	.L16:
+  85:Drivers/hagl/src/hsl.c ****         } else if (tempg < 0.5) {
+  86:Drivers/hagl/src/hsl.c ****             g = temp2;
+  87:Drivers/hagl/src/hsl.c ****         } else if (tempg < 2.0 / 3.0) {
+  88:Drivers/hagl/src/hsl.c ****             g = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempg) * 6.0;
+  89:Drivers/hagl/src/hsl.c ****         } else {
+  90:Drivers/hagl/src/hsl.c ****             g = temp1;
+  91:Drivers/hagl/src/hsl.c ****         }
+  92:Drivers/hagl/src/hsl.c **** 
+  93:Drivers/hagl/src/hsl.c ****         /* Blue */
+  94:Drivers/hagl/src/hsl.c ****         if (tempb < 1.0 / 6.0) {
+ 131              		.loc 1 94 0
+ 132 00e8 B7EEC43A 		vcvt.f64.f32	d3, s8
+ 133 00ec 9FED685B 		vldr.64	d5, .L46+16
+ 134 00f0 B4EEC53B 		vcmpe.f64	d3, d5
+ 135 00f4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ARM GAS  /tmp/ccwCXyye.s 			page 5
+
+
+ 136 00f8 7CD4     		bmi	.L45
+  95:Drivers/hagl/src/hsl.c ****             b = temp1 + (temp2 - temp1) * 6.0 * tempb;
+  96:Drivers/hagl/src/hsl.c ****         } else if (tempb < 0.5) {
+ 137              		.loc 1 96 0
+ 138 00fa F6EE006A 		vmov.f32	s13, #5.0e-1
+ 139 00fe B4EEE64A 		vcmpe.f32	s8, s13
+ 140 0102 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 141 0106 00F18880 		bmi	.L2
+  97:Drivers/hagl/src/hsl.c ****             b = temp2;
+  98:Drivers/hagl/src/hsl.c ****         } else if (tempb < 2.0 / 3.0) {
+ 142              		.loc 1 98 0
+ 143 010a 9FED635B 		vldr.64	d5, .L46+24
+ 144 010e B4EEC53B 		vcmpe.f64	d3, d5
+ 145 0112 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 146 0116 40F1AF80 		bpl	.L42
+  99:Drivers/hagl/src/hsl.c ****             b = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempb) * 6.0;
+ 147              		.loc 1 99 0
+ 148 011a 32EEE75A 		vsub.f32	s10, s5, s15
+ 149 011e B7EEC55A 		vcvt.f64.f32	d5, s10
+ 150 0122 9FED5D4B 		vldr.64	d4, .L46+24
+ 151              	.LVL15:
+ 152 0126 34EE433B 		vsub.f64	d3, d4, d3
+ 153 012a 25EE033B 		vmul.f64	d3, d5, d3
+ 154 012e B7EEE75A 		vcvt.f64.f32	d5, s15
+ 155 0132 B1EE084B 		vmov.f64	d4, #6.0e+0
+ 156 0136 03EE045B 		vmla.f64	d5, d3, d4
+ 157 013a F7EEC52B 		vcvt.f32.f64	s5, d5
+ 158              	.LVL16:
+ 159 013e 6CE0     		b	.L2
+ 160              	.LVL17:
+ 161              	.L36:
+  60:Drivers/hagl/src/hsl.c ****         }
+ 162              		.loc 1 60 0
+ 163 0140 76EE072A 		vadd.f32	s5, s12, s14
+ 164 0144 26EE076A 		vmul.f32	s12, s12, s14
+ 165              	.LVL18:
+ 166 0148 72EEC62A 		vsub.f32	s5, s5, s12
+ 167              	.LVL19:
+ 168 014c 80E7     		b	.L5
+ 169              	.LVL20:
+ 170              	.L44:
+  70:Drivers/hagl/src/hsl.c ****         }
+ 171              		.loc 1 70 0
+ 172 014e B7EE007A 		vmov.f32	s14, #1.0e+0
+ 173 0152 34EE074A 		vadd.f32	s8, s8, s14
+ 174              	.LVL21:
+ 175 0156 9BE7     		b	.L8
+ 176              	.L37:
+  76:Drivers/hagl/src/hsl.c ****             r = temp2;
+ 177              		.loc 1 76 0
+ 178 0158 B6EE007A 		vmov.f32	s14, #5.0e-1
+ 179 015c B4EEC75A 		vcmpe.f32	s10, s14
+ 180 0160 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 181 0164 19D4     		bmi	.L22
+  78:Drivers/hagl/src/hsl.c ****             r = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempr) * 6.0;
+ 182              		.loc 1 78 0
+ 183 0166 9FED4C5B 		vldr.64	d5, .L46+24
+ARM GAS  /tmp/ccwCXyye.s 			page 6
+
+
+ 184              	.LVL22:
+ 185 016a B4EEC56B 		vcmpe.f64	d6, d5
+ 186 016e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 187 0172 15D5     		bpl	.L38
+  79:Drivers/hagl/src/hsl.c ****         } else { r = temp1; }
+ 188              		.loc 1 79 0
+ 189 0174 32EEE75A 		vsub.f32	s10, s5, s15
+ 190 0178 B7EEC55A 		vcvt.f64.f32	d5, s10
+ 191 017c 9FED461B 		vldr.64	d1, .L46+24
+ 192 0180 31EE466B 		vsub.f64	d6, d1, d6
+ 193 0184 25EE065B 		vmul.f64	d5, d5, d6
+ 194 0188 B7EEE76A 		vcvt.f64.f32	d6, s15
+ 195 018c B1EE081B 		vmov.f64	d1, #6.0e+0
+ 196 0190 05EE016B 		vmla.f64	d6, d5, d1
+ 197 0194 B7EEC67B 		vcvt.f32.f64	s14, d6
+ 198              	.LVL23:
+ 199 0198 91E7     		b	.L12
+ 200              	.LVL24:
+ 201              	.L22:
+  77:Drivers/hagl/src/hsl.c ****         } else if (tempr < 2.0 / 3.0) {
+ 202              		.loc 1 77 0
+ 203 019a B0EE627A 		vmov.f32	s14, s5
+ 204 019e 8EE7     		b	.L12
+ 205              	.LVL25:
+ 206              	.L38:
+  80:Drivers/hagl/src/hsl.c **** 
+ 207              		.loc 1 80 0
+ 208 01a0 B0EE677A 		vmov.f32	s14, s15
+ 209 01a4 8BE7     		b	.L12
+ 210              	.LVL26:
+ 211              	.L39:
+  85:Drivers/hagl/src/hsl.c ****             g = temp2;
+ 212              		.loc 1 85 0
+ 213 01a6 F6EE006A 		vmov.f32	s13, #5.0e-1
+ 214 01aa B4EEE62A 		vcmpe.f32	s4, s13
+ 215 01ae F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 216 01b2 19D4     		bmi	.L24
+  87:Drivers/hagl/src/hsl.c ****             g = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - tempg) * 6.0;
+ 217              		.loc 1 87 0
+ 218 01b4 9FED386B 		vldr.64	d6, .L46+24
+ 219 01b8 B4EEC63B 		vcmpe.f64	d3, d6
+ 220 01bc F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 221 01c0 15D5     		bpl	.L40
+  88:Drivers/hagl/src/hsl.c ****         } else {
+ 222              		.loc 1 88 0
+ 223 01c2 32EEE76A 		vsub.f32	s12, s5, s15
+ 224 01c6 B7EEC66A 		vcvt.f64.f32	d6, s12
+ 225 01ca 9FED335B 		vldr.64	d5, .L46+24
+ 226 01ce 35EE433B 		vsub.f64	d3, d5, d3
+ 227 01d2 26EE033B 		vmul.f64	d3, d6, d3
+ 228 01d6 B7EEE76A 		vcvt.f64.f32	d6, s15
+ 229 01da B1EE085B 		vmov.f64	d5, #6.0e+0
+ 230 01de 03EE056B 		vmla.f64	d6, d3, d5
+ 231 01e2 B7EEC66B 		vcvt.f32.f64	s12, d6
+ 232              	.LVL27:
+ 233 01e6 7FE7     		b	.L16
+ 234              	.LVL28:
+ARM GAS  /tmp/ccwCXyye.s 			page 7
+
+
+ 235              	.L24:
+  86:Drivers/hagl/src/hsl.c ****         } else if (tempg < 2.0 / 3.0) {
+ 236              		.loc 1 86 0
+ 237 01e8 B0EE626A 		vmov.f32	s12, s5
+ 238 01ec 7CE7     		b	.L16
+ 239              	.L40:
+  90:Drivers/hagl/src/hsl.c ****         }
+ 240              		.loc 1 90 0
+ 241 01ee B0EE676A 		vmov.f32	s12, s15
+ 242 01f2 79E7     		b	.L16
+ 243              	.LVL29:
+ 244              	.L45:
+  95:Drivers/hagl/src/hsl.c ****         } else if (tempb < 0.5) {
+ 245              		.loc 1 95 0
+ 246 01f4 32EEE75A 		vsub.f32	s10, s5, s15
+ 247 01f8 B7EEC55A 		vcvt.f64.f32	d5, s10
+ 248 01fc B1EE084B 		vmov.f64	d4, #6.0e+0
+ 249              	.LVL30:
+ 250 0200 25EE045B 		vmul.f64	d5, d5, d4
+ 251 0204 B7EEE74A 		vcvt.f64.f32	d4, s15
+ 252 0208 03EE054B 		vmla.f64	d4, d3, d5
+ 253 020c F7EEC42B 		vcvt.f32.f64	s5, d4
+ 254              	.LVL31:
+ 255 0210 03E0     		b	.L2
+ 256              	.LVL32:
+ 257              	.L21:
+  55:Drivers/hagl/src/hsl.c ****     } else {
+ 258              		.loc 1 55 0
+ 259 0212 F0EE472A 		vmov.f32	s5, s14
+ 260 0216 B0EE476A 		vmov.f32	s12, s14
+ 261              	.LVL33:
+ 262              	.L2:
+ 100:Drivers/hagl/src/hsl.c ****         } else {
+ 101:Drivers/hagl/src/hsl.c ****             b = temp1;
+ 102:Drivers/hagl/src/hsl.c ****         }
+ 103:Drivers/hagl/src/hsl.c ****     }
+ 104:Drivers/hagl/src/hsl.c **** 
+ 105:Drivers/hagl/src/hsl.c ****     rgb.r = (uint8_t)(r * 255.0);
+ 263              		.loc 1 105 0
+ 264 021a B7EEC77A 		vcvt.f64.f32	d7, s14
+ 265              	.LVL34:
+ 266 021e 9FED205B 		vldr.64	d5, .L46+32
+ 267 0222 27EE057B 		vmul.f64	d7, d7, d5
+ 268 0226 FCEEC77B 		vcvt.u32.f64	s15, d7
+ 269 022a 17EE903A 		vmov	r3, s15	@ int
+ 270 022e 8DF80030 		strb	r3, [sp]
+ 106:Drivers/hagl/src/hsl.c ****     rgb.g = (uint8_t)(g * 255.0);
+ 271              		.loc 1 106 0
+ 272 0232 B7EEC66A 		vcvt.f64.f32	d6, s12
+ 273              	.LVL35:
+ 274 0236 26EE056B 		vmul.f64	d6, d6, d5
+ 275 023a FCEEC67B 		vcvt.u32.f64	s15, d6
+ 276 023e 17EE903A 		vmov	r3, s15	@ int
+ 277 0242 8DF80130 		strb	r3, [sp, #1]
+ 107:Drivers/hagl/src/hsl.c ****     rgb.b = (uint8_t)(b * 255.0);
+ 278              		.loc 1 107 0
+ 279 0246 B7EEE27A 		vcvt.f64.f32	d7, s5
+ARM GAS  /tmp/ccwCXyye.s 			page 8
+
+
+ 280 024a 27EE057B 		vmul.f64	d7, d7, d5
+ 281 024e FCEEC77B 		vcvt.u32.f64	s15, d7
+ 282 0252 17EE903A 		vmov	r3, s15	@ int
+ 283 0256 8DF80230 		strb	r3, [sp, #2]
+ 108:Drivers/hagl/src/hsl.c **** 
+ 109:Drivers/hagl/src/hsl.c ****     return rgb;
+ 284              		.loc 1 109 0
+ 285 025a 009B     		ldr	r3, [sp]
+ 286 025c 0020     		movs	r0, #0
+ 287              	.LVL36:
+ 288 025e DAB2     		uxtb	r2, r3
+ 289 0260 62F30700 		bfi	r0, r2, #0, #8
+ 290 0264 C3F30722 		ubfx	r2, r3, #8, #8
+ 291 0268 62F30F20 		bfi	r0, r2, #8, #8
+ 292 026c C3F30743 		ubfx	r3, r3, #16, #8
+ 293 0270 63F31740 		bfi	r0, r3, #16, #8
+ 110:Drivers/hagl/src/hsl.c **** }
+ 294              		.loc 1 110 0
+ 295 0274 02B0     		add	sp, sp, #8
+ 296              	.LCFI1:
+ 297              		.cfi_remember_state
+ 298              		.cfi_def_cfa_offset 0
+ 299              		@ sp needed
+ 300 0276 7047     		bx	lr
+ 301              	.LVL37:
+ 302              	.L42:
+ 303              	.LCFI2:
+ 304              		.cfi_restore_state
+ 101:Drivers/hagl/src/hsl.c ****         }
+ 305              		.loc 1 101 0
+ 306 0278 F0EE672A 		vmov.f32	s5, s15
+ 307              	.LVL38:
+ 308 027c CDE7     		b	.L2
+ 309              	.L47:
+ 310 027e 00BF     		.align	3
+ 311              	.L46:
+ 312 0280 00000000 		.word	0
+ 313 0284 0000703F 		.word	1064304640
+ 314 0288 55555555 		.word	1431655765
+ 315 028c 5555D53F 		.word	1070945621
+ 316 0290 55555555 		.word	1431655765
+ 317 0294 5555C53F 		.word	1069897045
+ 318 0298 55555555 		.word	1431655765
+ 319 029c 5555E53F 		.word	1071994197
+ 320 02a0 00000000 		.word	0
+ 321 02a4 00E06F40 		.word	1081073664
+ 322              		.cfi_endproc
+ 323              	.LFE2:
+ 325              		.text
+ 326              	.Letext0:
+ 327              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 328              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+ 329              		.file 4 "Drivers/hagl/include/hsl.h"
+ 330              		.file 5 "Drivers/hagl/include/rgb888.h"
+ARM GAS  /tmp/ccwCXyye.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 hsl.c
+     /tmp/ccwCXyye.s:17     .text.hsl_to_rgb888:0000000000000000 $t
+     /tmp/ccwCXyye.s:24     .text.hsl_to_rgb888:0000000000000000 hsl_to_rgb888
+     /tmp/ccwCXyye.s:312    .text.hsl_to_rgb888:0000000000000280 $d
+
+NO UNDEFINED SYMBOLS

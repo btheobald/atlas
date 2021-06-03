@@ -1,0 +1,366 @@
+ARM GAS  /tmp/ccUUBmrf.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"fontx.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.fontx_meta,"ax",%progbits
+  17              		.align	1
+  18              		.global	fontx_meta
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv5-d16
+  24              	fontx_meta:
+  25              	.LFB0:
+  26              		.file 1 "Drivers/hagl/src/fontx.c"
+   1:Drivers/hagl/src/fontx.c **** /*
+   2:Drivers/hagl/src/fontx.c **** 
+   3:Drivers/hagl/src/fontx.c **** MIT License
+   4:Drivers/hagl/src/fontx.c **** 
+   5:Drivers/hagl/src/fontx.c **** Copyright (c) 2012 ChaN
+   6:Drivers/hagl/src/fontx.c **** Copyright (c) 2020 Mika Tuupola
+   7:Drivers/hagl/src/fontx.c **** 
+   8:Drivers/hagl/src/fontx.c **** Permission is hereby granted, free of charge, to any person obtaining a copy
+   9:Drivers/hagl/src/fontx.c **** of this software and associated documentation files (the "Software"), to deal
+  10:Drivers/hagl/src/fontx.c **** in the Software without restriction, including without limitation the rights
+  11:Drivers/hagl/src/fontx.c **** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  12:Drivers/hagl/src/fontx.c **** copies of the Software, and to permit persons to whom the Software is
+  13:Drivers/hagl/src/fontx.c **** furnished to do so, subject to the following conditions:
+  14:Drivers/hagl/src/fontx.c **** 
+  15:Drivers/hagl/src/fontx.c **** The above copyright notice and this permission notice shall be included in all
+  16:Drivers/hagl/src/fontx.c **** copies or substantial portions of the Software.
+  17:Drivers/hagl/src/fontx.c **** 
+  18:Drivers/hagl/src/fontx.c **** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  19:Drivers/hagl/src/fontx.c **** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  20:Drivers/hagl/src/fontx.c **** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  21:Drivers/hagl/src/fontx.c **** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  22:Drivers/hagl/src/fontx.c **** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  23:Drivers/hagl/src/fontx.c **** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  24:Drivers/hagl/src/fontx.c **** SOFTWARE.
+  25:Drivers/hagl/src/fontx.c **** 
+  26:Drivers/hagl/src/fontx.c **** -cut-
+  27:Drivers/hagl/src/fontx.c **** 
+  28:Drivers/hagl/src/fontx.c **** This file is part of the HAGL graphics library:
+  29:Drivers/hagl/src/fontx.c **** https://github.com/tuupola/hagl
+  30:Drivers/hagl/src/fontx.c **** 
+  31:Drivers/hagl/src/fontx.c **** 
+  32:Drivers/hagl/src/fontx.c **** Adapted from the blog post by ChaN:
+ARM GAS  /tmp/ccUUBmrf.s 			page 2
+
+
+  33:Drivers/hagl/src/fontx.c **** http://elm-chan.org/docs/dosv/fontx_e.html
+  34:Drivers/hagl/src/fontx.c **** 
+  35:Drivers/hagl/src/fontx.c **** SPDX-License-Identifier: MIT
+  36:Drivers/hagl/src/fontx.c **** 
+  37:Drivers/hagl/src/fontx.c **** */
+  38:Drivers/hagl/src/fontx.c **** 
+  39:Drivers/hagl/src/fontx.c **** #include <stdint.h>
+  40:Drivers/hagl/src/fontx.c **** #include <stddef.h>
+  41:Drivers/hagl/src/fontx.c **** #include <string.h>
+  42:Drivers/hagl/src/fontx.c **** 
+  43:Drivers/hagl/src/fontx.c **** #include "fontx.h"
+  44:Drivers/hagl/src/fontx.c **** 
+  45:Drivers/hagl/src/fontx.c **** uint8_t fontx_meta(fontx_meta_t *meta, const uint8_t *font) {
+  27              		.loc 1 45 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  46:Drivers/hagl/src/fontx.c **** 
+  47:Drivers/hagl/src/fontx.c ****     memcpy(meta->name, &font[FONTX_NAME], 8);
+  33              		.loc 1 47 0
+  34 0000 0B46     		mov	r3, r1
+  35 0002 53F8062F 		ldr	r2, [r3, #6]!	@ unaligned
+  36 0006 5B68     		ldr	r3, [r3, #4]	@ unaligned
+  37 0008 0260     		str	r2, [r0]	@ unaligned
+  38 000a 4360     		str	r3, [r0, #4]	@ unaligned
+  48:Drivers/hagl/src/fontx.c ****     meta->width = font[FONTX_WIDTH];
+  39              		.loc 1 48 0
+  40 000c 8B7B     		ldrb	r3, [r1, #14]	@ zero_extendqisi2
+  41 000e 4372     		strb	r3, [r0, #9]
+  49:Drivers/hagl/src/fontx.c ****     meta->height = font[FONTX_HEIGHT];
+  42              		.loc 1 49 0
+  43 0010 CB7B     		ldrb	r3, [r1, #15]	@ zero_extendqisi2
+  44 0012 8372     		strb	r3, [r0, #10]
+  50:Drivers/hagl/src/fontx.c ****     meta->type = font[FONTX_TYPE];
+  45              		.loc 1 50 0
+  46 0014 0B7C     		ldrb	r3, [r1, #16]	@ zero_extendqisi2
+  47 0016 C372     		strb	r3, [r0, #11]
+  51:Drivers/hagl/src/fontx.c **** 
+  52:Drivers/hagl/src/fontx.c ****     return 0;
+  53:Drivers/hagl/src/fontx.c **** }
+  48              		.loc 1 53 0
+  49 0018 0020     		movs	r0, #0
+  50              	.LVL1:
+  51 001a 7047     		bx	lr
+  52              		.cfi_endproc
+  53              	.LFE0:
+  55              		.section	.text.fontx_glyph,"ax",%progbits
+  56              		.align	1
+  57              		.global	fontx_glyph
+  58              		.syntax unified
+  59              		.thumb
+  60              		.thumb_func
+  61              		.fpu fpv5-d16
+  63              	fontx_glyph:
+  64              	.LFB1:
+ARM GAS  /tmp/ccUUBmrf.s 			page 3
+
+
+  54:Drivers/hagl/src/fontx.c **** 
+  55:Drivers/hagl/src/fontx.c **** 
+  56:Drivers/hagl/src/fontx.c **** uint8_t fontx_glyph(fontx_glyph_t *glyph, wchar_t code, const uint8_t* font) {
+  65              		.loc 1 56 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 16
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              	.LVL2:
+  70 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+  71              	.LCFI0:
+  72              		.cfi_def_cfa_offset 28
+  73              		.cfi_offset 4, -28
+  74              		.cfi_offset 5, -24
+  75              		.cfi_offset 6, -20
+  76              		.cfi_offset 7, -16
+  77              		.cfi_offset 8, -12
+  78              		.cfi_offset 9, -8
+  79              		.cfi_offset 14, -4
+  80 0004 85B0     		sub	sp, sp, #20
+  81              	.LCFI1:
+  82              		.cfi_def_cfa_offset 48
+  83 0006 0546     		mov	r5, r0
+  84 0008 0C46     		mov	r4, r1
+  85 000a 1646     		mov	r6, r2
+  57:Drivers/hagl/src/fontx.c ****     uint32_t nc, bc, sb, eb;
+  58:Drivers/hagl/src/fontx.c ****     uint8_t status;
+  59:Drivers/hagl/src/fontx.c ****     const uint8_t *block_table;
+  60:Drivers/hagl/src/fontx.c ****     fontx_meta_t meta;
+  61:Drivers/hagl/src/fontx.c **** 
+  62:Drivers/hagl/src/fontx.c ****     status = fontx_meta(&meta, font);
+  86              		.loc 1 62 0
+  87 000c 1146     		mov	r1, r2
+  88              	.LVL3:
+  89 000e 01A8     		add	r0, sp, #4
+  90              	.LVL4:
+  91 0010 FFF7FEFF 		bl	fontx_meta
+  92              	.LVL5:
+  63:Drivers/hagl/src/fontx.c ****     if (0 != status) {
+  93              		.loc 1 63 0
+  94 0014 0746     		mov	r7, r0
+  95 0016 0028     		cmp	r0, #0
+  96 0018 4AD1     		bne	.L3
+  64:Drivers/hagl/src/fontx.c ****         return status;
+  65:Drivers/hagl/src/fontx.c ****     }
+  66:Drivers/hagl/src/fontx.c **** 
+  67:Drivers/hagl/src/fontx.c ****     glyph->width = meta.width;
+  97              		.loc 1 67 0
+  98 001a 9DF80D00 		ldrb	r0, [sp, #13]	@ zero_extendqisi2
+  99              	.LVL6:
+ 100 001e 2870     		strb	r0, [r5]
+  68:Drivers/hagl/src/fontx.c ****     glyph->height = meta.height;
+ 101              		.loc 1 68 0
+ 102 0020 9DF80E30 		ldrb	r3, [sp, #14]	@ zero_extendqisi2
+ 103 0024 6B70     		strb	r3, [r5, #1]
+  69:Drivers/hagl/src/fontx.c ****     glyph->pitch = (meta.width + 7) / 8;
+ 104              		.loc 1 69 0
+ 105 0026 0730     		adds	r0, r0, #7
+ARM GAS  /tmp/ccUUBmrf.s 			page 4
+
+
+ 106 0028 C008     		lsrs	r0, r0, #3
+ 107 002a E870     		strb	r0, [r5, #3]
+  70:Drivers/hagl/src/fontx.c ****     glyph->size = glyph->pitch * meta.height;
+ 108              		.loc 1 70 0
+ 109 002c 10FB03F0 		smulbb	r0, r0, r3
+ 110 0030 C0B2     		uxtb	r0, r0
+ 111 0032 A870     		strb	r0, [r5, #2]
+  71:Drivers/hagl/src/fontx.c **** 
+  72:Drivers/hagl/src/fontx.c ****     if (FONTX_TYPE_SBCS == meta.type) {
+ 112              		.loc 1 72 0
+ 113 0034 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2
+ 114 0038 43B9     		cbnz	r3, .L5
+  73:Drivers/hagl/src/fontx.c ****         if (code < 0x100) {
+ 115              		.loc 1 73 0
+ 116 003a FF2C     		cmp	r4, #255
+ 117 003c 3CD8     		bhi	.L9
+  74:Drivers/hagl/src/fontx.c ****             glyph->buffer = &font[FONTX_GLYPH_DATA_START + code * glyph->size];
+ 118              		.loc 1 74 0
+ 119 003e 04FB00F4 		mul	r4, r4, r0
+ 120              	.LVL7:
+ 121 0042 1134     		adds	r4, r4, #17
+ 122 0044 2644     		add	r6, r6, r4
+ 123              	.LVL8:
+ 124 0046 6E60     		str	r6, [r5, #4]
+  75:Drivers/hagl/src/fontx.c ****             return FONTX_OK;
+ 125              		.loc 1 75 0
+ 126 0048 1F46     		mov	r7, r3
+ 127 004a 31E0     		b	.L3
+ 128              	.LVL9:
+ 129              	.L5:
+  76:Drivers/hagl/src/fontx.c ****         }
+  77:Drivers/hagl/src/fontx.c ****     } else {
+  78:Drivers/hagl/src/fontx.c ****         block_table = &font[FONTX_BLOCK_TABLE_START];
+ 130              		.loc 1 78 0
+ 131 004c 06F11202 		add	r2, r6, #18
+ 132              	.LVL10:
+  79:Drivers/hagl/src/fontx.c ****         nc = 0;
+  80:Drivers/hagl/src/fontx.c ****         bc = font[FONTX_BLOCK_TABLE_SIZE];
+ 133              		.loc 1 80 0
+ 134 0050 96F811C0 		ldrb	ip, [r6, #17]	@ zero_extendqisi2
+ 135 0054 6346     		mov	r3, ip
+ 136              	.LVL11:
+  79:Drivers/hagl/src/fontx.c ****         nc = 0;
+ 137              		.loc 1 79 0
+ 138 0056 4FF00008 		mov	r8, #0
+ 139              	.LVL12:
+ 140              	.L6:
+  81:Drivers/hagl/src/fontx.c ****         while (bc--) {
+ 141              		.loc 1 81 0
+ 142 005a 03F1FF3E 		add	lr, r3, #-1
+ 143              	.LVL13:
+ 144 005e 33B3     		cbz	r3, .L11
+  82:Drivers/hagl/src/fontx.c ****             /* Get range of the code block_table. */
+  83:Drivers/hagl/src/fontx.c ****             sb = block_table[0] + block_table[1] * 0x100;
+ 145              		.loc 1 83 0
+ 146 0060 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 147 0062 5178     		ldrb	r1, [r2, #1]	@ zero_extendqisi2
+ARM GAS  /tmp/ccUUBmrf.s 			page 5
+
+
+ 148 0064 03EB0121 		add	r1, r3, r1, lsl #8
+ 149              	.LVL14:
+  84:Drivers/hagl/src/fontx.c ****             eb = block_table[2] + block_table[3] * 0x100;
+ 150              		.loc 1 84 0
+ 151 0068 9378     		ldrb	r3, [r2, #2]	@ zero_extendqisi2
+ 152 006a 92F80390 		ldrb	r9, [r2, #3]	@ zero_extendqisi2
+ 153 006e 03EB0923 		add	r3, r3, r9, lsl #8
+ 154              	.LVL15:
+  85:Drivers/hagl/src/fontx.c **** 
+  86:Drivers/hagl/src/fontx.c ****              /* Check if in the code block_table. */
+  87:Drivers/hagl/src/fontx.c ****             if (code >= sb && code <= eb) {
+ 155              		.loc 1 87 0
+ 156 0072 A142     		cmp	r1, r4
+ 157 0074 8CBF     		ite	hi
+ 158 0076 4FF00009 		movhi	r9, #0
+ 159 007a 4FF00109 		movls	r9, #1
+ 160 007e A342     		cmp	r3, r4
+ 161 0080 38BF     		it	cc
+ 162 0082 4FF00009 		movcc	r9, #0
+ 163 0086 B9F1000F 		cmp	r9, #0
+ 164 008a 06D1     		bne	.L12
+  88:Drivers/hagl/src/fontx.c ****                 /* Number of codes from top of the block_table. */
+  89:Drivers/hagl/src/fontx.c ****                 nc += code - sb;
+  90:Drivers/hagl/src/fontx.c ****                 glyph->buffer = &font[
+  91:Drivers/hagl/src/fontx.c ****                     FONTX_BLOCK_TABLE_START +
+  92:Drivers/hagl/src/fontx.c ****                     4 * font[FONTX_BLOCK_TABLE_SIZE] +
+  93:Drivers/hagl/src/fontx.c ****                     nc * glyph->size
+  94:Drivers/hagl/src/fontx.c ****                 ];
+  95:Drivers/hagl/src/fontx.c ****                 return FONTX_OK;
+  96:Drivers/hagl/src/fontx.c ****             }
+  97:Drivers/hagl/src/fontx.c ****             /* Number of codes in the previous block_tables. */
+  98:Drivers/hagl/src/fontx.c ****             nc += eb - sb + 1;
+ 165              		.loc 1 98 0
+ 166 008c 5B1A     		subs	r3, r3, r1
+ 167              	.LVL16:
+ 168 008e 4344     		add	r3, r3, r8
+ 169 0090 03F10108 		add	r8, r3, #1
+ 170              	.LVL17:
+  99:Drivers/hagl/src/fontx.c ****             /* Next code block_table. */
+ 100:Drivers/hagl/src/fontx.c ****             block_table += 4;
+ 171              		.loc 1 100 0
+ 172 0094 0432     		adds	r2, r2, #4
+ 173              	.LVL18:
+  81:Drivers/hagl/src/fontx.c ****             /* Get range of the code block_table. */
+ 174              		.loc 1 81 0
+ 175 0096 7346     		mov	r3, lr
+ 176 0098 DFE7     		b	.L6
+ 177              	.LVL19:
+ 178              	.L12:
+  89:Drivers/hagl/src/fontx.c ****                 glyph->buffer = &font[
+ 179              		.loc 1 89 0
+ 180 009a 631A     		subs	r3, r4, r1
+ 181              	.LVL20:
+ 182 009c 4344     		add	r3, r3, r8
+ 183              	.LVL21:
+  93:Drivers/hagl/src/fontx.c ****                 ];
+ 184              		.loc 1 93 0
+ARM GAS  /tmp/ccUUBmrf.s 			page 6
+
+
+ 185 009e 03FB00F0 		mul	r0, r3, r0
+  92:Drivers/hagl/src/fontx.c ****                     nc * glyph->size
+ 186              		.loc 1 92 0
+ 187 00a2 00EB8C00 		add	r0, r0, ip, lsl #2
+ 188 00a6 1230     		adds	r0, r0, #18
+  90:Drivers/hagl/src/fontx.c ****                     FONTX_BLOCK_TABLE_START +
+ 189              		.loc 1 90 0
+ 190 00a8 0644     		add	r6, r6, r0
+ 191              	.LVL22:
+ 192 00aa 6E60     		str	r6, [r5, #4]
+ 193              	.LVL23:
+  95:Drivers/hagl/src/fontx.c ****             }
+ 194              		.loc 1 95 0
+ 195 00ac 00E0     		b	.L3
+ 196              	.LVL24:
+ 197              	.L11:
+ 101:Drivers/hagl/src/fontx.c ****         }
+ 102:Drivers/hagl/src/fontx.c ****     }
+ 103:Drivers/hagl/src/fontx.c **** 
+ 104:Drivers/hagl/src/fontx.c ****     return FONTX_ERR_GLYPH_NOT_FOUND;
+ 198              		.loc 1 104 0
+ 199 00ae 0127     		movs	r7, #1
+ 200              	.LVL25:
+ 201              	.L3:
+ 105:Drivers/hagl/src/fontx.c **** }...
+ 202              		.loc 1 105 0
+ 203 00b0 3846     		mov	r0, r7
+ 204 00b2 05B0     		add	sp, sp, #20
+ 205              	.LCFI2:
+ 206              		.cfi_remember_state
+ 207              		.cfi_def_cfa_offset 28
+ 208              		@ sp needed
+ 209 00b4 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 210              	.LVL26:
+ 211              	.L9:
+ 212              	.LCFI3:
+ 213              		.cfi_restore_state
+ 104:Drivers/hagl/src/fontx.c ****     return FONTX_ERR_GLYPH_NOT_FOUND;
+ 214              		.loc 1 104 0
+ 215 00b8 0127     		movs	r7, #1
+ 216 00ba F9E7     		b	.L3
+ 217              		.cfi_endproc
+ 218              	.LFE1:
+ 220              		.text
+ 221              	.Letext0:
+ 222              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 223              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+ 224              		.file 4 "/usr/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h"
+ 225              		.file 5 "/usr/include/newlib/sys/lock.h"
+ 226              		.file 6 "/usr/include/newlib/sys/_types.h"
+ 227              		.file 7 "/usr/include/newlib/sys/reent.h"
+ 228              		.file 8 "Drivers/hagl/include/fontx.h"
+ARM GAS  /tmp/ccUUBmrf.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 fontx.c
+     /tmp/ccUUBmrf.s:17     .text.fontx_meta:0000000000000000 $t
+     /tmp/ccUUBmrf.s:24     .text.fontx_meta:0000000000000000 fontx_meta
+     /tmp/ccUUBmrf.s:56     .text.fontx_glyph:0000000000000000 $t
+     /tmp/ccUUBmrf.s:63     .text.fontx_glyph:0000000000000000 fontx_glyph
+
+NO UNDEFINED SYMBOLS

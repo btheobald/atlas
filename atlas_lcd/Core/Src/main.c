@@ -23,6 +23,18 @@
 #include "octospi.h"
 #include "ltdc_mod.h"
 #include "tim.h"
+#include "sdmmc.h"
+#include "fatfs.h"
+#include "hagl.h"
+#include "hagl_hal.h"
+#include "font9x18.h"
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <wchar.h>
+#define LOADBMP_IMPLEMENTATION
+#include "loadbmp.h"
+//#include "stm32h7xx_ll_delayblock.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -52,8 +64,14 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+void metaballs_init();
+void metaballs_animate();
+void metaballs_render();
 void SWD_Init(void);
 void SWO_PrintData(uint32_t * addr, uint32_t count);
+void SWO_PrintChar(char c);
+void SWO_PrintString(const char *s);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -61,13 +79,97 @@ void SWO_PrintData(uint32_t * addr, uint32_t count);
 __attribute__((section(".fb1"))) uint8_t fb[272*480];
 /* USER CODE END 0 */
 
-uint8_t aTxBuffer[] = "****Memory-mapped OSPI communication********Memory-mapped OSPI communication********Memory-mapped OSPI communication****";
+struct vector2 {
+    int16_t x;
+    int16_t y;
+};
 
+struct ball {
+    struct vector2 position;
+    struct vector2 velocity;
+    uint16_t radius;
+    uint16_t color;
+};
 
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
+struct ball balls[16];
+
+static const uint8_t NUM_BALLS = 4;
+static const uint8_t MIN_VELOCITY = 1;
+static const uint8_t MAX_VELOCITY = 2;
+static const uint8_t MIN_RADIUS = 15;
+static const uint8_t MAX_RADIUS = 32;
+static const uint8_t PIXEL_SIZE = 4;
+
+void metaballs_init()
+{
+    /* Set up imaginary balls inside screen coordinates. */
+    for (int16_t i = 0; i < NUM_BALLS; i++) {
+        balls[i].radius = (rand() % MAX_RADIUS) + MIN_RADIUS;
+        balls[i].color = 0xffff;
+        balls[i].position.x = rand() % DISPLAY_WIDTH;
+        balls[i].position.y = rand() % DISPLAY_HEIGHT;
+        balls[i].velocity.x = (rand() % MAX_VELOCITY) + MIN_VELOCITY;
+        balls[i].velocity.y = (rand() % MAX_VELOCITY) + MIN_VELOCITY;
+    }
+}
+
+void metaballs_animate()
+{
+    for (int16_t i = 0; i < NUM_BALLS; i++) {
+        balls[i].position.x += balls[i].velocity.x;
+        balls[i].position.y += balls[i].velocity.y;
+
+        /* Touch left or right edge, change direction. */
+        if ((balls[i].position.x < 0) | (balls[i].position.x > DISPLAY_WIDTH)) {
+            balls[i].velocity.x = balls[i].velocity.x * -1;
+        }
+
+        /* Touch top or bottom edge, change direction. */
+        if ((balls[i].position.y < 0) | (balls[i].position.y > DISPLAY_HEIGHT)) {
+            balls[i].velocity.y = balls[i].velocity.y * -1;
+        }
+    }
+}
+
+/* http://www.geisswerks.com/ryan/BLOBS/blobs.html */
+void metaballs_render()
+{
+    const color_t background = hagl_color(0, 0, 0);
+    const color_t black = hagl_color(0, 0, 0);
+    const color_t white = hagl_color(255, 255, 255);
+    const color_t green = hagl_color(0, 255, 0);
+    color_t color;
+
+    for (uint16_t y = 0; y < DISPLAY_HEIGHT; y += PIXEL_SIZE) {
+        for (uint16_t x = 0; x < DISPLAY_WIDTH; x += PIXEL_SIZE) {
+            float sum = 0;
+            for (uint8_t i = 0; i < NUM_BALLS; i++) {
+                const float dx = x - balls[i].position.x;
+                const float dy = y - balls[i].position.y;
+                const float d2 = dx * dx + dy * dy;
+                sum += balls[i].radius * balls[i].radius / d2;
+                // sum += balls[i].radius / sqrt(d2);
+            }
+
+            if (sum > 0.65) {
+                color = black;
+            } else if (sum > 0.5) {
+                color = white;
+            } else if (sum > 0.4) {
+                color = green;
+            } else {
+                color = background;
+            }
+
+            if (1 == PIXEL_SIZE) {
+                hagl_put_pixel(x, y, color);
+            } else {
+                hagl_fill_rectangle(x, y, x + PIXEL_SIZE - 1, y + PIXEL_SIZE - 1, color);
+            }
+        }
+    }
+}
+
 int main(void)
 {
   /* MCU Configuration--------------------------------------------------------*/
@@ -82,23 +184,37 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-
-  MX_OCTOSPI1_Init();
+  //MX_OCTOSPI1_Init();
 
   HAL_Delay(100);
-
   HAL_GPIO_WritePin(LCD_REG_EN_GPIO_Port, LCD_REG_EN_Pin, GPIO_PIN_SET);
-
   MX_LTDC_Init();
 
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
+  __HAL_RCC_MDMA_CLK_ENABLE();
+
+  const char sd[9] = "Start SD";
+
+  SWD_Init();
+
+
+  MX_SDMMC1_SD_Init();
+  //SDMMC_PowerState_ON(&hsd1);
+
+  //SDMMC_CmdAppCommand();
+  //SDMMC_GetCmdResp1();
+  //if(HAL_SD_Init(&hsd1) != HAL_OK)
+  //{
+  //  Error_Handler();
+  //}
+
+
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN 1 */
@@ -113,93 +229,80 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_RESET);
-for(uint16_t y = 0; y < 272; y++) {
-    for(uint16_t x = 0; x < 480; x++) {       
-        fb[x+(y*480)] = 0;
-    }
-}
 
-  uint16_t xoffset = 0;
-  uint16_t yoffset = 0;
-  uint32_t address = 0;
-  uint16_t index;
- __IO uint32_t *mem_addr;
-  while (1)
-  {
-    /*// Intensive Access -----------------------------------------------
-    mem_addr = (__IO uint32_t *)(OCTOSPI1_BASE + address);
+  uint8_t t = 0;
 
-    for (index = 0; index < 121; (index += 4))
-    {
-      // Writing Sequence ---------------------------------------------------
-      *mem_addr = *(uint32_t *)&aTxBuffer[index];
+  //metaballs_init();
 
-      //HAL_Delay(1);
+  unsigned char *pixels = NULL;
+  unsigned int dw;
+  unsigned int dh;
 
-      // Reading Sequence ---------------------------------------------------
-      if (*mem_addr != *(uint32_t *)&aTxBuffer[index])
-      {
-        HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);
-      }
-      mem_addr++;
-    }
+  wchar_t message[32];
 
-    HAL_Delay(100);
+  hagl_clear_screen();
 
-    address += 256;
-    if(address >= 16384)
-    {
-      address = 0;
-    }*/
-    
-    for(uint16_t y = 0; y < 272; y++) {
-        for(uint16_t x = 0; x < 480; x++) {       
-            fb[x+(y*480)] = ((x+xoffset)>>4) + ((y+yoffset)>>2);
-        }
-    }
+  bitmap_t dogebit = {0};
+  HAL_Delay(100);
 
-    HAL_GPIO_TogglePin(LED_C_GPIO_Port, LED_C_Pin);
-    HAL_Delay(16);
-    xoffset+=2;
-    yoffset+=sin(xoffset/100)*2;
+  retSD = HAL_ERROR;
+  while(retSD != HAL_OK) {
+    retSD = HAL_SD_Init(&hsd1);
+    swprintf(message, 32, L"STATUS: %d, %d", retSD, HAL_GPIO_ReadPin(SD_DET_GPIO_Port, SD_DET_Pin));
+    hagl_put_text(message, 10, 10, 255, font9x18);
+    HAL_Delay(1000);
+    HAL_GPIO_TogglePin(LED_R_GPIO_Port, LED_R_Pin);
   }
 
+  MX_FATFS_Init();
 
+  retSD = f_mount(&SDFatFS, SDPath, 1);
+  if(retSD == FR_OK) {
+    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);
+    swprintf(message, 32, L"MOUNTED: %d", retSD);
+    hagl_put_text(message, 10, 10, 255, font9x18);
+  } else {
+    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_RESET);
+    swprintf(message, 32, L"MOUNT FAILED: %d", retSD);
+    hagl_put_text(message, 10, 10, 255, font9x18);
+    Error_Handler();
+  }
 
-    //fb[0] = 0xFF0000FF;
-    //fb[480] = 0xFF00FF00;
-    //fb[480*272] = 0xFFFF0000;
-    //fb[(480*272)-480] = 0xFFFF00FF;
+  swprintf(message, 32, L"DRIVERS: %d", FATFS_GetAttachedDriversNbr());
+  hagl_put_text(message, 10, 30, 255, font9x18);
 
-    /*for(uint16_t y = 0; y < 272; y++) {
-        for(uint16_t x = 0; x < 480; x++) {       
-            //img[x+(y*240)] = 0xFFFFFFFF*(y==x);
-            fb[x+(y*480)] = (y/68 == 0) ? x : (y/68 == 1) ? x << 8 : (y/68 == 2) ? x << 16: (x | x << 8 | x << 16);
-        }
-    }*/
-        
-  /*while (1)
-  {
+  retSD = f_open(&SDFile, "doge.bmp", FA_OPEN_EXISTING | FA_READ);
+  if(retSD == FR_OK) {
+    HAL_GPIO_WritePin(LED_C_GPIO_Port, LED_C_Pin, GPIO_PIN_SET);
+  } else {
+    HAL_GPIO_WritePin(LED_C_GPIO_Port, LED_C_Pin, GPIO_PIN_RESET);
+    Error_Handler();
+  }
 
-    for(uint16_t y = 0; y < 128; y++) {
-        for(uint16_t x = 0; x < 128; x++) {
-           fb[x+(y*128)] = x+(y*128);
-        }
-    }
+  swprintf(message, 32, L"OPEN doge.bmp: %d", retSD);
+  hagl_put_text(message, 10, 30, 255, font9x18);
+ 
+  while (1)
+  { 
 
-    HAL_Delay(10);
-    
-    //for(uint16_t y = 0; y < 272; y++) {
-    //    for(uint16_t x = 0; x < 480; x++) {       
-    //        //fb[x+(y*240)] = 0xFFFFFFFF*(y==x);
-    //        fb[x+(y*480)] = col++;
-    //        HAL_Delay(1);
-    //    }
-    //}
+  }
+    /*HAL_Delay(100); 
+    //hagl_clear_screen();
+    DMA2D_HandleTypeDef hdma2d;
+    hdma2d.Instance = DMA2D;
+    hdma2d.Init.Mode = DMA2D_M2M;
+    hdma2d.Init.ColorMode = DMA2D_OUTPUT_ARGB8888;
+    hdma2d.Init.OutputOffset = DISPLAY_WIDTH - dw;
+    // Foreground
+    hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
+    hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
+    hdma2d.LayerCfg[1].InputOffset = 0;
+    HAL_DMA2D_Init(&hdma2d);
+    HAL_DMA2D_ConfigLayer(&hdma2d, 1);
+    HAL_DMA2D_Start(&hdma2d, pixels, fb + (0 + 0 * DISPLAY_WIDTH) * 4, dw, dh);
+    HAL_DMA2D_PollForTransfer(&hdma2d, 10);
+    HAL_GPIO_TogglePin(LED_C_GPIO_Port, LED_C_Pin);*/
 
-    //HAL_GPIO_TogglePin(LED_C_GPIO_Port, LED_C_Pin);
-  }*/
-  /* USER CODE END 3 */
 }
 
 /**
@@ -226,16 +329,20 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
+ 
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  //RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  //RCC_OscInitStruct.HSIState = RCC_HSI_DIV8;
+  //RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 2;
-  RCC_OscInitStruct.PLL.PLLN = 100;
+  RCC_OscInitStruct.PLL.PLLM = 4;
+  RCC_OscInitStruct.PLL.PLLN = 200;
   RCC_OscInitStruct.PLL.PLLP = 1;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
-  RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_2;
+  RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_0;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
   RCC_OscInitStruct.PLL.PLLFRACN = 0;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -255,21 +362,29 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
   RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
 
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LTDC|RCC_PERIPHCLK_OSPI;
-  PeriphClkInitStruct.PLL3.PLL3M = 4;
-  PeriphClkInitStruct.PLL3.PLL3N = 111;
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SDMMC | RCC_PERIPHCLK_LTDC;
+  PeriphClkInitStruct.PLL2.PLL2M = 2;
+  PeriphClkInitStruct.PLL2.PLL2N = 25;
+  PeriphClkInitStruct.PLL2.PLL2P = 2;
+  PeriphClkInitStruct.PLL2.PLL2Q = 2;
+  PeriphClkInitStruct.PLL2.PLL2R = 2;
+  PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2VCIRANGE_2;
+  PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2VCOWIDE;
+  PeriphClkInitStruct.PLL2.PLL2FRACN = 0;
+  PeriphClkInitStruct.SdmmcClockSelection = RCC_SDMMCCLKSOURCE_PLL2;
+  PeriphClkInitStruct.PLL3.PLL3M = 32;
+  PeriphClkInitStruct.PLL3.PLL3N = 148;
   PeriphClkInitStruct.PLL3.PLL3P = 2;
   PeriphClkInitStruct.PLL3.PLL3Q = 2;
-  PeriphClkInitStruct.PLL3.PLL3R = 24;
-  PeriphClkInitStruct.PLL3.PLL3RGE = RCC_PLL3VCIRANGE_1;
-  PeriphClkInitStruct.PLL3.PLL3VCOSEL = RCC_PLL3VCOWIDE;
+  PeriphClkInitStruct.PLL3.PLL3R = 4;
+  PeriphClkInitStruct.PLL3.PLL3RGE = RCC_PLL3VCIRANGE_3;
+  PeriphClkInitStruct.PLL3.PLL3VCOSEL = RCC_PLL3VCOMEDIUM;
   PeriphClkInitStruct.PLL3.PLL3FRACN = 0;
-  PeriphClkInitStruct.OspiClockSelection = RCC_OSPICLKSOURCE_PLL;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -280,12 +395,6 @@ void SystemClock_Config(void)
   __HAL_RCC_SYSCFG_CLK_ENABLE() ;
 
   HAL_EnableCompensationCell();
-
-  //__HAL_RCC_CSI_ENABLE() ;
-
-//  __HAL_RCC_SYSCFG_CLK_ENABLE() ;
-
-  //HAL_EnableCompensationCell();
 
 }
 
@@ -355,6 +464,35 @@ void SWO_PrintData(uint32_t * addr, uint32_t count) {
     }
 }
 
+void SWO_PrintChar(char c) {
+  //
+  // Check if ITM_TCR.ITMENA is set
+  //
+  if ((ITM_TCR & 1) == 0) {
+    return;
+  }
+  //
+  // Check if stimulus port is enabled
+  //
+  if ((ITM_ENA & 1) == 0) {
+    return;
+  }
+  //
+  // Wait until STIMx is ready,
+  // then send data
+  //
+  while ((ITM_STIM_U8 & 1) == 0);
+  ITM_STIM_U8 = c;
+}
+
+void SWO_PrintString(const char *s) {
+  //
+  // Print out character per character
+  //
+  while (*s) {
+    SWO_PrintChar(*s++);
+  }
+}
 
 /* USER CODE END 4 */
 
@@ -369,6 +507,7 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+    
   }
   /* USER CODE END Error_Handler_Debug */
 }

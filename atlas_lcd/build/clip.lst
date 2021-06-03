@@ -1,0 +1,490 @@
+ARM GAS  /tmp/ccmFUyQb.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"clip.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.code,"ax",%progbits
+  17              		.align	1
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu fpv5-d16
+  23              	code:
+  24              	.LFB0:
+  25              		.file 1 "Drivers/hagl/src/clip.c"
+   1:Drivers/hagl/src/clip.c **** /*
+   2:Drivers/hagl/src/clip.c **** 
+   3:Drivers/hagl/src/clip.c **** MIT License
+   4:Drivers/hagl/src/clip.c **** 
+   5:Drivers/hagl/src/clip.c **** Copyright (c) 2018-2020 Mika Tuupola
+   6:Drivers/hagl/src/clip.c **** 
+   7:Drivers/hagl/src/clip.c **** Permission is hereby granted, free of charge, to any person obtaining a copy
+   8:Drivers/hagl/src/clip.c **** of this software and associated documentation files (the "Software"), to deal
+   9:Drivers/hagl/src/clip.c **** in the Software without restriction, including without limitation the rights
+  10:Drivers/hagl/src/clip.c **** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  11:Drivers/hagl/src/clip.c **** copies of the Software, and to permit persons to whom the Software is
+  12:Drivers/hagl/src/clip.c **** furnished to do so, subject to the following conditions:
+  13:Drivers/hagl/src/clip.c **** 
+  14:Drivers/hagl/src/clip.c **** The above copyright notice and this permission notice shall be included in all
+  15:Drivers/hagl/src/clip.c **** copies or substantial portions of the Software.
+  16:Drivers/hagl/src/clip.c **** 
+  17:Drivers/hagl/src/clip.c **** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  18:Drivers/hagl/src/clip.c **** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  19:Drivers/hagl/src/clip.c **** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  20:Drivers/hagl/src/clip.c **** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  21:Drivers/hagl/src/clip.c **** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  22:Drivers/hagl/src/clip.c **** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  23:Drivers/hagl/src/clip.c **** SOFTWARE.
+  24:Drivers/hagl/src/clip.c **** 
+  25:Drivers/hagl/src/clip.c **** -cut-
+  26:Drivers/hagl/src/clip.c **** 
+  27:Drivers/hagl/src/clip.c **** This file is part of the HAGL graphics library:
+  28:Drivers/hagl/src/clip.c **** https://github.com/tuupola/hagl
+  29:Drivers/hagl/src/clip.c **** 
+  30:Drivers/hagl/src/clip.c **** 
+  31:Drivers/hagl/src/clip.c **** SPDX-License-Identifier: MIT
+  32:Drivers/hagl/src/clip.c **** 
+  33:Drivers/hagl/src/clip.c **** https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm
+ARM GAS  /tmp/ccmFUyQb.s 			page 2
+
+
+  34:Drivers/hagl/src/clip.c **** 
+  35:Drivers/hagl/src/clip.c **** */
+  36:Drivers/hagl/src/clip.c **** 
+  37:Drivers/hagl/src/clip.c **** #include <stdint.h>
+  38:Drivers/hagl/src/clip.c **** #include <stdbool.h>
+  39:Drivers/hagl/src/clip.c **** 
+  40:Drivers/hagl/src/clip.c **** #include "window.h"
+  41:Drivers/hagl/src/clip.c **** 
+  42:Drivers/hagl/src/clip.c **** static const uint8_t INSIDE = 0b0000;
+  43:Drivers/hagl/src/clip.c **** static const uint8_t LEFT = 0b0001;
+  44:Drivers/hagl/src/clip.c **** static const uint8_t RIGHT = 0b0010;
+  45:Drivers/hagl/src/clip.c **** static const uint8_t BOTTOM = 0b0100;
+  46:Drivers/hagl/src/clip.c **** static const uint8_t TOP = 0b1000;
+  47:Drivers/hagl/src/clip.c **** 
+  48:Drivers/hagl/src/clip.c **** static uint8_t code(int16_t x0, int16_t y0, window_t window)
+  49:Drivers/hagl/src/clip.c **** {
+  26              		.loc 1 49 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 8
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31              	.LVL0:
+  32 0000 82B0     		sub	sp, sp, #8
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35 0002 0DF1080C 		add	ip, sp, #8
+  36 0006 0CE90C00 		stmdb	ip, {r2, r3}
+  37              	.LVL1:
+  50:Drivers/hagl/src/clip.c ****     uint8_t code = INSIDE;
+  51:Drivers/hagl/src/clip.c **** 
+  52:Drivers/hagl/src/clip.c ****     if (x0 < window.x0) {
+  38              		.loc 1 52 0
+  39 000a BDF80030 		ldrh	r3, [sp]
+  40 000e 9842     		cmp	r0, r3
+  41 0010 05DB     		blt	.L5
+  53:Drivers/hagl/src/clip.c ****         code |= LEFT;
+  54:Drivers/hagl/src/clip.c ****     } else if (x0 > window.x1) {
+  42              		.loc 1 54 0
+  43 0012 BDF80430 		ldrh	r3, [sp, #4]
+  44 0016 9842     		cmp	r0, r3
+  45 0018 0DDC     		bgt	.L6
+  50:Drivers/hagl/src/clip.c ****     uint8_t code = INSIDE;
+  46              		.loc 1 50 0
+  47 001a 0020     		movs	r0, #0
+  48              	.LVL2:
+  49 001c 00E0     		b	.L2
+  50              	.LVL3:
+  51              	.L5:
+  53:Drivers/hagl/src/clip.c ****         code |= LEFT;
+  52              		.loc 1 53 0
+  53 001e 0120     		movs	r0, #1
+  54              	.LVL4:
+  55              	.L2:
+  55:Drivers/hagl/src/clip.c ****         code |= RIGHT;
+  56:Drivers/hagl/src/clip.c ****     } if (y0 < window.y0) {
+  56              		.loc 1 56 0
+  57 0020 BDF80230 		ldrh	r3, [sp, #2]
+ARM GAS  /tmp/ccmFUyQb.s 			page 3
+
+
+  58 0024 9942     		cmp	r1, r3
+  59 0026 08DB     		blt	.L8
+  57:Drivers/hagl/src/clip.c ****         code |= BOTTOM;
+  58:Drivers/hagl/src/clip.c ****     } else if (y0 > window.y1) {
+  60              		.loc 1 58 0
+  61 0028 BDF80630 		ldrh	r3, [sp, #6]
+  62 002c 9942     		cmp	r1, r3
+  63 002e 06DD     		ble	.L4
+  59:Drivers/hagl/src/clip.c ****         code |= TOP;
+  64              		.loc 1 59 0
+  65 0030 40F00800 		orr	r0, r0, #8
+  66              	.LVL5:
+  67 0034 03E0     		b	.L4
+  68              	.LVL6:
+  69              	.L6:
+  55:Drivers/hagl/src/clip.c ****         code |= RIGHT;
+  70              		.loc 1 55 0
+  71 0036 0220     		movs	r0, #2
+  72              	.LVL7:
+  73 0038 F2E7     		b	.L2
+  74              	.LVL8:
+  75              	.L8:
+  57:Drivers/hagl/src/clip.c ****         code |= BOTTOM;
+  76              		.loc 1 57 0
+  77 003a 40F00400 		orr	r0, r0, #4
+  78              	.LVL9:
+  79              	.L4:
+  60:Drivers/hagl/src/clip.c ****     }
+  61:Drivers/hagl/src/clip.c **** 
+  62:Drivers/hagl/src/clip.c ****     return code;
+  63:Drivers/hagl/src/clip.c **** }
+  80              		.loc 1 63 0
+  81 003e 02B0     		add	sp, sp, #8
+  82              	.LCFI1:
+  83              		.cfi_def_cfa_offset 0
+  84              		@ sp needed
+  85 0040 7047     		bx	lr
+  86              		.cfi_endproc
+  87              	.LFE0:
+  89              		.section	.text.clip_line,"ax",%progbits
+  90              		.align	1
+  91              		.global	clip_line
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv5-d16
+  97              	clip_line:
+  98              	.LFB1:
+  64:Drivers/hagl/src/clip.c **** 
+  65:Drivers/hagl/src/clip.c **** bool clip_line(int16_t *x0, int16_t *y0, int16_t *x1, int16_t *y1, window_t window)
+  66:Drivers/hagl/src/clip.c **** {
+  99              		.loc 1 66 0
+ 100              		.cfi_startproc
+ 101              		@ args = 8, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              	.LVL10:
+ 104 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ARM GAS  /tmp/ccmFUyQb.s 			page 4
+
+
+ 105              	.LCFI2:
+ 106              		.cfi_def_cfa_offset 32
+ 107              		.cfi_offset 4, -32
+ 108              		.cfi_offset 5, -28
+ 109              		.cfi_offset 6, -24
+ 110              		.cfi_offset 7, -20
+ 111              		.cfi_offset 8, -16
+ 112              		.cfi_offset 9, -12
+ 113              		.cfi_offset 10, -8
+ 114              		.cfi_offset 14, -4
+ 115 0004 0746     		mov	r7, r0
+ 116 0006 8946     		mov	r9, r1
+ 117 0008 1646     		mov	r6, r2
+ 118 000a 9846     		mov	r8, r3
+  67:Drivers/hagl/src/clip.c ****     uint8_t code0 = code(*x0, *y0, window);
+ 119              		.loc 1 67 0
+ 120 000c 08AB     		add	r3, sp, #32
+ 121              	.LVL11:
+ 122 000e 0CCB     		ldm	r3, {r2, r3}
+ 123              	.LVL12:
+ 124 0010 B1F90010 		ldrsh	r1, [r1]
+ 125              	.LVL13:
+ 126 0014 B0F90000 		ldrsh	r0, [r0]
+ 127              	.LVL14:
+ 128 0018 FFF7FEFF 		bl	code
+ 129              	.LVL15:
+ 130 001c 0446     		mov	r4, r0
+ 131              	.LVL16:
+  68:Drivers/hagl/src/clip.c ****     uint8_t code1 = code(*x1, *y1, window);
+ 132              		.loc 1 68 0
+ 133 001e 08AB     		add	r3, sp, #32
+ 134 0020 0CCB     		ldm	r3, {r2, r3}
+ 135 0022 B8F90010 		ldrsh	r1, [r8]
+ 136 0026 B6F90000 		ldrsh	r0, [r6]
+ 137 002a FFF7FEFF 		bl	code
+ 138              	.LVL17:
+ 139 002e 0546     		mov	r5, r0
+ 140              	.LVL18:
+ 141 0030 28E0     		b	.L10
+ 142              	.LVL19:
+ 143              	.L21:
+ 144              	.LBB2:
+  69:Drivers/hagl/src/clip.c **** 
+  70:Drivers/hagl/src/clip.c ****     bool accept = false;
+  71:Drivers/hagl/src/clip.c **** 
+  72:Drivers/hagl/src/clip.c ****     while (true) {
+  73:Drivers/hagl/src/clip.c ****         if (!(code0 | code1)) {
+  74:Drivers/hagl/src/clip.c ****             /* Both endpoints inside clipping window, trivial accept. */
+  75:Drivers/hagl/src/clip.c ****             accept = true;
+  76:Drivers/hagl/src/clip.c ****             break;
+  77:Drivers/hagl/src/clip.c ****         } else if (code0 & code1) {
+  78:Drivers/hagl/src/clip.c ****             /* Both endpoints outside clipping window, trivial reject. */
+  79:Drivers/hagl/src/clip.c ****             break;
+  80:Drivers/hagl/src/clip.c ****         } else {
+  81:Drivers/hagl/src/clip.c ****             /* Part of line inside clipping window, nontrivial situation. */
+  82:Drivers/hagl/src/clip.c **** 
+  83:Drivers/hagl/src/clip.c ****             int16_t x = 0;
+ARM GAS  /tmp/ccmFUyQb.s 			page 5
+
+
+  84:Drivers/hagl/src/clip.c ****             int16_t y = 0;
+  85:Drivers/hagl/src/clip.c ****             uint8_t code3 = code0 ? code0 : code1;
+ 145              		.loc 1 85 0
+ 146 0032 2A46     		mov	r2, r5
+ 147 0034 33E0     		b	.L12
+ 148              	.LVL20:
+ 149              	.L13:
+  86:Drivers/hagl/src/clip.c **** 
+  87:Drivers/hagl/src/clip.c ****             /* Find intersection point. */
+  88:Drivers/hagl/src/clip.c ****             /* slope = (y1 - y0) / (x1 - x0) */
+  89:Drivers/hagl/src/clip.c ****             /* x = x0 + (1 / slope) * (ym - y0), where ym is ymin or ymax */
+  90:Drivers/hagl/src/clip.c ****             /* y = y0 + slope * (xm - x0), where xm is xmin or xmax */
+  91:Drivers/hagl/src/clip.c ****             if (code3 & TOP) {
+  92:Drivers/hagl/src/clip.c ****                 x = *x0 + (*x1 - *x0) * (window.y1 - *y0) / (*y1 - *y0);
+  93:Drivers/hagl/src/clip.c ****                 y = window.y1;
+  94:Drivers/hagl/src/clip.c ****             } else if (code3 & BOTTOM) {
+ 150              		.loc 1 94 0
+ 151 0036 12F0040F 		tst	r2, #4
+ 152 003a 4CD0     		beq	.L15
+  95:Drivers/hagl/src/clip.c ****                 x = *x0 + (*x1 - *x0) * (window.y0 - *y0) / (*y1 - *y0);
+ 153              		.loc 1 95 0
+ 154 003c B7F90030 		ldrsh	r3, [r7]
+ 155 0040 B6F90000 		ldrsh	r0, [r6]
+ 156 0044 A0EB030E 		sub	lr, r0, r3
+ 157 0048 BDF82210 		ldrh	r1, [sp, #34]
+ 158 004c B9F900A0 		ldrsh	r10, [r9]
+ 159 0050 A1EB0A00 		sub	r0, r1, r10
+ 160 0054 00FB0EF0 		mul	r0, r0, lr
+ 161 0058 B8F900C0 		ldrsh	ip, [r8]
+ 162 005c ACEB0A0C 		sub	ip, ip, r10
+ 163 0060 90FBFCF0 		sdiv	r0, r0, ip
+ 164 0064 10FA83F3 		uxtah	r3, r0, r3
+ 165 0068 1BB2     		sxth	r3, r3
+ 166              	.LVL21:
+  96:Drivers/hagl/src/clip.c ****                 y = window.y0;
+ 167              		.loc 1 96 0
+ 168 006a 09B2     		sxth	r1, r1
+ 169              	.LVL22:
+ 170              	.L14:
+  97:Drivers/hagl/src/clip.c ****             } else if (code3 & RIGHT) {
+  98:Drivers/hagl/src/clip.c ****                 y = *y0 + (*y1 - *y0) * (window.x1 - *x0) / (*x1 - *x0);
+  99:Drivers/hagl/src/clip.c ****                 x = window.x1;
+ 100:Drivers/hagl/src/clip.c ****             }  else if (code3 & LEFT) {
+ 101:Drivers/hagl/src/clip.c ****                 y = *y0 + (*y1 - *y0) * (window.x0 - *x0) / (*x1 - *x0);
+ 102:Drivers/hagl/src/clip.c ****                 x = window.x0;
+ 103:Drivers/hagl/src/clip.c ****             }
+ 104:Drivers/hagl/src/clip.c **** 
+ 105:Drivers/hagl/src/clip.c ****             /* Replace the outside point with the intersection point. */
+ 106:Drivers/hagl/src/clip.c ****             if (code3 == code0) {
+ 171              		.loc 1 106 0
+ 172 006c 9442     		cmp	r4, r2
+ 173 006e 6DD0     		beq	.L24
+ 107:Drivers/hagl/src/clip.c ****                 *x0 = x;
+ 108:Drivers/hagl/src/clip.c ****                 *y0 = y;
+ 109:Drivers/hagl/src/clip.c ****                 code0 = code(*x0, *y0, window);
+ 110:Drivers/hagl/src/clip.c ****             } else {
+ 111:Drivers/hagl/src/clip.c ****                 *x1 = x;
+ARM GAS  /tmp/ccmFUyQb.s 			page 6
+
+
+ 174              		.loc 1 111 0
+ 175 0070 3380     		strh	r3, [r6]	@ movhi
+ 112:Drivers/hagl/src/clip.c ****                 *y1 = y;
+ 176              		.loc 1 112 0
+ 177 0072 A8F80010 		strh	r1, [r8]	@ movhi
+ 113:Drivers/hagl/src/clip.c ****                 code1 = code(*x1, *y1, window);
+ 178              		.loc 1 113 0
+ 179 0076 08AB     		add	r3, sp, #32
+ 180              	.LVL23:
+ 181 0078 0CCB     		ldm	r3, {r2, r3}
+ 182              	.LVL24:
+ 183 007a B6F90000 		ldrsh	r0, [r6]
+ 184 007e FFF7FEFF 		bl	code
+ 185              	.LVL25:
+ 186 0082 0546     		mov	r5, r0
+ 187              	.LVL26:
+ 188              	.L10:
+ 189              	.LBE2:
+  73:Drivers/hagl/src/clip.c ****             /* Both endpoints inside clipping window, trivial accept. */
+ 190              		.loc 1 73 0
+ 191 0084 44EA0503 		orr	r3, r4, r5
+ 192 0088 13F0FF0F 		tst	r3, #255
+ 193 008c 69D0     		beq	.L19
+  77:Drivers/hagl/src/clip.c ****             /* Both endpoints outside clipping window, trivial reject. */
+ 194              		.loc 1 77 0
+ 195 008e 04EA0503 		and	r3, r4, r5
+ 196 0092 13F0FF0F 		tst	r3, #255
+ 197 0096 67D1     		bne	.L20
+ 198              	.LVL27:
+ 199              	.LBB3:
+  85:Drivers/hagl/src/clip.c **** 
+ 200              		.loc 1 85 0
+ 201 0098 002C     		cmp	r4, #0
+ 202 009a CAD0     		beq	.L21
+ 203 009c 2246     		mov	r2, r4
+ 204              	.L12:
+ 205              	.LVL28:
+  91:Drivers/hagl/src/clip.c ****                 x = *x0 + (*x1 - *x0) * (window.y1 - *y0) / (*y1 - *y0);
+ 206              		.loc 1 91 0 discriminator 4
+ 207 009e 12F0080F 		tst	r2, #8
+ 208 00a2 C8D0     		beq	.L13
+  92:Drivers/hagl/src/clip.c ****                 y = window.y1;
+ 209              		.loc 1 92 0
+ 210 00a4 B7F90030 		ldrsh	r3, [r7]
+ 211 00a8 B6F90000 		ldrsh	r0, [r6]
+ 212 00ac A0EB030E 		sub	lr, r0, r3
+ 213 00b0 BDF82610 		ldrh	r1, [sp, #38]
+ 214 00b4 B9F900A0 		ldrsh	r10, [r9]
+ 215 00b8 A1EB0A00 		sub	r0, r1, r10
+ 216 00bc 00FB0EF0 		mul	r0, r0, lr
+ 217 00c0 B8F900C0 		ldrsh	ip, [r8]
+ 218 00c4 ACEB0A0C 		sub	ip, ip, r10
+ 219 00c8 90FBFCF0 		sdiv	r0, r0, ip
+ 220 00cc 10FA83F3 		uxtah	r3, r0, r3
+ 221 00d0 1BB2     		sxth	r3, r3
+ 222              	.LVL29:
+  93:Drivers/hagl/src/clip.c ****             } else if (code3 & BOTTOM) {
+ARM GAS  /tmp/ccmFUyQb.s 			page 7
+
+
+ 223              		.loc 1 93 0
+ 224 00d2 09B2     		sxth	r1, r1
+ 225              	.LVL30:
+ 226 00d4 CAE7     		b	.L14
+ 227              	.LVL31:
+ 228              	.L15:
+  97:Drivers/hagl/src/clip.c ****                 y = *y0 + (*y1 - *y0) * (window.x1 - *x0) / (*x1 - *x0);
+ 229              		.loc 1 97 0
+ 230 00d6 12F0020F 		tst	r2, #2
+ 231 00da 18D0     		beq	.L16
+  98:Drivers/hagl/src/clip.c ****                 x = window.x1;
+ 232              		.loc 1 98 0
+ 233 00dc B9F90010 		ldrsh	r1, [r9]
+ 234 00e0 B8F90000 		ldrsh	r0, [r8]
+ 235 00e4 A0EB010E 		sub	lr, r0, r1
+ 236 00e8 BDF82430 		ldrh	r3, [sp, #36]
+ 237 00ec B7F900A0 		ldrsh	r10, [r7]
+ 238 00f0 A3EB0A00 		sub	r0, r3, r10
+ 239 00f4 00FB0EF0 		mul	r0, r0, lr
+ 240 00f8 B6F900C0 		ldrsh	ip, [r6]
+ 241 00fc ACEB0A0C 		sub	ip, ip, r10
+ 242 0100 90FBFCF0 		sdiv	r0, r0, ip
+ 243 0104 10FA81F1 		uxtah	r1, r0, r1
+ 244 0108 09B2     		sxth	r1, r1
+ 245              	.LVL32:
+  99:Drivers/hagl/src/clip.c ****             }  else if (code3 & LEFT) {
+ 246              		.loc 1 99 0
+ 247 010a 1BB2     		sxth	r3, r3
+ 248              	.LVL33:
+ 249 010c AEE7     		b	.L14
+ 250              	.LVL34:
+ 251              	.L16:
+ 100:Drivers/hagl/src/clip.c ****                 y = *y0 + (*y1 - *y0) * (window.x0 - *x0) / (*x1 - *x0);
+ 252              		.loc 1 100 0
+ 253 010e 12F0010F 		tst	r2, #1
+ 254 0112 18D0     		beq	.L22
+ 101:Drivers/hagl/src/clip.c ****                 x = window.x0;
+ 255              		.loc 1 101 0
+ 256 0114 B9F90010 		ldrsh	r1, [r9]
+ 257 0118 B8F90000 		ldrsh	r0, [r8]
+ 258 011c A0EB010E 		sub	lr, r0, r1
+ 259 0120 BDF82030 		ldrh	r3, [sp, #32]
+ 260 0124 B7F900A0 		ldrsh	r10, [r7]
+ 261 0128 A3EB0A00 		sub	r0, r3, r10
+ 262 012c 00FB0EF0 		mul	r0, r0, lr
+ 263 0130 B6F900C0 		ldrsh	ip, [r6]
+ 264 0134 ACEB0A0C 		sub	ip, ip, r10
+ 265 0138 90FBFCF0 		sdiv	r0, r0, ip
+ 266 013c 10FA81F1 		uxtah	r1, r0, r1
+ 267 0140 09B2     		sxth	r1, r1
+ 268              	.LVL35:
+ 102:Drivers/hagl/src/clip.c ****             }
+ 269              		.loc 1 102 0
+ 270 0142 1BB2     		sxth	r3, r3
+ 271              	.LVL36:
+ 272 0144 92E7     		b	.L14
+ 273              	.LVL37:
+ARM GAS  /tmp/ccmFUyQb.s 			page 8
+
+
+ 274              	.L22:
+  84:Drivers/hagl/src/clip.c ****             uint8_t code3 = code0 ? code0 : code1;
+ 275              		.loc 1 84 0
+ 276 0146 0021     		movs	r1, #0
+  83:Drivers/hagl/src/clip.c ****             int16_t y = 0;
+ 277              		.loc 1 83 0
+ 278 0148 0B46     		mov	r3, r1
+ 279 014a 8FE7     		b	.L14
+ 280              	.LVL38:
+ 281              	.L24:
+ 107:Drivers/hagl/src/clip.c ****                 *y0 = y;
+ 282              		.loc 1 107 0
+ 283 014c 3B80     		strh	r3, [r7]	@ movhi
+ 108:Drivers/hagl/src/clip.c ****                 code0 = code(*x0, *y0, window);
+ 284              		.loc 1 108 0
+ 285 014e A9F80010 		strh	r1, [r9]	@ movhi
+ 109:Drivers/hagl/src/clip.c ****             } else {
+ 286              		.loc 1 109 0
+ 287 0152 08AB     		add	r3, sp, #32
+ 288              	.LVL39:
+ 289 0154 0CCB     		ldm	r3, {r2, r3}
+ 290              	.LVL40:
+ 291 0156 B7F90000 		ldrsh	r0, [r7]
+ 292 015a FFF7FEFF 		bl	code
+ 293              	.LVL41:
+ 294 015e 0446     		mov	r4, r0
+ 295              	.LVL42:
+ 296 0160 90E7     		b	.L10
+ 297              	.L19:
+ 298              	.LBE3:
+  75:Drivers/hagl/src/clip.c ****             break;
+ 299              		.loc 1 75 0
+ 300 0162 0120     		movs	r0, #1
+ 301              	.L11:
+ 302              	.LVL43:
+ 114:Drivers/hagl/src/clip.c ****             }
+ 115:Drivers/hagl/src/clip.c ****         }
+ 116:Drivers/hagl/src/clip.c ****     }
+ 117:Drivers/hagl/src/clip.c **** 
+ 118:Drivers/hagl/src/clip.c ****     return accept;
+ 119:Drivers/hagl/src/clip.c **** }...
+ 303              		.loc 1 119 0
+ 304 0164 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 305              	.LVL44:
+ 306              	.L20:
+  70:Drivers/hagl/src/clip.c ****     bool accept = false;
+ 307              		.loc 1 70 0
+ 308 0168 0020     		movs	r0, #0
+ 309 016a FBE7     		b	.L11
+ 310              		.cfi_endproc
+ 311              	.LFE1:
+ 313              		.text
+ 314              	.Letext0:
+ 315              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 316              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+ 317              		.file 4 "Drivers/hagl/include/window.h"
+ARM GAS  /tmp/ccmFUyQb.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 clip.c
+     /tmp/ccmFUyQb.s:17     .text.code:0000000000000000 $t
+     /tmp/ccmFUyQb.s:23     .text.code:0000000000000000 code
+     /tmp/ccmFUyQb.s:90     .text.clip_line:0000000000000000 $t
+     /tmp/ccmFUyQb.s:97     .text.clip_line:0000000000000000 clip_line
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,13 @@
+{
+    "cortex-debug.armToolchainPath": "/usr/bin",
+    "cortex-debug.openocdPath": "/usr/local/bin/openocd",
+    "files.associations": {
+        "font6x9.h": "c",
+        "stm32h7xx.h": "c",
+        "stm32h723xx.h": "c",
+        "stm32h7xx_hal_dma2d.h": "c",
+        "stm32h7xx_hal_def.h": "c",
+        "font5x7.h": "c",
+        "loadbmp.h": "c"
+    }
+}

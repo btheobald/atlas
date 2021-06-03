@@ -1,0 +1,840 @@
+ARM GAS  /tmp/ccgjo8md.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"bitmap.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.bitmap_size,"ax",%progbits
+  17              		.align	1
+  18              		.global	bitmap_size
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv5-d16
+  24              	bitmap_size:
+  25              	.LFB0:
+  26              		.file 1 "Drivers/hagl/src/bitmap.c"
+   1:Drivers/hagl/src/bitmap.c **** /*
+   2:Drivers/hagl/src/bitmap.c **** 
+   3:Drivers/hagl/src/bitmap.c **** MIT License
+   4:Drivers/hagl/src/bitmap.c **** 
+   5:Drivers/hagl/src/bitmap.c **** Copyright (c) 2018-2020 Mika Tuupola
+   6:Drivers/hagl/src/bitmap.c **** 
+   7:Drivers/hagl/src/bitmap.c **** Permission is hereby granted, free of charge, to any person obtaining a copy
+   8:Drivers/hagl/src/bitmap.c **** of this software and associated documentation files (the "Software"), to deal
+   9:Drivers/hagl/src/bitmap.c **** in the Software without restriction, including without limitation the rights
+  10:Drivers/hagl/src/bitmap.c **** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  11:Drivers/hagl/src/bitmap.c **** copies of the Software, and to permit persons to whom the Software is
+  12:Drivers/hagl/src/bitmap.c **** furnished to do so, subject to the following conditions:
+  13:Drivers/hagl/src/bitmap.c **** 
+  14:Drivers/hagl/src/bitmap.c **** The above copyright notice and this permission notice shall be included in all
+  15:Drivers/hagl/src/bitmap.c **** copies or substantial portions of the Software.
+  16:Drivers/hagl/src/bitmap.c **** 
+  17:Drivers/hagl/src/bitmap.c **** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  18:Drivers/hagl/src/bitmap.c **** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  19:Drivers/hagl/src/bitmap.c **** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  20:Drivers/hagl/src/bitmap.c **** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  21:Drivers/hagl/src/bitmap.c **** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  22:Drivers/hagl/src/bitmap.c **** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  23:Drivers/hagl/src/bitmap.c **** SOFTWARE.
+  24:Drivers/hagl/src/bitmap.c **** 
+  25:Drivers/hagl/src/bitmap.c **** -cut-
+  26:Drivers/hagl/src/bitmap.c **** 
+  27:Drivers/hagl/src/bitmap.c **** This file is part of the HAGL graphics library:
+  28:Drivers/hagl/src/bitmap.c **** https://github.com/tuupola/hagl
+  29:Drivers/hagl/src/bitmap.c **** 
+  30:Drivers/hagl/src/bitmap.c **** 
+  31:Drivers/hagl/src/bitmap.c **** SPDX-License-Identifier: MIT
+  32:Drivers/hagl/src/bitmap.c **** 
+ARM GAS  /tmp/ccgjo8md.s 			page 2
+
+
+  33:Drivers/hagl/src/bitmap.c **** */
+  34:Drivers/hagl/src/bitmap.c **** 
+  35:Drivers/hagl/src/bitmap.c **** #include <stdlib.h>
+  36:Drivers/hagl/src/bitmap.c **** #include <stdint.h>
+  37:Drivers/hagl/src/bitmap.c **** #include <string.h>
+  38:Drivers/hagl/src/bitmap.c **** #include <math.h>
+  39:Drivers/hagl/src/bitmap.c **** 
+  40:Drivers/hagl/src/bitmap.c **** #include "bitmap.h"
+  41:Drivers/hagl/src/bitmap.c **** 
+  42:Drivers/hagl/src/bitmap.c **** /* Get bitmap size in bytes. */
+  43:Drivers/hagl/src/bitmap.c **** uint32_t bitmap_size(bitmap_t *bitmap) {
+  27              		.loc 1 43 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  44:Drivers/hagl/src/bitmap.c ****     return bitmap->width * (bitmap->depth / 8) * bitmap->height;
+  33              		.loc 1 44 0
+  34 0000 0288     		ldrh	r2, [r0]
+  35 0002 8379     		ldrb	r3, [r0, #6]	@ zero_extendqisi2
+  36 0004 DB08     		lsrs	r3, r3, #3
+  37 0006 03FB02F3 		mul	r3, r3, r2
+  38 000a 4088     		ldrh	r0, [r0, #2]
+  39              	.LVL1:
+  45:Drivers/hagl/src/bitmap.c **** };
+  40              		.loc 1 45 0
+  41 000c 00FB03F0 		mul	r0, r0, r3
+  42 0010 7047     		bx	lr
+  43              		.cfi_endproc
+  44              	.LFE0:
+  46              		.section	.text.bitmap_init,"ax",%progbits
+  47              		.align	1
+  48              		.global	bitmap_init
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu fpv5-d16
+  54              	bitmap_init:
+  55              	.LFB1:
+  46:Drivers/hagl/src/bitmap.c **** 
+  47:Drivers/hagl/src/bitmap.c **** /* Initialise bitmap with given buffer. */
+  48:Drivers/hagl/src/bitmap.c **** void bitmap_init(bitmap_t *bitmap, uint8_t *buffer)
+  49:Drivers/hagl/src/bitmap.c **** {
+  56              		.loc 1 49 0
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  61              	.LVL2:
+  50:Drivers/hagl/src/bitmap.c ****     bitmap->pitch = bitmap->width * (bitmap->depth / 8);
+  62              		.loc 1 50 0
+  63 0000 0288     		ldrh	r2, [r0]
+  64 0002 8379     		ldrb	r3, [r0, #6]	@ zero_extendqisi2
+  65 0004 DB08     		lsrs	r3, r3, #3
+  66 0006 13FB02F3 		smulbb	r3, r3, r2
+  67 000a 9BB2     		uxth	r3, r3
+ARM GAS  /tmp/ccgjo8md.s 			page 3
+
+
+  68 000c 8380     		strh	r3, [r0, #4]	@ movhi
+  51:Drivers/hagl/src/bitmap.c ****     bitmap->size = bitmap->pitch * bitmap->height;
+  69              		.loc 1 51 0
+  70 000e 4288     		ldrh	r2, [r0, #2]
+  71 0010 02FB03F3 		mul	r3, r2, r3
+  72 0014 8360     		str	r3, [r0, #8]
+  52:Drivers/hagl/src/bitmap.c ****     bitmap->buffer = buffer;
+  73              		.loc 1 52 0
+  74 0016 C160     		str	r1, [r0, #12]
+  53:Drivers/hagl/src/bitmap.c **** }
+  75              		.loc 1 53 0
+  76 0018 7047     		bx	lr
+  77              		.cfi_endproc
+  78              	.LFE1:
+  80              		.section	.text.bitmap_blit,"ax",%progbits
+  81              		.align	1
+  82              		.global	bitmap_blit
+  83              		.syntax unified
+  84              		.thumb
+  85              		.thumb_func
+  86              		.fpu fpv5-d16
+  88              	bitmap_blit:
+  89              	.LFB2:
+  54:Drivers/hagl/src/bitmap.c **** 
+  55:Drivers/hagl/src/bitmap.c **** /*
+  56:Drivers/hagl/src/bitmap.c ****  * Blit source bitmap to a destination bitmap.
+  57:Drivers/hagl/src/bitmap.c ****  */
+  58:Drivers/hagl/src/bitmap.c **** 
+  59:Drivers/hagl/src/bitmap.c **** void bitmap_blit(int16_t x0, int16_t y0, bitmap_t *src, bitmap_t *dst)
+  60:Drivers/hagl/src/bitmap.c **** {
+  90              		.loc 1 60 0
+  91              		.cfi_startproc
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94              	.LVL3:
+  95 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+  96              	.LCFI0:
+  97              		.cfi_def_cfa_offset 28
+  98              		.cfi_offset 4, -28
+  99              		.cfi_offset 5, -24
+ 100              		.cfi_offset 6, -20
+ 101              		.cfi_offset 7, -16
+ 102              		.cfi_offset 8, -12
+ 103              		.cfi_offset 9, -8
+ 104              		.cfi_offset 14, -4
+  61:Drivers/hagl/src/bitmap.c ****     int16_t srcw = src->width;
+ 105              		.loc 1 61 0
+ 106 0004 1688     		ldrh	r6, [r2]
+ 107              	.LVL4:
+  62:Drivers/hagl/src/bitmap.c ****     int16_t srch = src->height;
+ 108              		.loc 1 62 0
+ 109 0006 5588     		ldrh	r5, [r2, #2]
+ 110              	.LVL5:
+  63:Drivers/hagl/src/bitmap.c ****     int16_t x1 = 0;
+  64:Drivers/hagl/src/bitmap.c ****     int16_t y1 = 0;
+  65:Drivers/hagl/src/bitmap.c **** 
+  66:Drivers/hagl/src/bitmap.c ****     /* x0 or y0 is over the edge, nothing to do. */
+ARM GAS  /tmp/ccgjo8md.s 			page 4
+
+
+  67:Drivers/hagl/src/bitmap.c ****     if ((x0 > dst->width) || (y0 > dst->height))  {
+ 111              		.loc 1 67 0
+ 112 0008 1C88     		ldrh	r4, [r3]
+ 113 000a A042     		cmp	r0, r4
+ 114 000c 66DC     		bgt	.L3
+ 115 000e 37B2     		sxth	r7, r6
+ 116 0010 0FFA85FE 		sxth	lr, r5
+ 117 0014 8146     		mov	r9, r0
+ 118              		.loc 1 67 0 is_stmt 0 discriminator 1
+ 119 0016 8C46     		mov	ip, r1
+ 120 0018 B3F80280 		ldrh	r8, [r3, #2]
+ 121 001c 4145     		cmp	r1, r8
+ 122 001e 5DDC     		bgt	.L3
+  68:Drivers/hagl/src/bitmap.c ****         return;
+  69:Drivers/hagl/src/bitmap.c ****     }
+  70:Drivers/hagl/src/bitmap.c **** 
+  71:Drivers/hagl/src/bitmap.c ****     /* x0 is negative, ignore parts outside of screen. */
+  72:Drivers/hagl/src/bitmap.c ****     if (x0 < 0) {
+ 123              		.loc 1 72 0 is_stmt 1
+ 124 0020 0028     		cmp	r0, #0
+ 125 0022 27DB     		blt	.L18
+  63:Drivers/hagl/src/bitmap.c ****     int16_t x1 = 0;
+ 126              		.loc 1 63 0
+ 127 0024 0026     		movs	r6, #0
+ 128              	.LVL6:
+ 129              	.L5:
+  73:Drivers/hagl/src/bitmap.c ****         srcw = srcw + x0;
+  74:Drivers/hagl/src/bitmap.c ****         x1 = abs(x0);
+  75:Drivers/hagl/src/bitmap.c ****         x0 = 0;
+  76:Drivers/hagl/src/bitmap.c ****     }
+  77:Drivers/hagl/src/bitmap.c **** 
+  78:Drivers/hagl/src/bitmap.c ****     /* y0 is negative, ignore parts outside of screen. */
+  79:Drivers/hagl/src/bitmap.c ****     if (y0 < 0) {
+ 130              		.loc 1 79 0
+ 131 0026 0029     		cmp	r1, #0
+ 132 0028 2DDB     		blt	.L19
+  64:Drivers/hagl/src/bitmap.c **** 
+ 133              		.loc 1 64 0
+ 134 002a 4FF0000C 		mov	ip, #0
+ 135              	.LVL7:
+ 136              	.L6:
+  80:Drivers/hagl/src/bitmap.c ****         srch = srch + y0;
+  81:Drivers/hagl/src/bitmap.c ****         y1 = abs(y0);
+  82:Drivers/hagl/src/bitmap.c ****         y0 = 0;
+  83:Drivers/hagl/src/bitmap.c ****     }
+  84:Drivers/hagl/src/bitmap.c **** 
+  85:Drivers/hagl/src/bitmap.c ****     /* Ignore everything going over right edge. */
+  86:Drivers/hagl/src/bitmap.c ****     if (srcw > dst->width - x0) {
+ 137              		.loc 1 86 0
+ 138 002e 8146     		mov	r9, r0
+ 139 0030 251A     		subs	r5, r4, r0
+ 140 0032 AF42     		cmp	r7, r5
+ 141 0034 00DD     		ble	.L7
+  87:Drivers/hagl/src/bitmap.c ****         srcw = dst->width - x0;
+ 142              		.loc 1 87 0
+ 143 0036 2FB2     		sxth	r7, r5
+ 144              	.LVL8:
+ARM GAS  /tmp/ccgjo8md.s 			page 5
+
+
+ 145              	.L7:
+  88:Drivers/hagl/src/bitmap.c ****     }
+  89:Drivers/hagl/src/bitmap.c **** 
+  90:Drivers/hagl/src/bitmap.c ****     /* Ignore everything going over bottom edge. */
+  91:Drivers/hagl/src/bitmap.c ****     if (srch > dst->height - y0) {
+ 146              		.loc 1 91 0
+ 147 0038 0846     		mov	r0, r1
+ 148              	.LVL9:
+ 149 003a A8EB0104 		sub	r4, r8, r1
+ 150 003e A645     		cmp	lr, r4
+ 151 0040 01DD     		ble	.L8
+  92:Drivers/hagl/src/bitmap.c ****         srch = dst->height - y0;
+ 152              		.loc 1 92 0
+ 153 0042 0FFA84FE 		sxth	lr, r4
+ 154              	.LVL10:
+ 155              	.L8:
+  93:Drivers/hagl/src/bitmap.c ****     }
+  94:Drivers/hagl/src/bitmap.c **** 
+  95:Drivers/hagl/src/bitmap.c ****    /* Everthing outside viewport, nothing to do. */
+  96:Drivers/hagl/src/bitmap.c ****     if ((srcw < 0 ) || (srch < 0))  {
+ 156              		.loc 1 96 0
+ 157 0046 57EA0E01 		orrs	r1, r7, lr
+ 158              	.LVL11:
+ 159 004a 47D4     		bmi	.L3
+  97:Drivers/hagl/src/bitmap.c ****         return;
+  98:Drivers/hagl/src/bitmap.c ****     }
+  99:Drivers/hagl/src/bitmap.c **** 
+ 100:Drivers/hagl/src/bitmap.c ****     uint8_t *dstptr = (uint8_t *) (dst->buffer + (dst->pitch * y0) + ((dst->depth / 8) * x0));
+ 160              		.loc 1 100 0
+ 161 004c D968     		ldr	r1, [r3, #12]
+ 162 004e 9C88     		ldrh	r4, [r3, #4]
+ 163 0050 9D79     		ldrb	r5, [r3, #6]	@ zero_extendqisi2
+ 164 0052 ED08     		lsrs	r5, r5, #3
+ 165 0054 A846     		mov	r8, r5
+ 166 0056 05FB09F9 		mul	r9, r5, r9
+ 167 005a 04FB0090 		mla	r0, r4, r0, r9
+ 168 005e 0144     		add	r1, r1, r0
+ 169              	.LVL12:
+ 101:Drivers/hagl/src/bitmap.c ****     uint8_t *srcptr = (uint8_t *) (src->buffer + (src->pitch * y1) + ((dst->depth / 8) * x1));
+ 170              		.loc 1 101 0
+ 171 0060 D068     		ldr	r0, [r2, #12]
+ 172 0062 9288     		ldrh	r2, [r2, #4]
+ 173              	.LVL13:
+ 174 0064 05FB06F6 		mul	r6, r5, r6
+ 175              	.LVL14:
+ 176 0068 02FB0C6C 		mla	ip, r2, ip, r6
+ 177              	.LVL15:
+ 178 006c 6044     		add	r0, r0, ip
+ 179              	.LVL16:
+ 180              	.LBB2:
+ 102:Drivers/hagl/src/bitmap.c **** 
+ 103:Drivers/hagl/src/bitmap.c ****     /* Bytes per pixel. */
+ 104:Drivers/hagl/src/bitmap.c ****     uint8_t bytes = dst->depth / 8;
+ 105:Drivers/hagl/src/bitmap.c ****     for (uint16_t y = 0; y < srch; y++) {
+ 181              		.loc 1 105 0
+ 182 006e 4FF0000C 		mov	ip, #0
+ 183 0072 2FE0     		b	.L9
+ARM GAS  /tmp/ccgjo8md.s 			page 6
+
+
+ 184              	.LVL17:
+ 185              	.L18:
+ 186              	.LBE2:
+  73:Drivers/hagl/src/bitmap.c ****         x1 = abs(x0);
+ 187              		.loc 1 73 0
+ 188 0074 3044     		add	r0, r0, r6
+ 189              	.LVL18:
+ 190 0076 07B2     		sxth	r7, r0
+ 191              	.LVL19:
+  74:Drivers/hagl/src/bitmap.c ****         x0 = 0;
+ 192              		.loc 1 74 0
+ 193 0078 89EAE976 		eor	r6, r9, r9, asr #31
+ 194 007c A6EBE976 		sub	r6, r6, r9, asr #31
+ 195 0080 36B2     		sxth	r6, r6
+ 196              	.LVL20:
+  75:Drivers/hagl/src/bitmap.c ****     }
+ 197              		.loc 1 75 0
+ 198 0082 0020     		movs	r0, #0
+ 199 0084 CFE7     		b	.L5
+ 200              	.LVL21:
+ 201              	.L19:
+  80:Drivers/hagl/src/bitmap.c ****         y1 = abs(y0);
+ 202              		.loc 1 80 0
+ 203 0086 2944     		add	r1, r1, r5
+ 204              	.LVL22:
+ 205 0088 0FFA81FE 		sxth	lr, r1
+ 206              	.LVL23:
+  81:Drivers/hagl/src/bitmap.c ****         y0 = 0;
+ 207              		.loc 1 81 0
+ 208 008c BCF1000F 		cmp	ip, #0
+ 209 0090 B8BF     		it	lt
+ 210 0092 CCF1000C 		rsblt	ip, ip, #0
+ 211 0096 0FFA8CFC 		sxth	ip, ip
+ 212              	.LVL24:
+  82:Drivers/hagl/src/bitmap.c ****     }
+ 213              		.loc 1 82 0
+ 214 009a 0021     		movs	r1, #0
+ 215 009c C7E7     		b	.L6
+ 216              	.LVL25:
+ 217              	.L10:
+ 218              	.LBB7:
+ 219              	.LBB3:
+ 220              	.LBB4:
+ 106:Drivers/hagl/src/bitmap.c ****         for (uint16_t x = 0; x < srcw; x++) {
+ 107:Drivers/hagl/src/bitmap.c ****             for (uint16_t z = 0; z < bytes; z++) {
+ 108:Drivers/hagl/src/bitmap.c ****                 *(dstptr++) = *(srcptr++);
+ 221              		.loc 1 108 0 discriminator 3
+ 222 009e 0478     		ldrb	r4, [r0]	@ zero_extendqisi2
+ 223 00a0 0C70     		strb	r4, [r1]
+ 107:Drivers/hagl/src/bitmap.c ****                 *(dstptr++) = *(srcptr++);
+ 224              		.loc 1 107 0 discriminator 3
+ 225 00a2 0132     		adds	r2, r2, #1
+ 226              	.LVL26:
+ 227 00a4 92B2     		uxth	r2, r2
+ 228              	.LVL27:
+ 229              		.loc 1 108 0 discriminator 3
+ 230 00a6 0130     		adds	r0, r0, #1
+ARM GAS  /tmp/ccgjo8md.s 			page 7
+
+
+ 231              	.LVL28:
+ 232 00a8 0131     		adds	r1, r1, #1
+ 233              	.LVL29:
+ 234              	.L11:
+ 107:Drivers/hagl/src/bitmap.c ****                 *(dstptr++) = *(srcptr++);
+ 235              		.loc 1 107 0 discriminator 1
+ 236 00aa ACB2     		uxth	r4, r5
+ 237 00ac 9442     		cmp	r4, r2
+ 238 00ae F6D8     		bhi	.L10
+ 239              	.LBE4:
+ 106:Drivers/hagl/src/bitmap.c ****         for (uint16_t x = 0; x < srcw; x++) {
+ 240              		.loc 1 106 0 discriminator 2
+ 241 00b0 0136     		adds	r6, r6, #1
+ 242              	.LVL30:
+ 243 00b2 B6B2     		uxth	r6, r6
+ 244              	.LVL31:
+ 245              	.L12:
+ 106:Drivers/hagl/src/bitmap.c ****         for (uint16_t x = 0; x < srcw; x++) {
+ 246              		.loc 1 106 0 is_stmt 0 discriminator 1
+ 247 00b4 BE42     		cmp	r6, r7
+ 248 00b6 01DA     		bge	.L20
+ 249              	.LBB5:
+ 107:Drivers/hagl/src/bitmap.c ****                 *(dstptr++) = *(srcptr++);
+ 250              		.loc 1 107 0 is_stmt 1
+ 251 00b8 0022     		movs	r2, #0
+ 252 00ba F6E7     		b	.L11
+ 253              	.L20:
+ 254              	.LBE5:
+ 255              	.LBE3:
+ 109:Drivers/hagl/src/bitmap.c ****             }
+ 110:Drivers/hagl/src/bitmap.c ****         }
+ 111:Drivers/hagl/src/bitmap.c ****         dstptr += (dst->pitch / (dst->depth / 8) - srcw) * bytes;
+ 256              		.loc 1 111 0 discriminator 2
+ 257 00bc 9C88     		ldrh	r4, [r3, #4]
+ 258 00be 9E79     		ldrb	r6, [r3, #6]	@ zero_extendqisi2
+ 259              	.LVL32:
+ 260 00c0 F608     		lsrs	r6, r6, #3
+ 261 00c2 94FBF6F4 		sdiv	r4, r4, r6
+ 262 00c6 E21B     		subs	r2, r4, r7
+ 263 00c8 02FB0811 		mla	r1, r2, r8, r1
+ 264              	.LVL33:
+ 105:Drivers/hagl/src/bitmap.c ****         for (uint16_t x = 0; x < srcw; x++) {
+ 265              		.loc 1 105 0 discriminator 2
+ 266 00cc 0CF1010C 		add	ip, ip, #1
+ 267              	.LVL34:
+ 268 00d0 1FFA8CFC 		uxth	ip, ip
+ 269              	.LVL35:
+ 270              	.L9:
+ 105:Drivers/hagl/src/bitmap.c ****         for (uint16_t x = 0; x < srcw; x++) {
+ 271              		.loc 1 105 0 is_stmt 0 discriminator 1
+ 272 00d4 F445     		cmp	ip, lr
+ 273 00d6 01DA     		bge	.L3
+ 274              	.LBB6:
+ 106:Drivers/hagl/src/bitmap.c ****             for (uint16_t z = 0; z < bytes; z++) {
+ 275              		.loc 1 106 0 is_stmt 1
+ 276 00d8 0026     		movs	r6, #0
+ 277 00da EBE7     		b	.L12
+ARM GAS  /tmp/ccgjo8md.s 			page 8
+
+
+ 278              	.LVL36:
+ 279              	.L3:
+ 280              	.LBE6:
+ 281              	.LBE7:
+ 112:Drivers/hagl/src/bitmap.c ****     }
+ 113:Drivers/hagl/src/bitmap.c **** }
+ 282              		.loc 1 113 0
+ 283 00dc BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 284              		.cfi_endproc
+ 285              	.LFE2:
+ 287              		.section	.text.bitmap_scale_blit,"ax",%progbits
+ 288              		.align	1
+ 289              		.global	bitmap_scale_blit
+ 290              		.syntax unified
+ 291              		.thumb
+ 292              		.thumb_func
+ 293              		.fpu fpv5-d16
+ 295              	bitmap_scale_blit:
+ 296              	.LFB3:
+ 114:Drivers/hagl/src/bitmap.c **** 
+ 115:Drivers/hagl/src/bitmap.c **** /*
+ 116:Drivers/hagl/src/bitmap.c ****  * Blit source bitmap to target bitmap scaling it up or down to given
+ 117:Drivers/hagl/src/bitmap.c ****  * dimensions.
+ 118:Drivers/hagl/src/bitmap.c ****  *
+ 119:Drivers/hagl/src/bitmap.c ****  * http://www.tech-algorithm.com/articles/nearest-neighbor-image-scaling
+ 120:Drivers/hagl/src/bitmap.c ****  * http://www.davdata.nl/math/bmresize.html
+ 121:Drivers/hagl/src/bitmap.c ****  */
+ 122:Drivers/hagl/src/bitmap.c **** 
+ 123:Drivers/hagl/src/bitmap.c **** void bitmap_scale_blit(int16_t x0, int16_t y0, uint16_t dstw, uint16_t dsth, bitmap_t *src, bitmap_
+ 124:Drivers/hagl/src/bitmap.c **** {
+ 297              		.loc 1 124 0
+ 298              		.cfi_startproc
+ 299              		@ args = 8, pretend = 0, frame = 0
+ 300              		@ frame_needed = 0, uses_anonymous_args = 0
+ 301              	.LVL37:
+ 302 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 303              	.LCFI1:
+ 304              		.cfi_def_cfa_offset 32
+ 305              		.cfi_offset 4, -32
+ 306              		.cfi_offset 5, -28
+ 307              		.cfi_offset 6, -24
+ 308              		.cfi_offset 7, -20
+ 309              		.cfi_offset 8, -16
+ 310              		.cfi_offset 9, -12
+ 311              		.cfi_offset 10, -8
+ 312              		.cfi_offset 14, -4
+ 313 0004 DDF820E0 		ldr	lr, [sp, #32]
+ 314 0008 099F     		ldr	r7, [sp, #36]
+ 125:Drivers/hagl/src/bitmap.c ****     uint16_t px, py;
+ 126:Drivers/hagl/src/bitmap.c **** 
+ 127:Drivers/hagl/src/bitmap.c ****     uint16_t srcw = src->width;
+ 315              		.loc 1 127 0
+ 316 000a BEF80060 		ldrh	r6, [lr]
+ 317              	.LVL38:
+ 128:Drivers/hagl/src/bitmap.c ****     uint16_t srch = src->height;
+ 318              		.loc 1 128 0
+ 319 000e BEF80240 		ldrh	r4, [lr, #2]
+ARM GAS  /tmp/ccgjo8md.s 			page 9
+
+
+ 320              	.LVL39:
+ 129:Drivers/hagl/src/bitmap.c ****     uint32_t x_ratio = (uint32_t)((srcw << 16) / dstw);
+ 321              		.loc 1 129 0
+ 322 0012 3504     		lsls	r5, r6, #16
+ 323 0014 95FBF2F5 		sdiv	r5, r5, r2
+ 324              	.LVL40:
+ 130:Drivers/hagl/src/bitmap.c ****     uint32_t y_ratio = (uint32_t)((srch << 16) / dsth);
+ 325              		.loc 1 130 0
+ 326 0018 2404     		lsls	r4, r4, #16
+ 327              	.LVL41:
+ 328 001a 94FBF3F4 		sdiv	r4, r4, r3
+ 329              	.LVL42:
+ 131:Drivers/hagl/src/bitmap.c **** 
+ 132:Drivers/hagl/src/bitmap.c ****     /* x0 or y0 is over the edge, nothing to do. */
+ 133:Drivers/hagl/src/bitmap.c ****     if ((x0 > dst->width) || (y0 > dst->height)) {
+ 330              		.loc 1 133 0
+ 331 001e B7F800C0 		ldrh	ip, [r7]
+ 332 0022 6045     		cmp	r0, ip
+ 333 0024 00F38980 		bgt	.L21
+ 334              		.loc 1 133 0 is_stmt 0 discriminator 1
+ 335 0028 B7F80290 		ldrh	r9, [r7, #2]
+ 336 002c 4945     		cmp	r1, r9
+ 337 002e 00F38480 		bgt	.L21
+ 134:Drivers/hagl/src/bitmap.c ****         return;
+ 135:Drivers/hagl/src/bitmap.c ****     }
+ 136:Drivers/hagl/src/bitmap.c **** 
+ 137:Drivers/hagl/src/bitmap.c ****     /* x0 is negative, ignore parts outside of screen. */
+ 138:Drivers/hagl/src/bitmap.c ****     if (x0 < 0) {
+ 338              		.loc 1 138 0 is_stmt 1
+ 339 0032 0028     		cmp	r0, #0
+ 340 0034 24DB     		blt	.L37
+ 341              	.LVL43:
+ 342              	.L23:
+ 139:Drivers/hagl/src/bitmap.c ****         dstw = dstw + x0;
+ 140:Drivers/hagl/src/bitmap.c ****         x0 = 0;
+ 141:Drivers/hagl/src/bitmap.c ****     }
+ 142:Drivers/hagl/src/bitmap.c **** 
+ 143:Drivers/hagl/src/bitmap.c ****     /* y0 is negative, ignore parts outside of screen. */
+ 144:Drivers/hagl/src/bitmap.c ****     if (y0 < 0) {
+ 343              		.loc 1 144 0
+ 344 0036 0029     		cmp	r1, #0
+ 345 0038 27DB     		blt	.L38
+ 346              	.LVL44:
+ 347              	.L24:
+ 145:Drivers/hagl/src/bitmap.c ****         dsth = dsth + y0;
+ 146:Drivers/hagl/src/bitmap.c ****         y0 = 0;
+ 147:Drivers/hagl/src/bitmap.c ****     }
+ 148:Drivers/hagl/src/bitmap.c **** 
+ 149:Drivers/hagl/src/bitmap.c ****     /* Ignore everything going over right edge. */
+ 150:Drivers/hagl/src/bitmap.c ****     if (dstw > (dst->width - x0)) {
+ 348              		.loc 1 150 0
+ 349 003a 8046     		mov	r8, r0
+ 350 003c ACEB000A 		sub	r10, ip, r0
+ 351 0040 5245     		cmp	r2, r10
+ 352 0042 03DD     		ble	.L25
+ 151:Drivers/hagl/src/bitmap.c ****         dstw = dst->width - x0;
+ 353              		.loc 1 151 0
+ARM GAS  /tmp/ccgjo8md.s 			page 10
+
+
+ 354 0044 80B2     		uxth	r0, r0
+ 355 0046 ACEB0000 		sub	r0, ip, r0
+ 356              	.LVL45:
+ 357 004a 82B2     		uxth	r2, r0
+ 358              	.LVL46:
+ 359              	.L25:
+ 152:Drivers/hagl/src/bitmap.c ****     }
+ 153:Drivers/hagl/src/bitmap.c **** 
+ 154:Drivers/hagl/src/bitmap.c ****     /* Ignore everything going over bottom edge. */
+ 155:Drivers/hagl/src/bitmap.c ****     if (dsth > (dst->height - y0)) {
+ 360              		.loc 1 155 0
+ 361 004c 8C46     		mov	ip, r1
+ 362 004e A9EB0100 		sub	r0, r9, r1
+ 363 0052 8342     		cmp	r3, r0
+ 364 0054 03DD     		ble	.L26
+ 156:Drivers/hagl/src/bitmap.c ****         dsth = dst->height - y0;
+ 365              		.loc 1 156 0
+ 366 0056 89B2     		uxth	r1, r1
+ 367 0058 A9EB0101 		sub	r1, r9, r1
+ 368              	.LVL47:
+ 369 005c 8BB2     		uxth	r3, r1
+ 370              	.LVL48:
+ 371              	.L26:
+ 157:Drivers/hagl/src/bitmap.c ****     }
+ 158:Drivers/hagl/src/bitmap.c **** 
+ 159:Drivers/hagl/src/bitmap.c ****     /* Bytes per pixel. */
+ 160:Drivers/hagl/src/bitmap.c ****     uint8_t bytes = dst->depth / 8;
+ 372              		.loc 1 160 0
+ 373 005e B879     		ldrb	r0, [r7, #6]	@ zero_extendqisi2
+ 374 0060 C008     		lsrs	r0, r0, #3
+ 375              	.LVL49:
+ 161:Drivers/hagl/src/bitmap.c **** 
+ 162:Drivers/hagl/src/bitmap.c ****     /* If sentence here is not the most elegant thing, but makes */
+ 163:Drivers/hagl/src/bitmap.c ****     /* the pointer maths much more easy to read. */
+ 164:Drivers/hagl/src/bitmap.c ****     if (2 == bytes) {
+ 376              		.loc 1 164 0
+ 377 0062 0228     		cmp	r0, #2
+ 378 0064 16D0     		beq	.L39
+ 379              	.LBB8:
+ 165:Drivers/hagl/src/bitmap.c ****         uint16_t *dstptr = (uint16_t *) (dst->buffer + dst->pitch * y0 + (dst->depth / 8) * x0);
+ 166:Drivers/hagl/src/bitmap.c ****         uint16_t *srcptr = (uint16_t *) src->buffer;
+ 167:Drivers/hagl/src/bitmap.c ****         for (uint16_t y = 0; y < dsth; y++) {
+ 168:Drivers/hagl/src/bitmap.c ****             for (uint16_t x = 0; x < dstw; x++) {
+ 169:Drivers/hagl/src/bitmap.c ****                 px = ((x * x_ratio) >> 16);
+ 170:Drivers/hagl/src/bitmap.c ****                 py = ((y * y_ratio) >> 16);
+ 171:Drivers/hagl/src/bitmap.c ****                 *(dstptr++) = srcptr[(uint8_t)((py * srcw) + px)];
+ 172:Drivers/hagl/src/bitmap.c ****             }
+ 173:Drivers/hagl/src/bitmap.c ****             dstptr += dst->pitch / (dst->depth / 8) - dstw;
+ 174:Drivers/hagl/src/bitmap.c ****         }
+ 175:Drivers/hagl/src/bitmap.c ****     /* Assume 1 byte per pixel. */
+ 176:Drivers/hagl/src/bitmap.c ****     } else {
+ 177:Drivers/hagl/src/bitmap.c ****         uint8_t *dstptr = (uint8_t *) (dst->buffer + dst->pitch * y0 + (dst->depth / 8) * x0);
+ 380              		.loc 1 177 0
+ 381 0066 F968     		ldr	r1, [r7, #12]
+ 382 0068 B7F80490 		ldrh	r9, [r7, #4]
+ 383 006c 00FB08F8 		mul	r8, r0, r8
+ 384 0070 09FB0C8C 		mla	ip, r9, ip, r8
+ARM GAS  /tmp/ccgjo8md.s 			page 11
+
+
+ 385 0074 8C44     		add	ip, ip, r1
+ 386              	.LVL50:
+ 178:Drivers/hagl/src/bitmap.c ****         uint8_t *srcptr = (uint8_t *) src->buffer;
+ 387              		.loc 1 178 0
+ 388 0076 DEF80C80 		ldr	r8, [lr, #12]
+ 389              	.LVL51:
+ 390              	.LBB9:
+ 179:Drivers/hagl/src/bitmap.c ****         for (uint16_t y = 0; y < dsth; y++) {
+ 391              		.loc 1 179 0
+ 392 007a 4FF0000E 		mov	lr, #0
+ 393              	.LVL52:
+ 394 007e 58E0     		b	.L31
+ 395              	.LVL53:
+ 396              	.L37:
+ 397              	.LBE9:
+ 398              	.LBE8:
+ 139:Drivers/hagl/src/bitmap.c ****         x0 = 0;
+ 399              		.loc 1 139 0
+ 400 0080 12FA80F2 		uxtah	r2, r2, r0
+ 401              	.LVL54:
+ 402 0084 92B2     		uxth	r2, r2
+ 403              	.LVL55:
+ 140:Drivers/hagl/src/bitmap.c ****     }
+ 404              		.loc 1 140 0
+ 405 0086 0020     		movs	r0, #0
+ 406 0088 D5E7     		b	.L23
+ 407              	.LVL56:
+ 408              	.L38:
+ 145:Drivers/hagl/src/bitmap.c ****         y0 = 0;
+ 409              		.loc 1 145 0
+ 410 008a 13FA81F3 		uxtah	r3, r3, r1
+ 411              	.LVL57:
+ 412 008e 9BB2     		uxth	r3, r3
+ 413              	.LVL58:
+ 146:Drivers/hagl/src/bitmap.c ****     }
+ 414              		.loc 1 146 0
+ 415 0090 0021     		movs	r1, #0
+ 416 0092 D2E7     		b	.L24
+ 417              	.LVL59:
+ 418              	.L39:
+ 419              	.LBB13:
+ 165:Drivers/hagl/src/bitmap.c ****         uint16_t *srcptr = (uint16_t *) src->buffer;
+ 420              		.loc 1 165 0
+ 421 0094 F968     		ldr	r1, [r7, #12]
+ 422 0096 B7F80490 		ldrh	r9, [r7, #4]
+ 423 009a 00FB08F0 		mul	r0, r0, r8
+ 424              	.LVL60:
+ 425 009e 09FB0C00 		mla	r0, r9, ip, r0
+ 426 00a2 01EB000C 		add	ip, r1, r0
+ 427              	.LVL61:
+ 166:Drivers/hagl/src/bitmap.c ****         for (uint16_t y = 0; y < dsth; y++) {
+ 428              		.loc 1 166 0
+ 429 00a6 DEF80C80 		ldr	r8, [lr, #12]
+ 430              	.LVL62:
+ 431              	.LBB14:
+ 167:Drivers/hagl/src/bitmap.c ****             for (uint16_t x = 0; x < dstw; x++) {
+ 432              		.loc 1 167 0
+ARM GAS  /tmp/ccgjo8md.s 			page 12
+
+
+ 433 00aa 4FF0000E 		mov	lr, #0
+ 434              	.LVL63:
+ 435 00ae 1EE0     		b	.L28
+ 436              	.LVL64:
+ 437              	.L29:
+ 438              	.LBB15:
+ 169:Drivers/hagl/src/bitmap.c ****                 py = ((y * y_ratio) >> 16);
+ 439              		.loc 1 169 0 discriminator 3
+ 440 00b0 05FB00F9 		mul	r9, r5, r0
+ 441              	.LVL65:
+ 170:Drivers/hagl/src/bitmap.c ****                 *(dstptr++) = srcptr[(uint8_t)((py * srcw) + px)];
+ 442              		.loc 1 170 0 discriminator 3
+ 443 00b4 04FB0EF1 		mul	r1, r4, lr
+ 444              	.LVL66:
+ 171:Drivers/hagl/src/bitmap.c ****             }
+ 445              		.loc 1 171 0 discriminator 3
+ 446 00b8 11FB26F1 		smultb	r1, r1, r6
+ 447              	.LVL67:
+ 448 00bc 01EB1941 		add	r1, r1, r9, lsr #16
+ 449 00c0 C9B2     		uxtb	r1, r1
+ 450              	.LVL68:
+ 451 00c2 38F81110 		ldrh	r1, [r8, r1, lsl #1]
+ 452 00c6 ACF80010 		strh	r1, [ip]	@ movhi
+ 168:Drivers/hagl/src/bitmap.c ****                 px = ((x * x_ratio) >> 16);
+ 453              		.loc 1 168 0 discriminator 3
+ 454 00ca 0130     		adds	r0, r0, #1
+ 455              	.LVL69:
+ 456 00cc 80B2     		uxth	r0, r0
+ 457              	.LVL70:
+ 171:Drivers/hagl/src/bitmap.c ****             }
+ 458              		.loc 1 171 0 discriminator 3
+ 459 00ce 0CF1020C 		add	ip, ip, #2
+ 460              	.LVL71:
+ 461              	.L30:
+ 168:Drivers/hagl/src/bitmap.c ****                 px = ((x * x_ratio) >> 16);
+ 462              		.loc 1 168 0 discriminator 1
+ 463 00d2 8242     		cmp	r2, r0
+ 464 00d4 ECD8     		bhi	.L29
+ 465              	.LBE15:
+ 173:Drivers/hagl/src/bitmap.c ****         }
+ 466              		.loc 1 173 0 discriminator 2
+ 467 00d6 B988     		ldrh	r1, [r7, #4]
+ 468 00d8 B879     		ldrb	r0, [r7, #6]	@ zero_extendqisi2
+ 469              	.LVL72:
+ 470 00da C008     		lsrs	r0, r0, #3
+ 471 00dc 91FBF0F1 		sdiv	r1, r1, r0
+ 472 00e0 891A     		subs	r1, r1, r2
+ 473 00e2 0CEB410C 		add	ip, ip, r1, lsl #1
+ 474              	.LVL73:
+ 167:Drivers/hagl/src/bitmap.c ****             for (uint16_t x = 0; x < dstw; x++) {
+ 475              		.loc 1 167 0 discriminator 2
+ 476 00e6 0EF1010E 		add	lr, lr, #1
+ 477              	.LVL74:
+ 478 00ea 1FFA8EFE 		uxth	lr, lr
+ 479              	.LVL75:
+ 480              	.L28:
+ 167:Drivers/hagl/src/bitmap.c ****             for (uint16_t x = 0; x < dstw; x++) {
+ARM GAS  /tmp/ccgjo8md.s 			page 13
+
+
+ 481              		.loc 1 167 0 is_stmt 0 discriminator 1
+ 482 00ee 7345     		cmp	r3, lr
+ 483 00f0 23D9     		bls	.L21
+ 484              	.LBB16:
+ 168:Drivers/hagl/src/bitmap.c ****                 px = ((x * x_ratio) >> 16);
+ 485              		.loc 1 168 0 is_stmt 1
+ 486 00f2 0020     		movs	r0, #0
+ 487 00f4 EDE7     		b	.L30
+ 488              	.LVL76:
+ 489              	.L32:
+ 490              	.LBE16:
+ 491              	.LBE14:
+ 492              	.LBE13:
+ 493              	.LBB17:
+ 494              	.LBB12:
+ 495              	.LBB10:
+ 180:Drivers/hagl/src/bitmap.c ****             for (uint16_t x = 0; x < dstw; x++) {
+ 181:Drivers/hagl/src/bitmap.c ****                 px = ((x * x_ratio) >> 16);
+ 496              		.loc 1 181 0 discriminator 3
+ 497 00f6 05FB00F9 		mul	r9, r5, r0
+ 498              	.LVL77:
+ 182:Drivers/hagl/src/bitmap.c ****                 py = ((y * y_ratio) >> 16);
+ 499              		.loc 1 182 0 discriminator 3
+ 500 00fa 04FB0EF1 		mul	r1, r4, lr
+ 501              	.LVL78:
+ 183:Drivers/hagl/src/bitmap.c ****                 *(dstptr++) = srcptr[(uint8_t)((py * srcw) + px)];
+ 502              		.loc 1 183 0 discriminator 3
+ 503 00fe 11FB26F1 		smultb	r1, r1, r6
+ 504              	.LVL79:
+ 505 0102 01EB1941 		add	r1, r1, r9, lsr #16
+ 506 0106 C9B2     		uxtb	r1, r1
+ 507              	.LVL80:
+ 508 0108 18F80110 		ldrb	r1, [r8, r1]	@ zero_extendqisi2
+ 509 010c 8CF80010 		strb	r1, [ip]
+ 180:Drivers/hagl/src/bitmap.c ****             for (uint16_t x = 0; x < dstw; x++) {
+ 510              		.loc 1 180 0 discriminator 3
+ 511 0110 0130     		adds	r0, r0, #1
+ 512              	.LVL81:
+ 513 0112 80B2     		uxth	r0, r0
+ 514              	.LVL82:
+ 515              		.loc 1 183 0 discriminator 3
+ 516 0114 0CF1010C 		add	ip, ip, #1
+ 517              	.LVL83:
+ 518              	.L33:
+ 180:Drivers/hagl/src/bitmap.c ****             for (uint16_t x = 0; x < dstw; x++) {
+ 519              		.loc 1 180 0 discriminator 1
+ 520 0118 8242     		cmp	r2, r0
+ 521 011a ECD8     		bhi	.L32
+ 522              	.LBE10:
+ 184:Drivers/hagl/src/bitmap.c ****             }
+ 185:Drivers/hagl/src/bitmap.c ****             dstptr += dst->pitch / (dst->depth / 8) - dstw;
+ 523              		.loc 1 185 0 discriminator 2
+ 524 011c B988     		ldrh	r1, [r7, #4]
+ 525 011e B879     		ldrb	r0, [r7, #6]	@ zero_extendqisi2
+ 526              	.LVL84:
+ 527 0120 C008     		lsrs	r0, r0, #3
+ 528 0122 91FBF0F1 		sdiv	r1, r1, r0
+ARM GAS  /tmp/ccgjo8md.s 			page 14
+
+
+ 529 0126 891A     		subs	r1, r1, r2
+ 530 0128 8C44     		add	ip, ip, r1
+ 531              	.LVL85:
+ 179:Drivers/hagl/src/bitmap.c ****             for (uint16_t x = 0; x < dstw; x++) {
+ 532              		.loc 1 179 0 discriminator 2
+ 533 012a 0EF1010E 		add	lr, lr, #1
+ 534              	.LVL86:
+ 535 012e 1FFA8EFE 		uxth	lr, lr
+ 536              	.LVL87:
+ 537              	.L31:
+ 179:Drivers/hagl/src/bitmap.c ****             for (uint16_t x = 0; x < dstw; x++) {
+ 538              		.loc 1 179 0 is_stmt 0 discriminator 1
+ 539 0132 7345     		cmp	r3, lr
+ 540 0134 01D9     		bls	.L21
+ 541              	.LBB11:
+ 180:Drivers/hagl/src/bitmap.c ****                 px = ((x * x_ratio) >> 16);
+ 542              		.loc 1 180 0 is_stmt 1
+ 543 0136 0020     		movs	r0, #0
+ 544 0138 EEE7     		b	.L33
+ 545              	.LVL88:
+ 546              	.L21:
+ 547              	.LBE11:
+ 548              	.LBE12:
+ 549              	.LBE17:
+ 186:Drivers/hagl/src/bitmap.c ****         }
+ 187:Drivers/hagl/src/bitmap.c ****     }
+ 188:Drivers/hagl/src/bitmap.c **** }
+ 550              		.loc 1 188 0
+ 551 013a BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 552              		.cfi_endproc
+ 553              	.LFE3:
+ 555              		.text
+ 556              	.Letext0:
+ 557              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 558              		.file 3 "/usr/include/newlib/sys/lock.h"
+ 559              		.file 4 "/usr/include/newlib/sys/_types.h"
+ 560              		.file 5 "/usr/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h"
+ 561              		.file 6 "/usr/include/newlib/sys/reent.h"
+ 562              		.file 7 "/usr/include/newlib/stdlib.h"
+ 563              		.file 8 "/usr/include/newlib/sys/_stdint.h"
+ 564              		.file 9 "/usr/include/newlib/math.h"
+ 565              		.file 10 "Drivers/hagl/include/bitmap.h"
+ARM GAS  /tmp/ccgjo8md.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 bitmap.c
+     /tmp/ccgjo8md.s:17     .text.bitmap_size:0000000000000000 $t
+     /tmp/ccgjo8md.s:24     .text.bitmap_size:0000000000000000 bitmap_size
+     /tmp/ccgjo8md.s:47     .text.bitmap_init:0000000000000000 $t
+     /tmp/ccgjo8md.s:54     .text.bitmap_init:0000000000000000 bitmap_init
+     /tmp/ccgjo8md.s:81     .text.bitmap_blit:0000000000000000 $t
+     /tmp/ccgjo8md.s:88     .text.bitmap_blit:0000000000000000 bitmap_blit
+     /tmp/ccgjo8md.s:288    .text.bitmap_scale_blit:0000000000000000 $t
+     /tmp/ccgjo8md.s:295    .text.bitmap_scale_blit:0000000000000000 bitmap_scale_blit
+
+NO UNDEFINED SYMBOLS

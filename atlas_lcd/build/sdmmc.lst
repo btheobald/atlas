@@ -1,0 +1,466 @@
+ARM GAS  /tmp/ccvSxPTY.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"sdmmc.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.MX_SDMMC1_SD_Init,"ax",%progbits
+  17              		.align	1
+  18              		.global	MX_SDMMC1_SD_Init
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu fpv5-d16
+  24              	MX_SDMMC1_SD_Init:
+  25              	.LFB141:
+  26              		.file 1 "Core/Src/sdmmc.c"
+   1:Core/Src/sdmmc.c **** /**
+   2:Core/Src/sdmmc.c ****   ******************************************************************************
+   3:Core/Src/sdmmc.c ****   * @file    sdmmc.c
+   4:Core/Src/sdmmc.c ****   * @brief   This file provides code for the configuration
+   5:Core/Src/sdmmc.c ****   *          of the SDMMC instances.
+   6:Core/Src/sdmmc.c ****   ******************************************************************************
+   7:Core/Src/sdmmc.c ****   * @attention
+   8:Core/Src/sdmmc.c ****   *
+   9:Core/Src/sdmmc.c ****   * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  10:Core/Src/sdmmc.c ****   * All rights reserved.</center></h2>
+  11:Core/Src/sdmmc.c ****   *
+  12:Core/Src/sdmmc.c ****   * This software component is licensed by ST under Ultimate Liberty license
+  13:Core/Src/sdmmc.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
+  14:Core/Src/sdmmc.c ****   * the License. You may obtain a copy of the License at:
+  15:Core/Src/sdmmc.c ****   *                             www.st.com/SLA0044
+  16:Core/Src/sdmmc.c ****   *
+  17:Core/Src/sdmmc.c ****   ******************************************************************************
+  18:Core/Src/sdmmc.c ****   */
+  19:Core/Src/sdmmc.c **** 
+  20:Core/Src/sdmmc.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/sdmmc.c **** #include "sdmmc.h"
+  22:Core/Src/sdmmc.c **** 
+  23:Core/Src/sdmmc.c **** /* USER CODE BEGIN 0 */
+  24:Core/Src/sdmmc.c **** 
+  25:Core/Src/sdmmc.c **** /* USER CODE END 0 */
+  26:Core/Src/sdmmc.c **** 
+  27:Core/Src/sdmmc.c **** SD_HandleTypeDef hsd1;
+  28:Core/Src/sdmmc.c **** 
+  29:Core/Src/sdmmc.c **** /* SDMMC1 init function */
+  30:Core/Src/sdmmc.c **** 
+  31:Core/Src/sdmmc.c **** void MX_SDMMC1_SD_Init(void)
+  32:Core/Src/sdmmc.c **** {
+ARM GAS  /tmp/ccvSxPTY.s 			page 2
+
+
+  27              		.loc 1 32 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  33:Core/Src/sdmmc.c **** 
+  34:Core/Src/sdmmc.c ****   /* USER CODE BEGIN SDMMC1_Init 0 */
+  35:Core/Src/sdmmc.c **** 
+  36:Core/Src/sdmmc.c ****   /* USER CODE END SDMMC1_Init 0 */
+  37:Core/Src/sdmmc.c **** 
+  38:Core/Src/sdmmc.c ****   /* USER CODE BEGIN SDMMC1_Init 1 */
+  39:Core/Src/sdmmc.c **** 
+  40:Core/Src/sdmmc.c ****   /* USER CODE END SDMMC1_Init 1 */
+  41:Core/Src/sdmmc.c ****   hsd1.Instance = SDMMC1;
+  32              		.loc 1 41 0
+  33 0000 074B     		ldr	r3, .L2
+  34 0002 084A     		ldr	r2, .L2+4
+  35 0004 1A60     		str	r2, [r3]
+  42:Core/Src/sdmmc.c ****   hsd1.Init.ClockEdge = SDMMC_CLOCK_EDGE_RISING;
+  36              		.loc 1 42 0
+  37 0006 0022     		movs	r2, #0
+  38 0008 5A60     		str	r2, [r3, #4]
+  43:Core/Src/sdmmc.c ****   hsd1.Init.ClockPowerSave = SDMMC_CLOCK_POWER_SAVE_DISABLE;
+  39              		.loc 1 43 0
+  40 000a 9A60     		str	r2, [r3, #8]
+  44:Core/Src/sdmmc.c ****   hsd1.Init.BusWide = SDMMC_BUS_WIDE_4B;
+  41              		.loc 1 44 0
+  42 000c 4FF48041 		mov	r1, #16384
+  43 0010 D960     		str	r1, [r3, #12]
+  45:Core/Src/sdmmc.c ****   hsd1.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
+  44              		.loc 1 45 0
+  45 0012 1A61     		str	r2, [r3, #16]
+  46:Core/Src/sdmmc.c ****   hsd1.Init.ClockDiv = 1000;
+  46              		.loc 1 46 0
+  47 0014 4FF47A72 		mov	r2, #1000
+  48 0018 5A61     		str	r2, [r3, #20]
+  47:Core/Src/sdmmc.c ****   hsd1.Init.TranceiverPresent = SDMMC_TRANSCEIVER_NOT_PRESENT;
+  49              		.loc 1 47 0
+  50 001a 0122     		movs	r2, #1
+  51 001c 9A61     		str	r2, [r3, #24]
+  48:Core/Src/sdmmc.c ****   /* USER CODE BEGIN SDMMC1_Init 2 */
+  49:Core/Src/sdmmc.c **** 
+  50:Core/Src/sdmmc.c ****   /* USER CODE END SDMMC1_Init 2 */
+  51:Core/Src/sdmmc.c **** 
+  52:Core/Src/sdmmc.c **** }
+  52              		.loc 1 52 0
+  53 001e 7047     		bx	lr
+  54              	.L3:
+  55              		.align	2
+  56              	.L2:
+  57 0020 00000000 		.word	hsd1
+  58 0024 00700052 		.word	1375760384
+  59              		.cfi_endproc
+  60              	.LFE141:
+  62              		.section	.text.HAL_SD_MspInit,"ax",%progbits
+  63              		.align	1
+  64              		.global	HAL_SD_MspInit
+ARM GAS  /tmp/ccvSxPTY.s 			page 3
+
+
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  68              		.fpu fpv5-d16
+  70              	HAL_SD_MspInit:
+  71              	.LFB142:
+  53:Core/Src/sdmmc.c **** 
+  54:Core/Src/sdmmc.c **** void HAL_SD_MspInit(SD_HandleTypeDef* sdHandle)
+  55:Core/Src/sdmmc.c **** {
+  72              		.loc 1 55 0
+  73              		.cfi_startproc
+  74              		@ args = 0, pretend = 0, frame = 32
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  76              	.LVL0:
+  77 0000 70B5     		push	{r4, r5, r6, lr}
+  78              	.LCFI0:
+  79              		.cfi_def_cfa_offset 16
+  80              		.cfi_offset 4, -16
+  81              		.cfi_offset 5, -12
+  82              		.cfi_offset 6, -8
+  83              		.cfi_offset 14, -4
+  84 0002 88B0     		sub	sp, sp, #32
+  85              	.LCFI1:
+  86              		.cfi_def_cfa_offset 48
+  56:Core/Src/sdmmc.c **** 
+  57:Core/Src/sdmmc.c ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+  87              		.loc 1 57 0
+  88 0004 0023     		movs	r3, #0
+  89 0006 0393     		str	r3, [sp, #12]
+  90 0008 0493     		str	r3, [sp, #16]
+  91 000a 0593     		str	r3, [sp, #20]
+  92 000c 0693     		str	r3, [sp, #24]
+  93 000e 0793     		str	r3, [sp, #28]
+  58:Core/Src/sdmmc.c ****   //RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
+  59:Core/Src/sdmmc.c ****   if(sdHandle->Instance==SDMMC1)
+  94              		.loc 1 59 0
+  95 0010 0268     		ldr	r2, [r0]
+  96 0012 224B     		ldr	r3, .L8
+  97 0014 9A42     		cmp	r2, r3
+  98 0016 01D0     		beq	.L7
+  99              	.LVL1:
+ 100              	.L4:
+  60:Core/Src/sdmmc.c ****   {
+  61:Core/Src/sdmmc.c ****   /* USER CODE BEGIN SDMMC1_MspInit 0 */
+  62:Core/Src/sdmmc.c **** 
+  63:Core/Src/sdmmc.c ****   /* USER CODE END SDMMC1_MspInit 0 */
+  64:Core/Src/sdmmc.c ****   /** Initializes the peripherals clock
+  65:Core/Src/sdmmc.c ****   */
+  66:Core/Src/sdmmc.c ****     /*PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SDMMC;
+  67:Core/Src/sdmmc.c ****     PeriphClkInitStruct.PLL2.PLL2M = 1;
+  68:Core/Src/sdmmc.c ****     PeriphClkInitStruct.PLL2.PLL2N = 50;
+  69:Core/Src/sdmmc.c ****     PeriphClkInitStruct.PLL2.PLL2P = 2;
+  70:Core/Src/sdmmc.c ****     PeriphClkInitStruct.PLL2.PLL2Q = 2;
+  71:Core/Src/sdmmc.c ****     PeriphClkInitStruct.PLL2.PLL2R = 2;
+  72:Core/Src/sdmmc.c ****     PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2VCIRANGE_3;
+  73:Core/Src/sdmmc.c ****     PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2VCOWIDE;
+  74:Core/Src/sdmmc.c ****     PeriphClkInitStruct.PLL2.PLL2FRACN = 0.0;
+ARM GAS  /tmp/ccvSxPTY.s 			page 4
+
+
+  75:Core/Src/sdmmc.c ****     PeriphClkInitStruct.SdmmcClockSelection = RCC_SDMMCCLKSOURCE_PLL2;
+  76:Core/Src/sdmmc.c ****     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+  77:Core/Src/sdmmc.c ****     {
+  78:Core/Src/sdmmc.c ****       Error_Handler();
+  79:Core/Src/sdmmc.c ****     }*/
+  80:Core/Src/sdmmc.c **** 
+  81:Core/Src/sdmmc.c ****     /* SDMMC1 clock enable */
+  82:Core/Src/sdmmc.c ****     __HAL_RCC_SDMMC1_CLK_ENABLE();
+  83:Core/Src/sdmmc.c **** 
+  84:Core/Src/sdmmc.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+  85:Core/Src/sdmmc.c ****     __HAL_RCC_GPIOD_CLK_ENABLE();
+  86:Core/Src/sdmmc.c ****     /**SDMMC1 GPIO Configuration
+  87:Core/Src/sdmmc.c ****     PC8     ------> SDMMC1_D0
+  88:Core/Src/sdmmc.c ****     PC9     ------> SDMMC1_D1
+  89:Core/Src/sdmmc.c ****     PC10     ------> SDMMC1_D2
+  90:Core/Src/sdmmc.c ****     PC11     ------> SDMMC1_D3
+  91:Core/Src/sdmmc.c ****     PC12     ------> SDMMC1_CK
+  92:Core/Src/sdmmc.c ****     PD2     ------> SDMMC1_CMD
+  93:Core/Src/sdmmc.c ****     */
+  94:Core/Src/sdmmc.c ****     GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
+  95:Core/Src/sdmmc.c ****                           |GPIO_PIN_12;
+  96:Core/Src/sdmmc.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  97:Core/Src/sdmmc.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+  98:Core/Src/sdmmc.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  99:Core/Src/sdmmc.c ****     GPIO_InitStruct.Alternate = GPIO_AF12_SDMMC1;
+ 100:Core/Src/sdmmc.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 101:Core/Src/sdmmc.c **** 
+ 102:Core/Src/sdmmc.c ****     GPIO_InitStruct.Pin = GPIO_PIN_2;
+ 103:Core/Src/sdmmc.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 104:Core/Src/sdmmc.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 105:Core/Src/sdmmc.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 106:Core/Src/sdmmc.c ****     GPIO_InitStruct.Alternate = GPIO_AF12_SDMMC1;
+ 107:Core/Src/sdmmc.c ****     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+ 108:Core/Src/sdmmc.c **** 
+ 109:Core/Src/sdmmc.c ****   /* USER CODE BEGIN SDMMC1_MspInit 1 */
+ 110:Core/Src/sdmmc.c **** 
+ 111:Core/Src/sdmmc.c ****   /* USER CODE END SDMMC1_MspInit 1 */
+ 112:Core/Src/sdmmc.c ****   }
+ 113:Core/Src/sdmmc.c **** }
+ 101              		.loc 1 113 0
+ 102 0018 08B0     		add	sp, sp, #32
+ 103              	.LCFI2:
+ 104              		.cfi_remember_state
+ 105              		.cfi_def_cfa_offset 16
+ 106              		@ sp needed
+ 107 001a 70BD     		pop	{r4, r5, r6, pc}
+ 108              	.LVL2:
+ 109              	.L7:
+ 110              	.LCFI3:
+ 111              		.cfi_restore_state
+ 112              	.LBB2:
+  82:Core/Src/sdmmc.c **** 
+ 113              		.loc 1 82 0
+ 114 001c 204B     		ldr	r3, .L8+4
+ 115 001e D3F8D420 		ldr	r2, [r3, #212]
+ 116 0022 42F48032 		orr	r2, r2, #65536
+ 117 0026 C3F8D420 		str	r2, [r3, #212]
+ARM GAS  /tmp/ccvSxPTY.s 			page 5
+
+
+ 118 002a D3F8D420 		ldr	r2, [r3, #212]
+ 119 002e 02F48032 		and	r2, r2, #65536
+ 120 0032 0092     		str	r2, [sp]
+ 121 0034 009A     		ldr	r2, [sp]
+ 122              	.LBE2:
+ 123              	.LBB3:
+  84:Core/Src/sdmmc.c ****     __HAL_RCC_GPIOD_CLK_ENABLE();
+ 124              		.loc 1 84 0
+ 125 0036 D3F8E020 		ldr	r2, [r3, #224]
+ 126 003a 42F00402 		orr	r2, r2, #4
+ 127 003e C3F8E020 		str	r2, [r3, #224]
+ 128 0042 D3F8E020 		ldr	r2, [r3, #224]
+ 129 0046 02F00402 		and	r2, r2, #4
+ 130 004a 0192     		str	r2, [sp, #4]
+ 131 004c 019A     		ldr	r2, [sp, #4]
+ 132              	.LBE3:
+ 133              	.LBB4:
+  85:Core/Src/sdmmc.c ****     /**SDMMC1 GPIO Configuration
+ 134              		.loc 1 85 0
+ 135 004e D3F8E020 		ldr	r2, [r3, #224]
+ 136 0052 42F00802 		orr	r2, r2, #8
+ 137 0056 C3F8E020 		str	r2, [r3, #224]
+ 138 005a D3F8E030 		ldr	r3, [r3, #224]
+ 139 005e 03F00803 		and	r3, r3, #8
+ 140 0062 0293     		str	r3, [sp, #8]
+ 141 0064 029B     		ldr	r3, [sp, #8]
+ 142              	.LBE4:
+  94:Core/Src/sdmmc.c ****                           |GPIO_PIN_12;
+ 143              		.loc 1 94 0
+ 144 0066 4FF4F853 		mov	r3, #7936
+ 145 006a 0393     		str	r3, [sp, #12]
+  96:Core/Src/sdmmc.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 146              		.loc 1 96 0
+ 147 006c 0226     		movs	r6, #2
+ 148 006e 0496     		str	r6, [sp, #16]
+  98:Core/Src/sdmmc.c ****     GPIO_InitStruct.Alternate = GPIO_AF12_SDMMC1;
+ 149              		.loc 1 98 0
+ 150 0070 0325     		movs	r5, #3
+ 151 0072 0695     		str	r5, [sp, #24]
+  99:Core/Src/sdmmc.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 152              		.loc 1 99 0
+ 153 0074 0C24     		movs	r4, #12
+ 154 0076 0794     		str	r4, [sp, #28]
+ 100:Core/Src/sdmmc.c **** 
+ 155              		.loc 1 100 0
+ 156 0078 0DEB0401 		add	r1, sp, r4
+ 157 007c 0948     		ldr	r0, .L8+8
+ 158              	.LVL3:
+ 159 007e FFF7FEFF 		bl	HAL_GPIO_Init
+ 160              	.LVL4:
+ 102:Core/Src/sdmmc.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 161              		.loc 1 102 0
+ 162 0082 0423     		movs	r3, #4
+ 163 0084 0393     		str	r3, [sp, #12]
+ 103:Core/Src/sdmmc.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 164              		.loc 1 103 0
+ 165 0086 0496     		str	r6, [sp, #16]
+ARM GAS  /tmp/ccvSxPTY.s 			page 6
+
+
+ 104:Core/Src/sdmmc.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 166              		.loc 1 104 0
+ 167 0088 0023     		movs	r3, #0
+ 168 008a 0593     		str	r3, [sp, #20]
+ 105:Core/Src/sdmmc.c ****     GPIO_InitStruct.Alternate = GPIO_AF12_SDMMC1;
+ 169              		.loc 1 105 0
+ 170 008c 0695     		str	r5, [sp, #24]
+ 106:Core/Src/sdmmc.c ****     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+ 171              		.loc 1 106 0
+ 172 008e 0794     		str	r4, [sp, #28]
+ 107:Core/Src/sdmmc.c **** 
+ 173              		.loc 1 107 0
+ 174 0090 0DEB0401 		add	r1, sp, r4
+ 175 0094 0448     		ldr	r0, .L8+12
+ 176 0096 FFF7FEFF 		bl	HAL_GPIO_Init
+ 177              	.LVL5:
+ 178              		.loc 1 113 0
+ 179 009a BDE7     		b	.L4
+ 180              	.L9:
+ 181              		.align	2
+ 182              	.L8:
+ 183 009c 00700052 		.word	1375760384
+ 184 00a0 00440258 		.word	1476543488
+ 185 00a4 00080258 		.word	1476528128
+ 186 00a8 000C0258 		.word	1476529152
+ 187              		.cfi_endproc
+ 188              	.LFE142:
+ 190              		.section	.text.HAL_SD_MspDeInit,"ax",%progbits
+ 191              		.align	1
+ 192              		.global	HAL_SD_MspDeInit
+ 193              		.syntax unified
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.fpu fpv5-d16
+ 198              	HAL_SD_MspDeInit:
+ 199              	.LFB143:
+ 114:Core/Src/sdmmc.c **** 
+ 115:Core/Src/sdmmc.c **** void HAL_SD_MspDeInit(SD_HandleTypeDef* sdHandle)
+ 116:Core/Src/sdmmc.c **** {
+ 200              		.loc 1 116 0
+ 201              		.cfi_startproc
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204              	.LVL6:
+ 205 0000 08B5     		push	{r3, lr}
+ 206              	.LCFI4:
+ 207              		.cfi_def_cfa_offset 8
+ 208              		.cfi_offset 3, -8
+ 209              		.cfi_offset 14, -4
+ 117:Core/Src/sdmmc.c **** 
+ 118:Core/Src/sdmmc.c ****   if(sdHandle->Instance==SDMMC1)
+ 210              		.loc 1 118 0
+ 211 0002 0268     		ldr	r2, [r0]
+ 212 0004 0A4B     		ldr	r3, .L14
+ 213 0006 9A42     		cmp	r2, r3
+ 214 0008 00D0     		beq	.L13
+ 215              	.LVL7:
+ARM GAS  /tmp/ccvSxPTY.s 			page 7
+
+
+ 216              	.L10:
+ 119:Core/Src/sdmmc.c ****   {
+ 120:Core/Src/sdmmc.c ****   /* USER CODE BEGIN SDMMC1_MspDeInit 0 */
+ 121:Core/Src/sdmmc.c **** 
+ 122:Core/Src/sdmmc.c ****   /* USER CODE END SDMMC1_MspDeInit 0 */
+ 123:Core/Src/sdmmc.c ****     /* Peripheral clock disable */
+ 124:Core/Src/sdmmc.c ****     __HAL_RCC_SDMMC1_CLK_DISABLE();
+ 125:Core/Src/sdmmc.c **** 
+ 126:Core/Src/sdmmc.c ****     /**SDMMC1 GPIO Configuration
+ 127:Core/Src/sdmmc.c ****     PC8     ------> SDMMC1_D0
+ 128:Core/Src/sdmmc.c ****     PC9     ------> SDMMC1_D1
+ 129:Core/Src/sdmmc.c ****     PC10     ------> SDMMC1_D2
+ 130:Core/Src/sdmmc.c ****     PC11     ------> SDMMC1_D3
+ 131:Core/Src/sdmmc.c ****     PC12     ------> SDMMC1_CK
+ 132:Core/Src/sdmmc.c ****     PD2     ------> SDMMC1_CMD
+ 133:Core/Src/sdmmc.c ****     */
+ 134:Core/Src/sdmmc.c ****     HAL_GPIO_DeInit(GPIOC, GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
+ 135:Core/Src/sdmmc.c ****                           |GPIO_PIN_12);
+ 136:Core/Src/sdmmc.c **** 
+ 137:Core/Src/sdmmc.c ****     HAL_GPIO_DeInit(GPIOD, GPIO_PIN_2);
+ 138:Core/Src/sdmmc.c **** 
+ 139:Core/Src/sdmmc.c ****   /* USER CODE BEGIN SDMMC1_MspDeInit 1 */
+ 140:Core/Src/sdmmc.c **** 
+ 141:Core/Src/sdmmc.c ****   /* USER CODE END SDMMC1_MspDeInit 1 */
+ 142:Core/Src/sdmmc.c ****   }
+ 143:Core/Src/sdmmc.c **** }
+ 217              		.loc 1 143 0
+ 218 000a 08BD     		pop	{r3, pc}
+ 219              	.LVL8:
+ 220              	.L13:
+ 124:Core/Src/sdmmc.c **** 
+ 221              		.loc 1 124 0
+ 222 000c 094A     		ldr	r2, .L14+4
+ 223 000e D2F8D430 		ldr	r3, [r2, #212]
+ 224 0012 23F48033 		bic	r3, r3, #65536
+ 225 0016 C2F8D430 		str	r3, [r2, #212]
+ 134:Core/Src/sdmmc.c ****                           |GPIO_PIN_12);
+ 226              		.loc 1 134 0
+ 227 001a 4FF4F851 		mov	r1, #7936
+ 228 001e 0648     		ldr	r0, .L14+8
+ 229              	.LVL9:
+ 230 0020 FFF7FEFF 		bl	HAL_GPIO_DeInit
+ 231              	.LVL10:
+ 137:Core/Src/sdmmc.c **** 
+ 232              		.loc 1 137 0
+ 233 0024 0421     		movs	r1, #4
+ 234 0026 0548     		ldr	r0, .L14+12
+ 235 0028 FFF7FEFF 		bl	HAL_GPIO_DeInit
+ 236              	.LVL11:
+ 237              		.loc 1 143 0
+ 238 002c EDE7     		b	.L10
+ 239              	.L15:
+ 240 002e 00BF     		.align	2
+ 241              	.L14:
+ 242 0030 00700052 		.word	1375760384
+ 243 0034 00440258 		.word	1476543488
+ 244 0038 00080258 		.word	1476528128
+ARM GAS  /tmp/ccvSxPTY.s 			page 8
+
+
+ 245 003c 000C0258 		.word	1476529152
+ 246              		.cfi_endproc
+ 247              	.LFE143:
+ 249              		.comm	hsd1,128,4
+ 250              		.text
+ 251              	.Letext0:
+ 252              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 253              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+ 254              		.file 4 "Drivers/CMSIS/Include/core_cm7.h"
+ 255              		.file 5 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h"
+ 256              		.file 6 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h"
+ 257              		.file 7 "/usr/include/newlib/sys/lock.h"
+ 258              		.file 8 "/usr/include/newlib/sys/_types.h"
+ 259              		.file 9 "/usr/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h"
+ 260              		.file 10 "/usr/include/newlib/sys/reent.h"
+ 261              		.file 11 "/usr/include/newlib/math.h"
+ 262              		.file 12 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
+ 263              		.file 13 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h"
+ 264              		.file 14 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h"
+ 265              		.file 15 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_sdmmc.h"
+ 266              		.file 16 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd.h"
+ 267              		.file 17 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h"
+ 268              		.file 18 "Core/Inc/sdmmc.h"
+ 269              		.file 19 "Core/Inc/main.h"
+ARM GAS  /tmp/ccvSxPTY.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 sdmmc.c
+     /tmp/ccvSxPTY.s:17     .text.MX_SDMMC1_SD_Init:0000000000000000 $t
+     /tmp/ccvSxPTY.s:24     .text.MX_SDMMC1_SD_Init:0000000000000000 MX_SDMMC1_SD_Init
+     /tmp/ccvSxPTY.s:57     .text.MX_SDMMC1_SD_Init:0000000000000020 $d
+                            *COM*:0000000000000080 hsd1
+     /tmp/ccvSxPTY.s:63     .text.HAL_SD_MspInit:0000000000000000 $t
+     /tmp/ccvSxPTY.s:70     .text.HAL_SD_MspInit:0000000000000000 HAL_SD_MspInit
+     /tmp/ccvSxPTY.s:183    .text.HAL_SD_MspInit:000000000000009c $d
+     /tmp/ccvSxPTY.s:191    .text.HAL_SD_MspDeInit:0000000000000000 $t
+     /tmp/ccvSxPTY.s:198    .text.HAL_SD_MspDeInit:0000000000000000 HAL_SD_MspDeInit
+     /tmp/ccvSxPTY.s:242    .text.HAL_SD_MspDeInit:0000000000000030 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_GPIO_DeInit

@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccPOmtrs.s 			page 1
+ARM GAS  /tmp/cciKucjE.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
   30:Core/Src/system_stm32h7xx.c ****   * License. You may obtain a copy of the License at:
   31:Core/Src/system_stm32h7xx.c ****   *                        opensource.org/licenses/BSD-3-Clause
   32:Core/Src/system_stm32h7xx.c ****   *
-ARM GAS  /tmp/ccPOmtrs.s 			page 2
+ARM GAS  /tmp/cciKucjE.s 			page 2
 
 
   33:Core/Src/system_stm32h7xx.c ****   ******************************************************************************
@@ -79,7 +79,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
   48:Core/Src/system_stm32h7xx.c **** #include "stm32h7xx.h"
   49:Core/Src/system_stm32h7xx.c **** #include <math.h>
   50:Core/Src/system_stm32h7xx.c **** #if !defined  (HSE_VALUE)
-  51:Core/Src/system_stm32h7xx.c **** #define HSE_VALUE    ((uint32_t)25000000) /*!< Value of the External oscillator in Hz */
+  51:Core/Src/system_stm32h7xx.c **** #define HSE_VALUE    ((uint32_t)8000000) /*!< Value of the External oscillator in Hz */
   52:Core/Src/system_stm32h7xx.c **** #endif /* HSE_VALUE */
   53:Core/Src/system_stm32h7xx.c **** 
   54:Core/Src/system_stm32h7xx.c **** #if !defined  (CSI_VALUE)
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
   87:Core/Src/system_stm32h7xx.c ****                                       This value must be a multiple of 0x200. */
   88:Core/Src/system_stm32h7xx.c **** /******************************************************************************/
   89:Core/Src/system_stm32h7xx.c **** 
-ARM GAS  /tmp/ccPOmtrs.s 			page 3
+ARM GAS  /tmp/cciKucjE.s 			page 3
 
 
   90:Core/Src/system_stm32h7xx.c **** /**
@@ -144,7 +144,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  110:Core/Src/system_stm32h7xx.c ****                is no need to call the 2 first functions listed above, since SystemCoreClock
  111:Core/Src/system_stm32h7xx.c ****                variable is updated automatically.
  112:Core/Src/system_stm32h7xx.c ****   */
- 113:Core/Src/system_stm32h7xx.c ****   uint32_t SystemCoreClock = 512000000;
+ 113:Core/Src/system_stm32h7xx.c ****   uint32_t SystemCoreClock = 550000000;
  114:Core/Src/system_stm32h7xx.c ****   uint32_t SystemD2Clock = 64000000;
  115:Core/Src/system_stm32h7xx.c ****   const  uint8_t D1CorePrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 8, 9};
  116:Core/Src/system_stm32h7xx.c **** 
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
   29              		@ args = 0, pretend = 0, frame = 0
   30              		@ frame_needed = 0, uses_anonymous_args = 0
   31              		@ link register save eliminated.
-ARM GAS  /tmp/ccPOmtrs.s 			page 4
+ARM GAS  /tmp/cciKucjE.s 			page 4
 
 
  142:Core/Src/system_stm32h7xx.c **** #if defined (DATA_IN_D2_SRAM)
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
   61 003a 0A40     		ands	r2, r2, r1
   62 003c 1A60     		str	r2, [r3]
  167:Core/Src/system_stm32h7xx.c ****   
-ARM GAS  /tmp/ccPOmtrs.s 			page 5
+ARM GAS  /tmp/cciKucjE.s 			page 5
 
 
  168:Core/Src/system_stm32h7xx.c ****    /* Decreasing the number of wait states because of lower CPU frequency */
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  198:Core/Src/system_stm32h7xx.c ****   RCC->PLLCFGR = 0x01FF0000;
   87              		.loc 1 198 0
   88 0066 1049     		ldr	r1, .L4+20
-ARM GAS  /tmp/ccPOmtrs.s 			page 6
+ARM GAS  /tmp/cciKucjE.s 			page 6
 
 
   89 0068 D962     		str	r1, [r3, #44]
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  233:Core/Src/system_stm32h7xx.c ****   /* in case of initialized data in D2 SRAM (AHB SRAM) , enable the D2 SRAM clock (AHB SRAM clock) 
  234:Core/Src/system_stm32h7xx.c **** #if defined(RCC_AHB2ENR_D2SRAM3EN)
  235:Core/Src/system_stm32h7xx.c ****   RCC->AHB2ENR |= (RCC_AHB2ENR_D2SRAM1EN | RCC_AHB2ENR_D2SRAM2EN | RCC_AHB2ENR_D2SRAM3EN);
-ARM GAS  /tmp/ccPOmtrs.s 			page 7
+ARM GAS  /tmp/cciKucjE.s 			page 7
 
 
  236:Core/Src/system_stm32h7xx.c **** #elif defined(RCC_AHB2ENR_D2SRAM2EN)
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  126 00a4 00020202 		.word	33686016
  127 00a8 0000FF01 		.word	33488896
  128 00ac 80020101 		.word	16843392
-ARM GAS  /tmp/ccPOmtrs.s 			page 8
+ARM GAS  /tmp/cciKucjE.s 			page 8
 
 
  129 00b0 00400052 		.word	1375748096
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  145              		@ args = 0, pretend = 0, frame = 0
  146              		@ frame_needed = 0, uses_anonymous_args = 0
  147              		@ link register save eliminated.
-ARM GAS  /tmp/ccPOmtrs.s 			page 9
+ARM GAS  /tmp/cciKucjE.s 			page 9
 
 
  313:Core/Src/system_stm32h7xx.c ****   uint32_t pllp, pllsource, pllm, pllfracen, hsivalue, tmp;
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  354:Core/Src/system_stm32h7xx.c **** 
  355:Core/Src/system_stm32h7xx.c ****         case RCC_PLLCKSELR_PLLSRC_CSI:  /* CSI used as PLL clock source */
  356:Core/Src/system_stm32h7xx.c ****           pllvco = ((float_t)CSI_VALUE / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_
-ARM GAS  /tmp/ccPOmtrs.s 			page 10
+ARM GAS  /tmp/cciKucjE.s 			page 10
 
 
  357:Core/Src/system_stm32h7xx.c ****         break;
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  392:Core/Src/system_stm32h7xx.c ****   tmp = D1CorePrescTable[(RCC->CDCFGR1 & RCC_CDCFGR1_CDCPRE)>> RCC_CDCFGR1_CDCPRE_Pos];
  393:Core/Src/system_stm32h7xx.c **** 
  394:Core/Src/system_stm32h7xx.c ****   /* common_system_clock frequency : CM7 CPU frequency  */
-ARM GAS  /tmp/ccPOmtrs.s 			page 11
+ARM GAS  /tmp/cciKucjE.s 			page 11
 
 
  395:Core/Src/system_stm32h7xx.c ****   common_system_clock >>= tmp;
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  215              	.LVL10:
  216 006a 07EE903A 		vmov	s15, r3	@ int
  217 006e F8EE677A 		vcvt.f32.u32	s15, s15
-ARM GAS  /tmp/ccPOmtrs.s 			page 12
+ARM GAS  /tmp/cciKucjE.s 			page 12
 
 
  218              	.LVL11:
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  266 00dc C3F30803 		ubfx	r3, r3, #0, #9
  267 00e0 06EE903A 		vmov	s13, r3	@ int
  268 00e4 F8EE666A 		vcvt.f32.u32	s13, s13
-ARM GAS  /tmp/ccPOmtrs.s 			page 13
+ARM GAS  /tmp/cciKucjE.s 			page 13
 
 
  269 00e8 9FED326A 		vldr.32	s12, .L18+28
@@ -778,7 +778,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  318 015e F8EE476A 		vcvt.f32.u32	s13, s14
  319 0162 9FED156A 		vldr.32	s12, .L18+32
  320 0166 86EE267A 		vdiv.f32	s14, s12, s13
-ARM GAS  /tmp/ccPOmtrs.s 			page 14
+ARM GAS  /tmp/cciKucjE.s 			page 14
 
 
  321 016a 0B4B     		ldr	r3, .L18
@@ -825,7 +825,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  361              		.align	2
  362              		.set	.LANCHOR2,. + 0
  365              	SystemCoreClock:
- 366 0000 0080841E 		.word	512000000
+ 366 0000 8055C820 		.word	550000000
  367              		.section	.data.SystemD2Clock,"aw",%progbits
  368              		.align	2
  369              		.set	.LANCHOR1,. + 0
@@ -838,7 +838,7 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  380 0000 00       		.byte	0
  381 0001 00       		.byte	0
  382 0002 00       		.byte	0
-ARM GAS  /tmp/ccPOmtrs.s 			page 15
+ARM GAS  /tmp/cciKucjE.s 			page 15
 
 
  383 0003 00       		.byte	0
@@ -869,22 +869,22 @@ ARM GAS  /tmp/ccPOmtrs.s 			page 1
  408              		.file 12 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
  409              		.file 13 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h"
  410              		.file 14 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h"
-ARM GAS  /tmp/ccPOmtrs.s 			page 16
+ARM GAS  /tmp/cciKucjE.s 			page 16
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 system_stm32h7xx.c
-     /tmp/ccPOmtrs.s:17     .text.SystemInit:0000000000000000 $t
-     /tmp/ccPOmtrs.s:24     .text.SystemInit:0000000000000000 SystemInit
-     /tmp/ccPOmtrs.s:122    .text.SystemInit:0000000000000094 $d
-     /tmp/ccPOmtrs.s:134    .text.SystemCoreClockUpdate:0000000000000000 $t
-     /tmp/ccPOmtrs.s:141    .text.SystemCoreClockUpdate:0000000000000000 SystemCoreClockUpdate
-     /tmp/ccPOmtrs.s:344    .text.SystemCoreClockUpdate:0000000000000198 $d
-     /tmp/ccPOmtrs.s:379    .rodata.D1CorePrescTable:0000000000000000 D1CorePrescTable
-     /tmp/ccPOmtrs.s:372    .data.SystemD2Clock:0000000000000000 SystemD2Clock
-     /tmp/ccPOmtrs.s:365    .data.SystemCoreClock:0000000000000000 SystemCoreClock
-     /tmp/ccPOmtrs.s:361    .data.SystemCoreClock:0000000000000000 $d
-     /tmp/ccPOmtrs.s:368    .data.SystemD2Clock:0000000000000000 $d
-     /tmp/ccPOmtrs.s:375    .rodata.D1CorePrescTable:0000000000000000 $d
+     /tmp/cciKucjE.s:17     .text.SystemInit:0000000000000000 $t
+     /tmp/cciKucjE.s:24     .text.SystemInit:0000000000000000 SystemInit
+     /tmp/cciKucjE.s:122    .text.SystemInit:0000000000000094 $d
+     /tmp/cciKucjE.s:134    .text.SystemCoreClockUpdate:0000000000000000 $t
+     /tmp/cciKucjE.s:141    .text.SystemCoreClockUpdate:0000000000000000 SystemCoreClockUpdate
+     /tmp/cciKucjE.s:344    .text.SystemCoreClockUpdate:0000000000000198 $d
+     /tmp/cciKucjE.s:379    .rodata.D1CorePrescTable:0000000000000000 D1CorePrescTable
+     /tmp/cciKucjE.s:372    .data.SystemD2Clock:0000000000000000 SystemD2Clock
+     /tmp/cciKucjE.s:365    .data.SystemCoreClock:0000000000000000 SystemCoreClock
+     /tmp/cciKucjE.s:361    .data.SystemCoreClock:0000000000000000 $d
+     /tmp/cciKucjE.s:368    .data.SystemD2Clock:0000000000000000 $d
+     /tmp/cciKucjE.s:375    .rodata.D1CorePrescTable:0000000000000000 $d
 
 NO UNDEFINED SYMBOLS

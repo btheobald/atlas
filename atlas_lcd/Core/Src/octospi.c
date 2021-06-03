@@ -35,22 +35,21 @@ void MX_OCTOSPI1_Init(void)
   OSPI_MemoryMappedTypeDef sMemMappedCfg = {0};
 
   hospi1.Instance = OCTOSPI1;
-  hospi1.Init.FifoThreshold = 4;
+  hospi1.Init.FifoThreshold = 1;
   hospi1.Init.DualQuad = HAL_OSPI_DUALQUAD_DISABLE;
   hospi1.Init.MemoryType = HAL_OSPI_MEMTYPE_HYPERBUS;
   hospi1.Init.DeviceSize = 22;
-  hospi1.Init.ChipSelectHighTime = 1;
   hospi1.Init.FreeRunningClock = HAL_OSPI_FREERUNCLK_DISABLE;
   hospi1.Init.ClockMode = HAL_OSPI_CLOCK_MODE_0;
-  hospi1.Init.WrapSize = HAL_OSPI_WRAP_NOT_SUPPORTED;
-  hospi1.Init.ClockPrescaler = 2;
+  hospi1.Init.WrapSize = HAL_OSPI_WRAP_32_BYTES;
   hospi1.Init.SampleShifting = HAL_OSPI_SAMPLE_SHIFTING_NONE;
   hospi1.Init.DelayHoldQuarterCycle = HAL_OSPI_DHQC_ENABLE;
-  hospi1.Init.ChipSelectBoundary = 2;
-  hospi1.Init.ClkChipSelectHighTime = 1;
-  hospi1.Init.DelayBlockBypass = HAL_OSPI_DELAY_BLOCK_USED;
-  hospi1.Init.Refresh = 200;
-  hospi1.Init.MaxTran = 0;
+  hospi1.Init.ClockPrescaler = 16;
+  hospi1.Init.ChipSelectHighTime = 1;
+  hospi1.Init.ChipSelectBoundary = 0; 
+  hospi1.Init.ClkChipSelectHighTime = 0;
+  hospi1.Init.DelayBlockBypass = HAL_OSPI_DELAY_BLOCK_BYPASSED;
+  hospi1.Init.Refresh = 241;
   if (HAL_OSPI_Init(&hospi1) != HAL_OK)
   {
     Error_Handler();
@@ -65,9 +64,9 @@ void MX_OCTOSPI1_Init(void)
   {
     Error_Handler();
   }
-  sHyperBusCfg.RWRecoveryTime = 3;
-  sHyperBusCfg.AccessTime = 6;
-  sHyperBusCfg.WriteZeroLatency = HAL_OSPI_LATENCY_ON_WRITE;
+  sHyperBusCfg.RWRecoveryTime = 6;
+  sHyperBusCfg.AccessTime = 3;
+  sHyperBusCfg.WriteZeroLatency = HAL_OSPI_NO_LATENCY_ON_WRITE;
   sHyperBusCfg.LatencyMode = HAL_OSPI_FIXED_LATENCY;
   if (HAL_OSPI_HyperbusCfg(&hospi1, &sHyperBusCfg, HAL_OSPI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
   {

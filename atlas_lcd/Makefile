@@ -48,6 +48,7 @@ Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c \
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c \
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c \
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c \
+Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c \
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c \
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c \
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c \
@@ -68,7 +69,22 @@ Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c \
 Core/Src/system_stm32h7xx.c \
 Core/Src/gpio.c \
 Core/Src/tim.c \
-Core/Src/ltdc_mod.c
+Core/Src/ltdc_mod.c \
+FATFS/App/fatfs.c \
+FATFS/Target/bsp_driver_sd.c \
+FATFS/Target/sd_diskio.c \
+FATFS/Target/fatfs_platform.c \
+Middlewares/Third_Party/FatFs/src/diskio.c \
+Middlewares/Third_Party/FatFs/src/ff.c \
+Middlewares/Third_Party/FatFs/src/ff_gen_drv.c \
+Middlewares/Third_Party/FatFs/src/option/syscall.c \
+Core/Src/sdmmc.c \
+Drivers/hagl/src/hagl.c \
+Drivers/hagl/src/hagl_hal.c \
+Drivers/hagl/src/bitmap.c \
+Drivers/hagl/src/clip.c \
+Drivers/hagl/src/fontx.c \
+Drivers/hagl/src/hsl.c 
 
 # ASM sources
 ASM_SOURCES =  \
@@ -129,8 +145,11 @@ C_INCLUDES =  \
 -IDrivers/STM32H7xx_HAL_Driver/Inc \
 -IDrivers/STM32H7xx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32H7xx/Include \
--IDrivers/CMSIS/Include
-
+-IDrivers/CMSIS/Include \
+-IFATFS/Target \
+-IFATFS/App \
+-IMiddlewares/Third_Party/FatFs/src \
+-IDrivers/hagl/include
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections

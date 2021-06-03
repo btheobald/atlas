@@ -82,6 +82,8 @@ void Error_Handler(void);
 #define LCD_REG_EN_GPIO_Port GPIOD
 #define GPS_3DF_Pin GPIO_PIN_1
 #define GPS_3DF_GPIO_Port GPIOD
+#define SD_DET_Pin GPIO_PIN_0
+#define SD_DET_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
 #define LTDC_G7_Pin GPIO_PIN_3
 #define LTDC_G7_GPIO_Port GPIOD
